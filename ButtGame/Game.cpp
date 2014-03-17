@@ -7,10 +7,16 @@
 //
 
 #include "Game.h"
+#include "SquareView.h"
 
 Game::Game(int width, int height) {
 	screenWidth_ = width;
 	screenHeight_ = height;
+	
+	gameDisplay_ = al_create_display(width, height);
+	
+	SquareView* square = new SquareView(10,10,50,50, gameDisplay_);
+	views_.push_back(static_cast<GenericView>(square));	
 	
 	aDown_ = false;
 }
@@ -19,10 +25,18 @@ Game::~Game() {
 	
 }
 
-void Game::update() {
+void Game::drawScreen() {
+	//Calculate interpolation here
 	if(aDown_) {
-		cout << "A down" << endl;
+		al_clear_to_color(al_map_rgb(128, 0, 0));
+	} else {
+		al_clear_to_color(al_map_rgb(50,123,1));
 	}
+	al_flip_display();
+}
+
+void Game::update() {
+	
 }
 
 void Game::handleInput(ALLEGRO_KEYBOARD_EVENT event) {

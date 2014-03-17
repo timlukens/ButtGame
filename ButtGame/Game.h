@@ -11,10 +11,16 @@
 
 #include <iostream>
 #include <allegro5/allegro.h>
+#include <vector>
+#include "GenericView.h"
 
 using namespace std;
 
 class Game {
+	ALLEGRO_DISPLAY* gameDisplay_;
+	
+	vector<GenericView*> views_;
+	
 	int screenWidth_;
 	int screenHeight_;
 	
@@ -26,6 +32,7 @@ public:
 	~Game();
 	
 	void update();
+	void drawScreen();
 	void handleInput(ALLEGRO_KEYBOARD_EVENT event);
 };
 

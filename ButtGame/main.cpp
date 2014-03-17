@@ -14,7 +14,7 @@
 #define WIDTH 960
 #define HEIGHT 640
 #define LOGIC_FPS 128
-#define INPUT_FPS 128
+#define INPUT_FPS 1280
 
 static void *InputThread(ALLEGRO_THREAD *thr, void *arg);
 
@@ -91,9 +91,7 @@ int main(int argc, char **argv)
 		}
 		
 		//Update display
-		//Calculate interpolation here
-		al_clear_to_color(al_map_rgb(50,123,1));
-		al_flip_display();
+		game->drawScreen();
 	}
 	
 	//Cleaning
@@ -106,24 +104,15 @@ int main(int argc, char **argv)
 
 static void *InputThread(ALLEGRO_THREAD *thr, void *arg) {
 	Game* game = (Game*)arg;
-	ALLEGRO_TIMER *inputTimer;
 	ALLEGRO_EVENT_QUEUE *inputQueue;
-	
-	inputTimer = al_create_timer(1.0 / INPUT_FPS);
-	if(!inputTimer) {
-		fprintf(stderr, "failed to create input timer!\n");
-		exit(1);
-	}
-	
+		
 	inputQueue = al_create_event_queue();
 	if(!inputQueue) {
 		fprintf(stderr, "failed to create inputQueue!\n");
-		al_destroy_timer(inputTimer);
 		exit(1);
 	}
 	
 	al_register_event_source(inputQueue, al_get_keyboard_event_source());
-	al_register_event_source(inputQueue, al_get_timer_event_source(inputTimer));
 	
 	while(1) {
 		ALLEGRO_EVENT e;

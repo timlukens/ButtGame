@@ -21,6 +21,8 @@
 		895BC94818D6CB72009DF424 /* liballegro_primitives.5.0.10.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 895BC93E18D6CB72009DF424 /* liballegro_primitives.5.0.10.dylib */; };
 		895BC94918D6CB72009DF424 /* liballegro_ttf.5.0.10.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 895BC93F18D6CB72009DF424 /* liballegro_ttf.5.0.10.dylib */; };
 		895BC94C18D6CD38009DF424 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC94A18D6CD38009DF424 /* Game.cpp */; };
+		895BC95818D7A192009DF424 /* GenericView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC95618D7A192009DF424 /* GenericView.cpp */; };
+		895BC95B18D7A76A009DF424 /* SquareView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC95918D7A76A009DF424 /* SquareView.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +55,10 @@
 		895BC93F18D6CB72009DF424 /* liballegro_ttf.5.0.10.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liballegro_ttf.5.0.10.dylib; path = ../../../../../usr/local/lib/liballegro_ttf.5.0.10.dylib; sourceTree = "<group>"; };
 		895BC94A18D6CD38009DF424 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		895BC94B18D6CD38009DF424 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		895BC95618D7A192009DF424 /* GenericView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GenericView.cpp; sourceTree = "<group>"; };
+		895BC95718D7A192009DF424 /* GenericView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericView.h; sourceTree = "<group>"; };
+		895BC95918D7A76A009DF424 /* SquareView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SquareView.cpp; sourceTree = "<group>"; };
+		895BC95A18D7A76A009DF424 /* SquareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,12 +114,24 @@
 		895BC7F718D6BAD7009DF424 /* ButtGame */ = {
 			isa = PBXGroup;
 			children = (
+				895BC95518D7A13F009DF424 /* Shapes */,
 				895BC7F818D6BAD7009DF424 /* main.cpp */,
 				895BC7FA18D6BAD7009DF424 /* ButtGame.1 */,
 				895BC94A18D6CD38009DF424 /* Game.cpp */,
 				895BC94B18D6CD38009DF424 /* Game.h */,
 			);
 			path = ButtGame;
+			sourceTree = "<group>";
+		};
+		895BC95518D7A13F009DF424 /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				895BC95618D7A192009DF424 /* GenericView.cpp */,
+				895BC95718D7A192009DF424 /* GenericView.h */,
+				895BC95918D7A76A009DF424 /* SquareView.cpp */,
+				895BC95A18D7A76A009DF424 /* SquareView.h */,
+			);
+			name = Shapes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +187,8 @@
 			files = (
 				895BC7F918D6BAD7009DF424 /* main.cpp in Sources */,
 				895BC94C18D6CD38009DF424 /* Game.cpp in Sources */,
+				895BC95818D7A192009DF424 /* GenericView.cpp in Sources */,
+				895BC95B18D7A76A009DF424 /* SquareView.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
