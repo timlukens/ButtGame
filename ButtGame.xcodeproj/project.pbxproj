@@ -23,6 +23,7 @@
 		895BC94C18D6CD38009DF424 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC94A18D6CD38009DF424 /* Game.cpp */; };
 		895BC95818D7A192009DF424 /* GenericView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC95618D7A192009DF424 /* GenericView.cpp */; };
 		895BC95B18D7A76A009DF424 /* SquareView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC95918D7A76A009DF424 /* SquareView.cpp */; };
+		895BC95E18D7B95B009DF424 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC95C18D7B95B009DF424 /* Player.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +60,8 @@
 		895BC95718D7A192009DF424 /* GenericView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericView.h; sourceTree = "<group>"; };
 		895BC95918D7A76A009DF424 /* SquareView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SquareView.cpp; sourceTree = "<group>"; };
 		895BC95A18D7A76A009DF424 /* SquareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareView.h; sourceTree = "<group>"; };
+		895BC95C18D7B95B009DF424 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
+		895BC95D18D7B95B009DF424 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,8 @@
 				895BC7FA18D6BAD7009DF424 /* ButtGame.1 */,
 				895BC94A18D6CD38009DF424 /* Game.cpp */,
 				895BC94B18D6CD38009DF424 /* Game.h */,
+				895BC95C18D7B95B009DF424 /* Player.cpp */,
+				895BC95D18D7B95B009DF424 /* Player.h */,
 			);
 			path = ButtGame;
 			sourceTree = "<group>";
@@ -189,6 +194,7 @@
 				895BC94C18D6CD38009DF424 /* Game.cpp in Sources */,
 				895BC95818D7A192009DF424 /* GenericView.cpp in Sources */,
 				895BC95B18D7A76A009DF424 /* SquareView.cpp in Sources */,
+				895BC95E18D7B95B009DF424 /* Player.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

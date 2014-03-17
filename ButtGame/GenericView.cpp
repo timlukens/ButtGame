@@ -7,12 +7,21 @@
 //
 
 #include "GenericView.h"
+#include <allegro5/allegro_primitives.h>
 
 GenericView::GenericView() {
 	parentView_ = NULL;
 }
 
-GenericView::GenericView(ALLEGRO_DISPLAY* parentView) {
+GenericView::GenericView(GenericView* parentView) {
+	parentView_ = parentView;
+}
+
+GenericView::GenericView(int x, int y, int width, int height, GenericView* parentView) {
+	x_ = x;
+	y_ = y;
+	width_ = width;
+	height_ = height;
 	parentView_ = parentView;
 }
 

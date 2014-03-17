@@ -16,12 +16,15 @@ using namespace std;
 
 class GenericView {
 protected:
-	ALLEGRO_DISPLAY* parentView_;
+	GenericView* parentView_;
 	
 public:
 	GenericView();
-	GenericView(ALLEGRO_DISPLAY* parentView);
-	void draw();
+	GenericView(GenericView* parentView);
+	GenericView(int x, int y, int width, int height, GenericView* parentView);
+	virtual void draw();
+	
+	int x_, y_, width_, height_;
 };
 
 #endif /* defined(__ButtGame__GenericView__) */

@@ -13,19 +13,17 @@
 #include <allegro5/allegro.h>
 #include <vector>
 #include "GenericView.h"
+#include "Player.h"
 
 using namespace std;
 
-class Game {
-	ALLEGRO_DISPLAY* gameDisplay_;
-	
+class Game {	
 	vector<GenericView*> views_;
 	
 	int screenWidth_;
 	int screenHeight_;
 	
-	bool aDown_, sDown_, dDown_, fDown_;
-	bool leftDown_, rightDown_, upDown_, downDown_;
+	Player* player_;
 	
 public:
 	Game(int width, int height);

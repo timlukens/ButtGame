@@ -12,12 +12,11 @@
 #include <iostream>
 #include "GenericView.h"
 
-class SquareView : private GenericView {
-	int x_, y_, width_, height_;
+class SquareView : public GenericView {
 	
 public:
-	SquareView(int x, int y, int width, int height, ALLEGRO_DISPLAY* parentView);
-	void draw();
+	SquareView(int x, int y, int width, int height, GenericView* parentView);
+	virtual void draw();
 };
 
 #endif /* defined(__ButtGame__SquareView__) */

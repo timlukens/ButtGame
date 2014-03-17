@@ -7,8 +7,9 @@
 //
 
 #include "SquareView.h"
+#include <allegro5/allegro_primitives.h>
 
-SquareView::SquareView(int x, int y, int width, int height, ALLEGRO_DISPLAY* parentView) {
+SquareView::SquareView(int x, int y, int width, int height, GenericView* parentView) {
 	parentView_ = parentView;
 	x_ = x;
 	y_ = y;
@@ -17,5 +18,15 @@ SquareView::SquareView(int x, int y, int width, int height, ALLEGRO_DISPLAY* par
 }
 
 void SquareView::draw() {
-	cout << "SquareView::draw" << endl;
+//	cout << "SquareView::draw" << endl;
+	int x = 0;
+	int y = 0;
+	if(parentView_) {
+		x = parentView_->x_ + x_;
+		y = parentView_->y_ + y_;
+	} else {
+		x = x_;
+		y = y_;
+	}
+	al_draw_filled_rectangle(x, y, x + width_, y + height_,  al_map_rgb(255, 255, 255));
 }
