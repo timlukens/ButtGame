@@ -16,7 +16,7 @@ Game::Game(int width, int height) {
 	gameDisplay_ = al_create_display(width, height);
 	
 	SquareView* square = new SquareView(10,10,50,50, gameDisplay_);
-	views_.push_back(static_cast<GenericView>(square));	
+	views_.push_back((GenericView*)square);
 	
 	aDown_ = false;
 }
@@ -32,6 +32,11 @@ void Game::drawScreen() {
 	} else {
 		al_clear_to_color(al_map_rgb(50,123,1));
 	}
+	
+	for(auto &view : views_) {
+		view->draw();
+	}
+	
 	al_flip_display();
 }
 

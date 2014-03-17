@@ -12,6 +12,8 @@
 #include <iostream>
 #include <allegro5/allegro.h>
 
+using namespace std;
+
 class GenericView {
 protected:
 	ALLEGRO_DISPLAY* parentView_;

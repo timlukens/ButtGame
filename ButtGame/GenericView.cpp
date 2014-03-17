@@ -17,5 +17,5 @@ GenericView::GenericView(ALLEGRO_DISPLAY* parentView) {
 }
 
 void GenericView::draw() {
-	
+	cout << "GenericView::draw" << endl;
 }

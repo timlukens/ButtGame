@@ -16,6 +16,6 @@ SquareView::SquareView(int x, int y, int width, int height, ALLEGRO_DISPLAY* par
 	height_ = height;
 }
 
-SquareView::draw() {
-	
+void SquareView::draw() {
+	cout << "SquareView::draw" << endl;
 }
