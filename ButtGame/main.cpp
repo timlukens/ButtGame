@@ -16,15 +16,16 @@
 #define LOGIC_FPS 128
 #define INPUT_FPS 128
 
+static void *InputThread(ALLEGRO_THREAD *thr, void *arg);
+
 int main(int argc, char **argv)
 {
 	std::cout << "Rockin\n";
 	
     ALLEGRO_DISPLAY *display;
 	ALLEGRO_EVENT_QUEUE *eventQueue;
-	ALLEGRO_EVENT_QUEUE *inputQueue;
 	ALLEGRO_TIMER *timer;
-	ALLEGRO_TIMER *inputTimer;
+	ALLEGRO_THREAD *inputThread;
 	
 	bool isGameRunning = true;
 	bool updateGameLogic = true;
@@ -43,17 +44,9 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 	
-	inputTimer = al_create_timer(1.0 / INPUT_FPS);
-	if(!inputTimer) {
-		al_destroy_timer(timer);
-		fprintf(stderr, "failed to create input timer!\n");
-		return EXIT_FAILURE;
-	}
-	
     display = al_create_display(WIDTH, HEIGHT);
     if(!display) {
         fprintf(stderr, "failed to create display!\n");
-		al_destroy_timer(inputTimer);
 		al_destroy_timer(timer);
         return EXIT_FAILURE;
     }
@@ -61,32 +54,23 @@ int main(int argc, char **argv)
 	eventQueue = al_create_event_queue();
 	if(!eventQueue) {
 		fprintf(stderr, "failed to create eventQueue!\n");
-		al_destroy_timer(inputTimer);
 		al_destroy_timer(timer);
 		al_destroy_display(display);
 		return EXIT_FAILURE;
 	}
 	
-	inputQueue = al_create_event_queue();
-	if(!inputQueue) {
-		fprintf(stderr, "failed to create inputQueue!\n");
-		al_destroy_timer(timer);
-		al_destroy_timer(inputTimer);
-		al_destroy_display(display);
-		return EXIT_FAILURE;
-	}
 	
 	//Tie events to queue
 	al_register_event_source(eventQueue, al_get_display_event_source(display));
 	al_register_event_source(eventQueue, al_get_timer_event_source(timer));
 	
-	al_register_event_source(inputQueue, al_get_keyboard_event_source());
-	al_register_event_source(inputQueue, al_get_timer_event_source(inputTimer));
-	
 	//Start timer
 	al_start_timer(timer);
 	
 	Game* game = new Game(WIDTH, HEIGHT);
+	
+	inputThread = al_create_thread(InputThread, game);
+	al_start_thread(inputThread);
 	
 	//Main loop
 	while(isGameRunning)
@@ -99,8 +83,6 @@ int main(int argc, char **argv)
 			updateGameLogic = true;
 		else if(e.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 			isGameRunning = false;
-		else if(e.type == ALLEGRO_EVENT_KEY_DOWN || ALLEGRO_EVENT_KEY_UP)
-			game->handleInput(e.keyboard);
 		
 		//Update game logic
 		if(updateGameLogic) {
@@ -120,4 +102,36 @@ int main(int argc, char **argv)
 	al_destroy_event_queue(eventQueue);
 	
     return EXIT_SUCCESS;
+}
+
+static void *InputThread(ALLEGRO_THREAD *thr, void *arg) {
+	Game* game = (Game*)arg;
+	ALLEGRO_TIMER *inputTimer;
+	ALLEGRO_EVENT_QUEUE *inputQueue;
+	
+	inputTimer = al_create_timer(1.0 / INPUT_FPS);
+	if(!inputTimer) {
+		fprintf(stderr, "failed to create input timer!\n");
+		exit(1);
+	}
+	
+	inputQueue = al_create_event_queue();
+	if(!inputQueue) {
+		fprintf(stderr, "failed to create inputQueue!\n");
+		al_destroy_timer(inputTimer);
+		exit(1);
+	}
+	
+	al_register_event_source(inputQueue, al_get_keyboard_event_source());
+	al_register_event_source(inputQueue, al_get_timer_event_source(inputTimer));
+	
+	while(1) {
+		ALLEGRO_EVENT e;
+		al_wait_for_event(inputQueue, &e);
+		
+		if(e.type == ALLEGRO_EVENT_KEY_DOWN || ALLEGRO_EVENT_KEY_UP)
+			game->handleInput(e.keyboard);
+	}
+	
+	return NULL;
 }
