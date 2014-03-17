@@ -21,7 +21,7 @@ Game::~Game() {
 
 void Game::update() {
 	if(aDown_) {
-		cout << "A down";
+		cout << "A down" << endl;
 	}
 }
 

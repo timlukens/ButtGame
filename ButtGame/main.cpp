@@ -14,6 +14,7 @@
 #define WIDTH 960
 #define HEIGHT 640
 #define LOGIC_FPS 128
+#define INPUT_FPS 128
 
 int main(int argc, char **argv)
 {
@@ -21,7 +22,9 @@ int main(int argc, char **argv)
 	
     ALLEGRO_DISPLAY *display;
 	ALLEGRO_EVENT_QUEUE *eventQueue;
+	ALLEGRO_EVENT_QUEUE *inputQueue;
 	ALLEGRO_TIMER *timer;
+	ALLEGRO_TIMER *inputTimer;
 	
 	bool isGameRunning = true;
 	bool updateGameLogic = true;
@@ -40,9 +43,17 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 	
+	inputTimer = al_create_timer(1.0 / INPUT_FPS);
+	if(!inputTimer) {
+		al_destroy_timer(timer);
+		fprintf(stderr, "failed to create input timer!\n");
+		return EXIT_FAILURE;
+	}
+	
     display = al_create_display(WIDTH, HEIGHT);
     if(!display) {
         fprintf(stderr, "failed to create display!\n");
+		al_destroy_timer(inputTimer);
 		al_destroy_timer(timer);
         return EXIT_FAILURE;
     }
@@ -50,7 +61,17 @@ int main(int argc, char **argv)
 	eventQueue = al_create_event_queue();
 	if(!eventQueue) {
 		fprintf(stderr, "failed to create eventQueue!\n");
+		al_destroy_timer(inputTimer);
 		al_destroy_timer(timer);
+		al_destroy_display(display);
+		return EXIT_FAILURE;
+	}
+	
+	inputQueue = al_create_event_queue();
+	if(!inputQueue) {
+		fprintf(stderr, "failed to create inputQueue!\n");
+		al_destroy_timer(timer);
+		al_destroy_timer(inputTimer);
 		al_destroy_display(display);
 		return EXIT_FAILURE;
 	}
@@ -58,7 +79,9 @@ int main(int argc, char **argv)
 	//Tie events to queue
 	al_register_event_source(eventQueue, al_get_display_event_source(display));
 	al_register_event_source(eventQueue, al_get_timer_event_source(timer));
-	al_register_event_source(eventQueue, al_get_keyboard_event_source());
+	
+	al_register_event_source(inputQueue, al_get_keyboard_event_source());
+	al_register_event_source(inputQueue, al_get_timer_event_source(inputTimer));
 	
 	//Start timer
 	al_start_timer(timer);
@@ -80,17 +103,15 @@ int main(int argc, char **argv)
 			game->handleInput(e.keyboard);
 		
 		//Update game logic
-		if(updateGameLogic && al_is_event_queue_empty(eventQueue)) {
+		if(updateGameLogic) {
 			game->update();
 			updateGameLogic = false;
-//			fprintf(stdout, "Logic updated\n");
 		}
 		
 		//Update display
 		//Calculate interpolation here
 		al_clear_to_color(al_map_rgb(50,123,1));
 		al_flip_display();
-//		fprintf(stdout, "Display updated\n");
 	}
 	
 	//Cleaning
