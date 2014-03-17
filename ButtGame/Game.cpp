@@ -28,6 +28,14 @@ void Game::update() {
 void Game::handleInput(ALLEGRO_KEYBOARD_EVENT event) {
 	if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
 		aDown_ = event.keycode == ALLEGRO_KEY_A;
+		sDown_ = event.keycode == ALLEGRO_KEY_S;
+		dDown_ = event.keycode == ALLEGRO_KEY_D;
+		fDown_ = event.keycode == ALLEGRO_KEY_F;
+		
+		leftDown_ = event.keycode == ALLEGRO_KEY_LEFT;
+		rightDown_ = event.keycode == ALLEGRO_KEY_RIGHT;
+		upDown_ = event.keycode == ALLEGRO_KEY_UP;
+		downDown_ = event.keycode == ALLEGRO_KEY_DOWN;
 	}
 	
 	else if(event.type == ALLEGRO_EVENT_KEY_UP) {

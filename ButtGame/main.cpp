@@ -17,6 +17,8 @@
 
 int main(int argc, char **argv)
 {
+	std::cout << "Rockin\n";
+	
     ALLEGRO_DISPLAY *display;
 	ALLEGRO_EVENT_QUEUE *eventQueue;
 	ALLEGRO_TIMER *timer;

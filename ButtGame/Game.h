@@ -10,7 +10,7 @@
 #define __ButtGame__Game__
 
 #include <iostream>
-#include <allegro.h>
+#include <allegro5/allegro.h>
 
 using namespace std;
 
@@ -18,7 +18,8 @@ class Game {
 	int screenWidth_;
 	int screenHeight_;
 	
-	bool aDown_;
+	bool aDown_, sDown_, dDown_, fDown_;
+	bool leftDown_, rightDown_, upDown_, downDown_;
 	
 public:
 	Game(int width, int height);
