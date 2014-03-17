@@ -26,5 +26,14 @@ GenericView::GenericView(int x, int y, int width, int height, GenericView* paren
 }
 
 void GenericView::draw() {
-	cout << "GenericView::draw" << endl;
+	int x = x_;
+	int y = y_;
+	if(parentView_) parentView_->mapCoordinatesToParentView(x, y);
+	
+	al_draw_rectangle(x_, y_, x_ + width_, y_ + height_, al_map_rgb(255, 0, 0), 1);
+}
+
+void GenericView::mapCoordinatesToParentView(int& x, int& y) {
+	x += x_;
+	y += y_;
 }

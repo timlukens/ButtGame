@@ -19,14 +19,9 @@ SquareView::SquareView(int x, int y, int width, int height, GenericView* parentV
 
 void SquareView::draw() {
 //	cout << "SquareView::draw" << endl;
-	int x = 0;
-	int y = 0;
-	if(parentView_) {
-		x = parentView_->x_ + x_;
-		y = parentView_->y_ + y_;
-	} else {
-		x = x_;
-		y = y_;
-	}
+	int x = x_;
+	int y = y_;
+	if(parentView_) parentView_->mapCoordinatesToParentView(x, y);
+	
 	al_draw_filled_rectangle(x, y, x + width_, y + height_,  al_map_rgb(255, 255, 255));
 }

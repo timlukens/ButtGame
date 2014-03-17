@@ -23,6 +23,7 @@ public:
 	GenericView(GenericView* parentView);
 	GenericView(int x, int y, int width, int height, GenericView* parentView);
 	virtual void draw();
+	void mapCoordinatesToParentView(int& x, int& y);
 	
 	int x_, y_, width_, height_;
 };

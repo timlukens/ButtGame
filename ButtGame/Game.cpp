@@ -10,14 +10,18 @@
 #include "SquareView.h"
 #include <allegro5/allegro_primitives.h>
 
+#define GAME_INSET 50
+
 Game::Game(int width, int height) {
 	screenWidth_ = width;
 	screenHeight_ = height;
 	
-	SquareView* square = new SquareView(10,10,50,50, NULL);
+	bounds_ = new GenericView(GAME_INSET, GAME_INSET, width - GAME_INSET * 2, height - GAME_INSET * 2, NULL);
+	
+	SquareView* square = new SquareView(10,10,50,50, bounds_);
 	views_.push_back(square);
 	
-	player_ = new Player(100,100);
+	player_ = new Player(100,100, bounds_);
 }
 
 Game::~Game() {
@@ -32,6 +36,7 @@ void Game::drawScreen() {
 		view->draw();
 	}
 	
+	bounds_->draw();
 	player_->draw();
 	
 	al_flip_display();

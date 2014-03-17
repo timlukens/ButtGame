@@ -19,9 +19,10 @@
 class Player {
 	bool leftPressed_, rightPressed_, upPressed_, downPressed_;
 	SquareView* view_;
+	GenericView* parentView_;
 	
 public:
-	Player(int x, int y);
+	Player(int x, int y, GenericView* parentView);
 	void handleInput(ALLEGRO_KEYBOARD_EVENT event);
 	void update();
 	void draw();

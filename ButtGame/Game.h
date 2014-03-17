@@ -23,6 +23,8 @@ class Game {
 	int screenWidth_;
 	int screenHeight_;
 	
+	GenericView* bounds_;
+	
 	Player* player_;
 	
 public:

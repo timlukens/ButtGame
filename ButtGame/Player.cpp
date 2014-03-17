@@ -8,8 +8,14 @@
 
 #include "Player.h"
 
-Player::Player(int x, int y) {
-	view_ = new SquareView(x, y, 100, 100, NULL);
+Player::Player(int x, int y, GenericView* parentView) {
+	parentView_ = parentView;
+	view_ = new SquareView(x, y, 100, 100, parentView);
+	
+	leftPressed_ = false;
+	rightPressed_ = false;
+	upPressed_ = false;
+	downPressed_ = false;
 }
 
 void Player::draw() {
@@ -26,8 +32,17 @@ void Player::update() {
 	if(upPressed_) yVelocity -= Y_SPEED;
 	if(downPressed_) yVelocity += Y_SPEED;
 	
-	view_->x_ += xVelocity;
-	view_->y_ += yVelocity;
+	//find the actual x,y coordinates inside the parentView
+	int x = view_->x_;
+	int y = view_->y_;
+	parentView_->mapCoordinatesToParentView(x, y);
+	
+	//make sure we're still in bounds
+	if(x + xVelocity > parentView_->x_ && x + view_->width_ + xVelocity < parentView_->x_ + parentView_->width_)
+		view_->x_ += xVelocity;
+	
+	if(y + yVelocity > parentView_->y_ && y + view_->height_ + yVelocity < parentView_->y_ + parentView_->height_)
+		view_->y_ += yVelocity;
 }
 
 void Player::handleInput(ALLEGRO_KEYBOARD_EVENT event) {
