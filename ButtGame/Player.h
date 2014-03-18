@@ -12,6 +12,9 @@
 #include <iostream>
 #include <allegro5/allegro.h>
 #include "SquareView.h"
+#include "GameDefines.h"
+
+#define kPlayerSize 25
 
 class Player {
 	bool leftPressed_, rightPressed_, upPressed_, downPressed_;

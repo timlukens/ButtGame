@@ -13,17 +13,15 @@
 #include <allegro5/allegro.h>
 #include <vector>
 #include "GenericView.h"
+#include "GenericEnemy.h"
 #include "Player.h"
-
-#define GAME_WIDTH 1024
-#define GAME_HEIGHT 768
-#define LOGIC_FPS 128.f
-#define INPUT_FPS 1280.f
+#include "GameDefines.h"
 
 using namespace std;
 
 class Game {	
 	vector<GenericView*> views_;
+	vector<GenericEnemy*> enemies_;
 	
 	int screenWidth_;
 	int screenHeight_;

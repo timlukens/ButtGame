@@ -23,5 +23,5 @@ void SquareView::draw() {
 	int y = y_;
 	if(parentView_) parentView_->mapCoordinatesToParentView(x, y);
 	
-	al_draw_filled_rectangle(x, y, x + width_, y + height_,  al_map_rgb(255, 255, 255));
+	al_draw_filled_rectangle(x, y, x + width_, y + height_,  backgroundColor_);
 }

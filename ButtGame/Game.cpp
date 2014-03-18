@@ -17,11 +17,12 @@ Game::Game(int width, int height) {
 	screenHeight_ = height;
 	
 	bounds_ = new GenericView(GAME_INSET, GAME_INSET, width - GAME_INSET * 2, height - GAME_INSET * 2, NULL);
-	
-	SquareView* square = new SquareView(10,10,50,50, bounds_);
-	views_.push_back(square);
-	
 	player_ = new Player(100,100, bounds_);
+	
+	for(int i = 0; i < 10; i++) {
+		GenericEnemy* someButt = new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_);
+		enemies_.push_back(someButt);
+	}
 }
 
 Game::~Game() {
@@ -30,10 +31,14 @@ Game::~Game() {
 
 void Game::drawScreen() {
 	//Calculate interpolation here
-	al_clear_to_color(al_map_rgb(50,123,1));
+	al_clear_to_color(al_map_rgb(0,0,0));
 	
 	for(auto &view : views_) {
 		view->draw();
+	}
+	
+	for(auto &enemy : enemies_) {
+		enemy->draw();
 	}
 	
 	bounds_->draw();
@@ -44,6 +49,10 @@ void Game::drawScreen() {
 
 void Game::update() {
 	player_->update();
+	
+	for(auto &enemy : enemies_) {
+		enemy->update();
+	}
 }
 
 void Game::handleInput(ALLEGRO_KEYBOARD_EVENT event) {

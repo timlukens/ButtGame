@@ -9,12 +9,10 @@
 #include "Player.h"
 #include "Game.h"
 
-#define X_SPEED 640.f / LOGIC_FPS
-#define Y_SPEED 640.f / LOGIC_FPS
-
 Player::Player(int x, int y, GenericView* parentView) {
 	parentView_ = parentView;
-	view_ = new SquareView(x, y, 100, 100, parentView);
+	view_ = new SquareView(x, y, kPlayerSize, kPlayerSize, parentView);
+	view_->setBackgroundColor(al_map_rgb(0, 255, 0));
 	
 	leftPressed_ = false;
 	rightPressed_ = false;
@@ -30,11 +28,11 @@ void Player::update() {
 	int xVelocity = 0;
 	int yVelocity = 0;
 	
-	if(leftPressed_) xVelocity -= X_SPEED;
-	if(rightPressed_) xVelocity += X_SPEED;
+	if(leftPressed_) xVelocity -= kDefaultXSpeed;
+	if(rightPressed_) xVelocity += kDefaultXSpeed;
 	
-	if(upPressed_) yVelocity -= Y_SPEED;
-	if(downPressed_) yVelocity += Y_SPEED;
+	if(upPressed_) yVelocity -= kDefaultYSpeed;
+	if(downPressed_) yVelocity += kDefaultYSpeed;
 	
 	//find the actual x,y coordinates inside the parentView
 	int x = view_->x_;

@@ -17,13 +17,16 @@ using namespace std;
 class GenericView {
 protected:
 	GenericView* parentView_;
+	ALLEGRO_COLOR backgroundColor_;
 	
 public:
 	GenericView();
 	GenericView(GenericView* parentView);
 	GenericView(int x, int y, int width, int height, GenericView* parentView);
+	
 	virtual void draw();
 	void mapCoordinatesToParentView(int& x, int& y);
+	void setBackgroundColor(ALLEGRO_COLOR color);
 	
 	int x_, y_, width_, height_;
 };
