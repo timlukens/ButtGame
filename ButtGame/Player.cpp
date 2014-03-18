@@ -20,6 +20,10 @@ Player::Player(int x, int y, GenericView* parentView) {
 	downPressed_ = false;
 }
 
+SquareView* Player::get_view() {
+    return view_;
+}
+
 void Player::draw() {
 	view_->draw();
 }
@@ -28,11 +32,11 @@ void Player::update() {
 	int xVelocity = 0;
 	int yVelocity = 0;
 	
-	if(leftPressed_) xVelocity -= kDefaultXSpeed;
-	if(rightPressed_) xVelocity += kDefaultXSpeed;
+	if(leftPressed_) xVelocity -= kDefaultXSpeed*2;
+	if(rightPressed_) xVelocity += kDefaultXSpeed*2;
 	
-	if(upPressed_) yVelocity -= kDefaultYSpeed;
-	if(downPressed_) yVelocity += kDefaultYSpeed;
+	if(upPressed_) yVelocity -= kDefaultYSpeed*2;
+	if(downPressed_) yVelocity += kDefaultYSpeed*2;
 	
 	//find the actual x,y coordinates inside the parentView
 	int x = view_->x_;

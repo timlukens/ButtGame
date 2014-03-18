@@ -83,9 +83,39 @@ void Game::drawScreen() {
 void Game::update() {
 	player_->update();
 	
-	for(auto &enemy : enemies_) {
-		enemy->update();
+    SquareView* p_view = player_->get_view();
+
+    vector<GenericEnemy*>::iterator i = enemies_.begin();    
+
+    while(i != enemies_.end()) {
+        GenericEnemy* enemy = (*i);
+        enemy->update();
+        SquareView* e_view = enemy->get_view();
+        
+        int bottom1 = p_view->y_ + p_view->height_, 
+            top1 = p_view->y_, 
+            left1 = p_view->x_, 
+            right1 = p_view->x_ + p_view->width_;
+
+        int bottom2 = e_view->y_ + e_view->height_,
+            top2 = e_view->y_,
+            left2 = e_view->x_,
+            right2 = e_view->x_ + e_view->width_;
+
+        if( !(bottom1 < top2 || top1 > bottom2 || left1 > right2 || right1 < left2) ) {
+            enemy->make_dead();
+        }
+
+        if(!enemy->is_alive()){
+            delete enemy;
+            enemies_.erase(i++);
+        }
+        else {
+            ++i;
+        }
+
 	}
+
 }
 
 
