@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 	//Start timer
 	al_start_timer(timer);
 	
-	Game* game = new Game(GAME_WIDTH, GAME_HEIGHT);
+	Game* game = Game::instance();
 	
 	inputThread = al_create_thread(InputThread, game);
 	al_start_thread(inputThread);

@@ -19,7 +19,13 @@
 
 using namespace std;
 
-class Game {	
+class Game {
+	Game() {};
+	Game(int width, int height);
+	Game(Game const&);
+//	Game& operator=(Game const&){};	//wtf copy constructor
+	static Game* m_pInstance;
+	
 	vector<GenericView*> views_;
 	vector<GenericEnemy*> enemies_;
 	
@@ -35,8 +41,7 @@ class Game {
 	Player* player_;
 	
 public:
-	Game(int width, int height);
-	~Game();
+	static Game* instance();
 	
 	void update();
 	void drawScreen();

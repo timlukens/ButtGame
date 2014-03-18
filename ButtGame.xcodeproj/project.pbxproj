@@ -25,6 +25,7 @@
 		895BC95B18D7A76A009DF424 /* SquareView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC95918D7A76A009DF424 /* SquareView.cpp */; };
 		895BC95E18D7B95B009DF424 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC95C18D7B95B009DF424 /* Player.cpp */; };
 		895BC96318D89572009DF424 /* GenericEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC96118D89572009DF424 /* GenericEnemy.cpp */; };
+		895BC99218D8F525009DF424 /* GenericWeapon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC99018D8F525009DF424 /* GenericWeapon.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -66,6 +67,8 @@
 		895BC96118D89572009DF424 /* GenericEnemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GenericEnemy.cpp; sourceTree = "<group>"; };
 		895BC96218D89572009DF424 /* GenericEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericEnemy.h; sourceTree = "<group>"; };
 		895BC96418D89F1A009DF424 /* GameDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameDefines.h; sourceTree = "<group>"; };
+		895BC99018D8F525009DF424 /* GenericWeapon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GenericWeapon.cpp; sourceTree = "<group>"; };
+		895BC99118D8F525009DF424 /* GenericWeapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericWeapon.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +124,7 @@
 		895BC7F718D6BAD7009DF424 /* ButtGame */ = {
 			isa = PBXGroup;
 			children = (
+				895BC98F18D8F50C009DF424 /* Weapons */,
 				895BC96018D89550009DF424 /* Enemies */,
 				895BC95F18D8953C009DF424 /* Game Essentials */,
 				895BC95518D7A13F009DF424 /* Shapes */,
@@ -160,6 +164,15 @@
 				895BC96218D89572009DF424 /* GenericEnemy.h */,
 			);
 			name = Enemies;
+			sourceTree = "<group>";
+		};
+		895BC98F18D8F50C009DF424 /* Weapons */ = {
+			isa = PBXGroup;
+			children = (
+				895BC99018D8F525009DF424 /* GenericWeapon.cpp */,
+				895BC99118D8F525009DF424 /* GenericWeapon.h */,
+			);
+			name = Weapons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +230,7 @@
 				895BC94C18D6CD38009DF424 /* Game.cpp in Sources */,
 				895BC95818D7A192009DF424 /* GenericView.cpp in Sources */,
 				895BC95B18D7A76A009DF424 /* SquareView.cpp in Sources */,
+				895BC99218D8F525009DF424 /* GenericWeapon.cpp in Sources */,
 				895BC96318D89572009DF424 /* GenericEnemy.cpp in Sources */,
 				895BC95E18D7B95B009DF424 /* Player.cpp in Sources */,
 			);

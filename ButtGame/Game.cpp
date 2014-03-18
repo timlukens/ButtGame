@@ -12,6 +12,18 @@
 
 #define GAME_INSET 50
 
+
+Game* Game::m_pInstance = NULL;
+
+Game* Game::instance() {
+	if(!m_pInstance) {
+		m_pInstance = new Game(GAME_WIDTH, GAME_HEIGHT);
+	}
+	
+	return m_pInstance;
+}
+
+
 Game::Game(int width, int height) {
 	srand(time(NULL));
 	screenWidth_ = width;
@@ -43,15 +55,11 @@ Game::Game(int width, int height) {
 	player_ = new Player(100,100, bounds_);
 	
 	//make some god damn enemies
-	for(int i = 0; i < 10; i++) {
+	for(int i = 0; i < 5000; i++) {
 		GenericEnemy* someButt = new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_);
 //		GenericEnemy* someButt = new GenericEnemy(200,200, bounds_);
 		enemies_.push_back(someButt);
 	}
-}
-
-Game::~Game() {
-	//DESTROIDS
 }
 
 
