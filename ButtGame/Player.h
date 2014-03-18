@@ -23,7 +23,8 @@ class Player {
 	
 public:
 	Player(int x, int y, GenericView* parentView);
-	void handleInput(ALLEGRO_KEYBOARD_EVENT event);
+	SquareView* get_view();
+    void handleInput(ALLEGRO_KEYBOARD_EVENT event);
 	void update();
 	void draw();
 };

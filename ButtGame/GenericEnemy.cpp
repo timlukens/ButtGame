@@ -11,7 +11,9 @@
 
 GenericEnemy::GenericEnemy(int x, int y, GenericView* parentView) {
 	parentView_ = parentView;
-	
+
+    isAlive_ = true;    
+
 	view_ = new SquareView(x, y, kDefaultEnemySize, kDefaultEnemySize, parentView);
 	view_->setBackgroundColor(al_map_rgb(255, 0, 0));
 	
@@ -21,6 +23,18 @@ GenericEnemy::GenericEnemy(int x, int y, GenericView* parentView) {
 	changeDirectionQueue_ = al_create_event_queue();
 	al_register_event_source(changeDirectionQueue_, al_get_timer_event_source(timer));
 	al_start_timer(timer);
+}
+
+SquareView* GenericEnemy::get_view() {
+    return view_;
+}
+
+bool GenericEnemy::is_alive() {
+    return isAlive_;
+}
+
+void GenericEnemy::make_dead() {
+    isAlive_ = false;
 }
 
 void GenericEnemy::update() {
