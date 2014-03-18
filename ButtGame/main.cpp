@@ -40,8 +40,13 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 	
+	ALLEGRO_MONITOR_INFO mInfo;
+	al_get_monitor_info(0, &mInfo);
+	int width = mInfo.x2 - mInfo.x1;
+	int height = mInfo.y2 - mInfo.y1;
+	
 	al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
-    display = al_create_display(GAME_WIDTH, GAME_HEIGHT);
+    display = al_create_display(width, height);
     if(!display) {
         fprintf(stderr, "failed to create display!\n");
 		al_destroy_timer(timer);

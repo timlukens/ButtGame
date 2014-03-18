@@ -23,6 +23,10 @@ class Game {
 	vector<GenericView*> views_;
 	vector<GenericEnemy*> enemies_;
 	
+	ALLEGRO_BITMAP* bitmapBuffer_;
+	
+	int scaleW_, scaleH_, scaleX_, scaleY_;
+	
 	int screenWidth_;
 	int screenHeight_;
 	

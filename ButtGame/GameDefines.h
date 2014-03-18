@@ -9,8 +9,9 @@
 #ifndef ButtGame_GameDefines_h
 #define ButtGame_GameDefines_h
 
-#define GAME_WIDTH 1440
-#define GAME_HEIGHT 900
+//HD AS FUCK
+#define GAME_WIDTH 1920
+#define GAME_HEIGHT 1080
 #define LOGIC_FPS 128.f
 #define INPUT_FPS 1280.f
 
