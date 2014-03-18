@@ -19,8 +19,11 @@ Game::Game(int width, int height) {
 	bounds_ = new GenericView(GAME_INSET, GAME_INSET, width - GAME_INSET * 2, height - GAME_INSET * 2, NULL);
 	player_ = new Player(100,100, bounds_);
 	
+	srand(time(NULL));
+	
 	for(int i = 0; i < 10; i++) {
 		GenericEnemy* someButt = new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_);
+//		GenericEnemy* someButt = new GenericEnemy(200,200, bounds_);
 		enemies_.push_back(someButt);
 	}
 }
