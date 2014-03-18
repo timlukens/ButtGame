@@ -12,6 +12,7 @@
 #include <iostream>
 #include <allegro5/allegro.h>
 #include <vector>
+#include <memory>
 #include "GenericView.h"
 #include "GenericEnemy.h"
 #include "Player.h"
@@ -26,8 +27,8 @@ class Game {
 //	Game& operator=(Game const&){};	//wtf copy constructor
 	static Game* m_pInstance;
 	
-	vector<GenericView*> views_;
-	vector<GenericEnemy*> enemies_;
+	vector<unique_ptr<GenericView> > views_;
+	vector<unique_ptr<GenericEnemy> > enemies_;
 	
 	ALLEGRO_BITMAP* bitmapBuffer_;
 	
