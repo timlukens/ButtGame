@@ -9,6 +9,8 @@
 #include "Game.h"
 #include "SquareView.h"
 #include <allegro5/allegro_primitives.h>
+#include <vector>
+#include <algorithm>
 
 #define GAME_INSET 50
 
@@ -44,9 +46,9 @@ Game::Game(int width, int height) {
 	
 	//make some god damn enemies
 	for(int i = 0; i < 10; i++) {
-		GenericEnemy* someButt = new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_);
+		
 //		GenericEnemy* someButt = new GenericEnemy(200,200, bounds_);
-		enemies_.push_back(someButt);
+		enemies_.push_back(unique_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
 	}
 }
 
@@ -85,10 +87,10 @@ void Game::update() {
 	
     SquareView* p_view = player_->get_view();
 
-    vector<GenericEnemy*>::iterator i = enemies_.begin();    
+    vector<unique_ptr<GenericEnemy> >::iterator i = enemies_.begin();    
 
     while(i != enemies_.end()) {
-        GenericEnemy* enemy = (*i);
+        GenericEnemy* enemy = (*i).get();
         enemy->update();
         SquareView* e_view = enemy->get_view();
         
@@ -105,15 +107,12 @@ void Game::update() {
         if( !(bottom1 < top2 || top1 > bottom2 || left1 > right2 || right1 < left2) ) {
             enemy->make_dead();
         }
-
-        if(!enemy->is_alive()){
-            delete enemy;
-            enemies_.erase(i++);
-        }
-        else {
+        if(enemy->is_alive()) {        
             ++i;
         }
-
+        else {
+            i = enemies_.erase(i);
+        }
 	}
 
 }

@@ -12,6 +12,7 @@
 #include <iostream>
 #include <allegro5/allegro.h>
 #include <vector>
+#include <memory>
 #include "GenericView.h"
 #include "GenericEnemy.h"
 #include "Player.h"
@@ -20,8 +21,8 @@
 using namespace std;
 
 class Game {	
-	vector<GenericView*> views_;
-	vector<GenericEnemy*> enemies_;
+	vector<unique_ptr<GenericView> > views_;
+	vector<unique_ptr<GenericEnemy> > enemies_;
 	
 	ALLEGRO_BITMAP* bitmapBuffer_;
 	
