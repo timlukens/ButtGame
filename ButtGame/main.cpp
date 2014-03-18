@@ -11,8 +11,8 @@
 #include <allegro5/allegro.h>
 #include "Game.h"
 
-#define WIDTH 960
-#define HEIGHT 640
+#define WIDTH 1024
+#define HEIGHT 768
 #define LOGIC_FPS 128
 #define INPUT_FPS 1280
 
