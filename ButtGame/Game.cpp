@@ -55,7 +55,7 @@ Game::Game(int width, int height) {
 	player_ = new Player(100,100, bounds_);
 	
 	//make some god damn enemies
-	for(int i = 0; i < 5000; i++) {
+	for(int i = 0; i < 10; i++) {
 		GenericEnemy* someButt = new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_);
 //		GenericEnemy* someButt = new GenericEnemy(200,200, bounds_);
 		enemies_.push_back(someButt);
@@ -98,29 +98,29 @@ void Game::update() {
     while(i != enemies_.end()) {
         GenericEnemy* enemy = (*i);
         enemy->update();
-        SquareView* e_view = enemy->get_view();
-        
-        int bottom1 = p_view->y_ + p_view->height_, 
-            top1 = p_view->y_, 
-            left1 = p_view->x_, 
-            right1 = p_view->x_ + p_view->width_;
-
-        int bottom2 = e_view->y_ + e_view->height_,
-            top2 = e_view->y_,
-            left2 = e_view->x_,
-            right2 = e_view->x_ + e_view->width_;
-
-        if( !(bottom1 < top2 || top1 > bottom2 || left1 > right2 || right1 < left2) ) {
-            enemy->make_dead();
-        }
-
-        if(!enemy->is_alive()){
-            delete enemy;
-            enemies_.erase(i++);
-        }
-        else {
-            ++i;
-        }
+//        SquareView* e_view = enemy->get_view();
+//        
+//        int bottom1 = p_view->y_ + p_view->height_, 
+//            top1 = p_view->y_, 
+//            left1 = p_view->x_, 
+//            right1 = p_view->x_ + p_view->width_;
+//
+//        int bottom2 = e_view->y_ + e_view->height_,
+//            top2 = e_view->y_,
+//            left2 = e_view->x_,
+//            right2 = e_view->x_ + e_view->width_;
+//
+//        if( !(bottom1 < top2 || top1 > bottom2 || left1 > right2 || right1 < left2) ) {
+//            enemy->make_dead();
+//        }
+//
+//        if(!enemy->is_alive()){
+//            delete enemy;
+//            enemies_.erase(i++);
+//        }
+//        else {
+//            ++i;
+//        }
 
 	}
 
