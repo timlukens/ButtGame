@@ -11,11 +11,6 @@
 #include <allegro5/allegro.h>
 #include "Game.h"
 
-#define WIDTH 1024
-#define HEIGHT 768
-#define LOGIC_FPS 128
-#define INPUT_FPS 1280
-
 static void *InputThread(ALLEGRO_THREAD *thr, void *arg);
 
 int main(int argc, char **argv)
@@ -44,7 +39,7 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 	
-    display = al_create_display(WIDTH, HEIGHT);
+    display = al_create_display(GAME_WIDTH, GAME_HEIGHT);
     if(!display) {
         fprintf(stderr, "failed to create display!\n");
 		al_destroy_timer(timer);
@@ -67,7 +62,7 @@ int main(int argc, char **argv)
 	//Start timer
 	al_start_timer(timer);
 	
-	Game* game = new Game(WIDTH, HEIGHT);
+	Game* game = new Game(GAME_WIDTH, GAME_HEIGHT);
 	
 	inputThread = al_create_thread(InputThread, game);
 	al_start_thread(inputThread);

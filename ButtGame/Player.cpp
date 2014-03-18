@@ -7,6 +7,10 @@
 //
 
 #include "Player.h"
+#include "Game.h"
+
+#define X_SPEED 640.f / LOGIC_FPS
+#define Y_SPEED 640.f / LOGIC_FPS
 
 Player::Player(int x, int y, GenericView* parentView) {
 	parentView_ = parentView;

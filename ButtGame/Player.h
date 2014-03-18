@@ -13,9 +13,6 @@
 #include <allegro5/allegro.h>
 #include "SquareView.h"
 
-#define X_SPEED 5
-#define Y_SPEED 5
-
 class Player {
 	bool leftPressed_, rightPressed_, upPressed_, downPressed_;
 	SquareView* view_;

@@ -15,6 +15,11 @@
 #include "GenericView.h"
 #include "Player.h"
 
+#define GAME_WIDTH 1024
+#define GAME_HEIGHT 768
+#define LOGIC_FPS 128.f
+#define INPUT_FPS 1280.f
+
 using namespace std;
 
 class Game {	
