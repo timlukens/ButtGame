@@ -60,10 +60,12 @@ void GenericEnemy::update() {
 	int yVelocity = 0;
 	
 	ALLEGRO_EVENT e;
-	al_get_next_event(changeDirectionQueue_, &e);
-	if(e.type == ALLEGRO_EVENT_TIMER)
-		movingDirection_ = (kMoveDirection)(rand() % (int)kMoveDirectionCount);
-	
+	if(al_get_next_event(changeDirectionQueue_, &e)) {
+	    if(e.type == ALLEGRO_EVENT_TIMER) {
+		    movingDirection_ = (kMoveDirection)(rand() % (int)kMoveDirectionCount);
+        }
+    }
+
 	switch(movingDirection_) {
 		case kMoveDirectionUp:
 			yVelocity = -kDefaultYSpeed;
