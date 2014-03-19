@@ -6,13 +6,14 @@
 //  Copyright (c) 2014 _BUTT_. All rights reserved.
 //
 
-#include "Game.h"
-#include "SquareView.h"
-#include <allegro5/allegro_primitives.h>
 #include <vector>
 #include <algorithm>
 
+#include <allegro5/allegro_primitives.h>
+
+#include "Game.h"
 #include "Debug.h"
+#include "SquareView.h"
 
 #define GAME_INSET 50
 

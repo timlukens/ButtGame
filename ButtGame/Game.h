@@ -15,10 +15,11 @@
 #include <memory>
 #include <thread>
 #include <mutex>
+
+#include "GameDefines.h"
 #include "GenericView.h"
 #include "GenericEnemy.h"
 #include "Player.h"
-#include "GameDefines.h"
 
 using namespace std;
 

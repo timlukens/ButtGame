@@ -13,7 +13,7 @@
 #define GAME_WIDTH 1920
 #define GAME_HEIGHT 1080
 #define LOGIC_FPS 128.f
-#define INPUT_FPS 1280.f
+#define INPUT_FPS 128.f
 
 #define kDefaultXSpeed 320.f / LOGIC_FPS
 #define kDefaultYSpeed 320.f / LOGIC_FPS
