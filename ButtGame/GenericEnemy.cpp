@@ -26,10 +26,6 @@ GenericEnemy::GenericEnemy(int x, int y, GenericView* parentView) {
 }
 
 GenericEnemy::~GenericEnemy() {
-	std::cout << "GenericEnemy destructor" << endl;
-}
-
-GenericEnemy::~GenericEnemy() {
     cout << "GenericEnemy::~GenericEnemy" << endl;
 }
 

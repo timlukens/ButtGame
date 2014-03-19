@@ -62,7 +62,7 @@ Game::Game(int width, int height) {
 //		GenericEnemy* someButt = new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_);
 //		enemies_.push_back(someButt);
 //		enemies_.push_back(unique_ptr<GenericEnemy>(someButt));
-		enemies_.push_back(unique_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
+		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
 	}
 }
 
@@ -104,7 +104,7 @@ void Game::update() {
 	
     SquareView* p_view = player_->get_view();
 
-    vector<unique_ptr<GenericEnemy> >::iterator i = enemies_.begin();    
+    vector<shared_ptr<GenericEnemy> >::iterator i = enemies_.begin();
 
     while(i != enemies_.end()) {
         GenericEnemy* enemy = &*(*i);

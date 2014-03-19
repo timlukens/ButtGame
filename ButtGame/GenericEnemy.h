@@ -39,7 +39,6 @@ class GenericEnemy {
     bool isAlive_;
 
 public:
-	~GenericEnemy();
 	GenericEnemy(int x, int y, GenericView* parentView);
 	~GenericEnemy();
     SquareView* get_view();

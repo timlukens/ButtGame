@@ -14,6 +14,8 @@
 
 static void InputThread(shared_ptr<Game> game);
 static void UpdateThread(shared_ptr<Game> game);
+//static void InputThread(Game* game);
+//static void UpdateThread(Game* game);
 
 int main(int argc, char **argv)
 {
@@ -48,9 +50,10 @@ int main(int argc, char **argv)
 	}
 
 	shared_ptr<Game> game(Game::instance());
+//	Game* game = Game::instance();
     
-    thread inputThread(InputThread, Game::instance());
-	thread updateThread(UpdateThread, Game::instance());
+    thread inputThread(InputThread, game);
+	thread updateThread(UpdateThread, game);
 	
 	inputThread.detach();
     updateThread.detach();
@@ -93,6 +96,7 @@ int main(int argc, char **argv)
 }
 
 static void InputThread(shared_ptr<Game> game) {
+//static void InputThread(Game* game) {
 	ALLEGRO_EVENT_QUEUE *inputQueue;
 		
 	inputQueue = al_create_event_queue();
@@ -114,6 +118,7 @@ static void InputThread(shared_ptr<Game> game) {
 }
 
 static void UpdateThread(shared_ptr<Game> game) {
+//static void UpdateThread(Game* game) {
 	ALLEGRO_EVENT_QUEUE* updateQueue;
 	
 	ALLEGRO_TIMER* timer = al_create_timer(1.0 / LOGIC_FPS);
