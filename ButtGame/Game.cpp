@@ -37,8 +37,8 @@ Game::Game(int width, int height) {
 	//no matter what native resolution the OS is on.
 	ALLEGRO_MONITOR_INFO mInfo;
 	al_get_monitor_info(0, &mInfo);
-	int monitorWidth = (mInfo.x2 - mInfo.x1) / GAME_SIZE_DIVISOR;
-	int monitorHeight = (mInfo.y2 - mInfo.y1) / GAME_SIZE_DIVISOR;
+	int monitorWidth = mInfo.x2 - mInfo.x1;
+	int monitorHeight = mInfo.y2 - mInfo.y1;
 	
 	//calculate stretch amount
 	float sx = monitorWidth / (float)screenWidth_;
@@ -58,11 +58,10 @@ Game::Game(int width, int height) {
 	player_ = unique_ptr<Player>(new Player(100,100, bounds_));
 	
 	//make some god damn enemies
-	for(int i = 0; i < 1000; i++) {
-//		GenericEnemy* someButt = new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_);
-//		enemies_.push_back(someButt);
-//		enemies_.push_back(unique_ptr<GenericEnemy>(someButt));
-		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
+	for(int i = 0; i < 10; i++) {
+		
+//		GenericEnemy* someButt = new GenericEnemy(200,200, bounds_);
+		enemies_.push_back(unique_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
 	}
 }
 
@@ -82,8 +81,7 @@ void Game::drawScreen() {
 	
 	//draw any enemies
 	for(auto &enemy : enemies_) {
-		if(enemy)
-			enemy->draw();
+		enemy->draw();
 	}
 	
 	//draw bounds and player
@@ -98,13 +96,10 @@ void Game::drawScreen() {
 //game logic tick
 void Game::update() {
 	player_->update();
-//	for(auto &enemy : enemies_) {
-//		enemy->update();
-//	}
 	
     SquareView* p_view = player_->get_view();
 
-    vector<shared_ptr<GenericEnemy> >::iterator i = enemies_.begin();
+    vector<unique_ptr<GenericEnemy> >::iterator i = enemies_.begin();    
 
     while(i != enemies_.end()) {
         GenericEnemy* enemy = &*(*i);

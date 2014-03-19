@@ -28,7 +28,7 @@ GenericEnemy::GenericEnemy(int x, int y, shared_ptr<GenericView> parentView) {
 GenericEnemy::~GenericEnemy() {
     cout << "GenericEnemy::~GenericEnemy" << endl;
     if(changeDirectionQueue_) al_destroy_event_queue(changeDirectionQueue_);
-    if(timer) al_destroy_timer(timer);
+    if(changeDirectionTimer_) al_destroy_timer(changeDirectionTimer_);
 }
 
 SquareView* GenericEnemy::get_view() {
