@@ -24,10 +24,21 @@ Player::~Player() {
     cout << "Player::~Player" << endl;
 }
 
-SquareView* Player::get_view() {
-    return &*view_;
+int Player::get_x() {
+    return view_->x_;
 }
 
+int Player::get_y() {
+    return view_->y_;
+}
+
+int Player::get_width() {
+    return view_->width_;
+}
+
+int Player::get_height() {
+    return view_->height_;
+}
 void Player::draw() {
 	view_->draw();
 }

@@ -31,8 +31,20 @@ GenericEnemy::~GenericEnemy() {
     if(changeDirectionTimer_) al_destroy_timer(changeDirectionTimer_);
 }
 
-SquareView* GenericEnemy::get_view() {
-    return &*view_;
+int GenericEnemy::get_x() {
+    return view_->x_;
+}
+
+int GenericEnemy::get_y() {
+    return view_->y_;
+}
+
+int GenericEnemy::get_width() {
+    return view_->width_;
+}
+
+int GenericEnemy::get_height() {
+    return view_->height_;
 }
 
 bool GenericEnemy::is_alive() {

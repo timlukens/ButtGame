@@ -24,8 +24,10 @@ class Player {
 public:
 	Player(int x, int y, shared_ptr<GenericView> parentView);
 	~Player();
-    SquareView* get_view();
-    void handleInput(ALLEGRO_KEYBOARD_EVENT event);
+    int get_x();
+    int get_y();
+    int get_width();
+    int get_height();void handleInput(ALLEGRO_KEYBOARD_EVENT event);
 	void update();
 	void draw();
 };

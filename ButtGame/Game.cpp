@@ -97,35 +97,30 @@ void Game::drawScreen() {
 void Game::update() {
 	player_->update();
 	
-    SquareView* p_view = player_->get_view();
+    vector<unique_ptr<GenericEnemy> >::iterator enemy = enemies_.begin();    
 
-    vector<unique_ptr<GenericEnemy> >::iterator i = enemies_.begin();    
+    while(enemy != enemies_.end()) {
+        (*enemy)->update();
 
-    while(i != enemies_.end()) {
-        GenericEnemy* enemy = &*(*i);
-        enemy->update();
+        int bottom1 = player_->get_y() + player_->get_height(), 
+            top1 = player_->get_y(), 
+            left1 = player_->get_x(), 
+            right1 = player_->get_x() + player_->get_width();
 
-        SquareView* e_view = enemy->get_view();
-        
-        int bottom1 = p_view->y_ + p_view->height_, 
-            top1 = p_view->y_, 
-            left1 = p_view->x_, 
-            right1 = p_view->x_ + p_view->width_;
-
-        int bottom2 = e_view->y_ + e_view->height_,
-            top2 = e_view->y_,
-            left2 = e_view->x_,
-            right2 = e_view->x_ + e_view->width_;
+        int bottom2 = (*enemy)->get_y() + (*enemy)->get_height(),
+            top2 = (*enemy)->get_y(),
+            left2 = (*enemy)->get_x(),
+            right2 = (*enemy)->get_x() + (*enemy)->get_width();
 
         if( !(bottom1 < top2 || top1 > bottom2 || left1 > right2 || right1 < left2) ) {
-            enemy->make_dead();
+            (*enemy)->make_dead();
         }
 
-        if(enemy->is_alive()) {        
-            ++i;
+        if((*enemy)->is_alive()) {        
+            ++enemy;
         }
         else {
-            i = enemies_.erase(i);
+            enemy = enemies_.erase(enemy);
         }
 	}
 
