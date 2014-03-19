@@ -8,24 +8,20 @@
 
 //Start timer
 #include <stdio.h>
+#include <thread>
 #include <allegro5/allegro.h>
 #include "Game.h"
 
-static void* InputThread(ALLEGRO_THREAD* thr, void* arg);
-static void* UpdateThread(ALLEGRO_THREAD* thr, void* arg);
+static void InputThread(Game* game);
+static void UpdateThread(Game* game);
 
 int main(int argc, char **argv)
 {
-	std::cout << "Rockin\n";
-	
+	//std::cout << "Rockin\n";
+    
     ALLEGRO_DISPLAY* display;
 	ALLEGRO_EVENT_QUEUE* eventQueue;
-	ALLEGRO_TIMER* timer;
-	ALLEGRO_THREAD* inputThread;
-	ALLEGRO_THREAD* updateThread;
-	
-	bool isGameRunning = true;
-	
+		
 	//Various inits
     if(!al_init()) {
         fprintf(stderr, "failed to initialize allegro\n");
@@ -33,12 +29,6 @@ int main(int argc, char **argv)
     }
 	
 	al_install_keyboard();
-	
-	timer = al_create_timer(1.0 / LOGIC_FPS);
-	if(!timer) {
-		fprintf(stderr, "failed to create timer!\n");
-		return EXIT_FAILURE;
-	}
 	
 	ALLEGRO_MONITOR_INFO mInfo;
 	al_get_monitor_info(0, &mInfo);
@@ -49,35 +39,42 @@ int main(int argc, char **argv)
     display = al_create_display(width, height);
     if(!display) {
         fprintf(stderr, "failed to create display!\n");
-		al_destroy_timer(timer);
         return EXIT_FAILURE;
     }
 	
 	eventQueue = al_create_event_queue();
 	if(!eventQueue) {
 		fprintf(stderr, "failed to create eventQueue!\n");
-		al_destroy_timer(timer);
 		al_destroy_display(display);
 		return EXIT_FAILURE;
 	}
+
+	Game* game = Game::instance();
+    
+    thread inputThread(InputThread, game);
+	thread updateThread(UpdateThread, game);
 	
-	
-	//Tie events to queue
+	inputThread.detach();
+    updateThread.detach();
+    
+    ALLEGRO_TIMER* timer;
+    
+    bool isGameRunning = true;
+    
+    timer = al_create_timer(1.0 / LOGIC_FPS);
+	if(!timer) {
+		fprintf(stderr, "failed to create timer!\n");
+		return EXIT_FAILURE;
+	}
+    
+    //Tie events to queue
 	al_register_event_source(eventQueue, al_get_display_event_source(display));
 	al_register_event_source(eventQueue, al_get_timer_event_source(timer));
-	
-	//Start timer
+    
+    //Start timer
 	al_start_timer(timer);
-	
-	Game* game = Game::instance();
-	
-	inputThread = al_create_thread(InputThread, game);
-	al_start_thread(inputThread);
-	
-	updateThread = al_create_thread(UpdateThread, game);
-	al_start_thread(updateThread);
-	
-	//Main loop
+
+    //Main loop
 	while(isGameRunning)
 	{
 		ALLEGRO_EVENT e;
@@ -89,17 +86,17 @@ int main(int argc, char **argv)
 		//Update display
 		game->drawScreen();
 	}
-	
-	//Cleaning
+    
 	al_destroy_timer(timer);
+    //Cleaning
     al_destroy_display(display);
 	al_destroy_event_queue(eventQueue);
+
 	
     return EXIT_SUCCESS;
 }
 
-static void *InputThread(ALLEGRO_THREAD *thr, void *arg) {
-	Game* game = (Game*)arg;
+static void InputThread(Game* game) {
 	ALLEGRO_EVENT_QUEUE *inputQueue;
 		
 	inputQueue = al_create_event_queue();
@@ -119,8 +116,7 @@ static void *InputThread(ALLEGRO_THREAD *thr, void *arg) {
 	}
 }
 
-static void* UpdateThread(ALLEGRO_THREAD* thr, void* arg) {
-	Game* game = (Game*)arg;
+static void UpdateThread(Game* game) {
 	ALLEGRO_EVENT_QUEUE* updateQueue;
 	
 	ALLEGRO_TIMER* timer = al_create_timer(1.0 / LOGIC_FPS);
