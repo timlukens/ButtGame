@@ -80,10 +80,15 @@ void Game::drawScreen() {
 	}
 	
 	//draw any enemies
-	for(auto &enemy : enemies_) {
-		enemy->draw();
-	}
-	
+    vector<unique_ptr<GenericEnemy> >::iterator enemy = enemies_.begin();
+
+    while(enemy != enemies_.end()) {
+        enemyMutex_.lock();
+        (*enemy)->draw();
+        ++enemy;
+        enemyMutex_.unlock();
+    }    
+
 	//draw bounds and player
 	bounds_->draw();
 	player_->draw();
@@ -100,27 +105,33 @@ void Game::update() {
     vector<unique_ptr<GenericEnemy> >::iterator enemy = enemies_.begin();    
 
     while(enemy != enemies_.end()) {
-        (*enemy)->update();
+        if(enemyMutex_.try_lock()) {
+            (*enemy)->update();
 
-        int bottom1 = player_->get_y() + player_->get_height(), 
-            top1 = player_->get_y(), 
-            left1 = player_->get_x(), 
-            right1 = player_->get_x() + player_->get_width();
+            int bottom1 = player_->get_y() + player_->get_height(), 
+                top1 = player_->get_y(), 
+                left1 = player_->get_x(), 
+                right1 = player_->get_x() + player_->get_width();
 
-        int bottom2 = (*enemy)->get_y() + (*enemy)->get_height(),
-            top2 = (*enemy)->get_y(),
-            left2 = (*enemy)->get_x(),
-            right2 = (*enemy)->get_x() + (*enemy)->get_width();
+            int bottom2 = (*enemy)->get_y() + (*enemy)->get_height(),
+                top2 = (*enemy)->get_y(),
+                left2 = (*enemy)->get_x(),
+                right2 = (*enemy)->get_x() + (*enemy)->get_width();
 
-        if( !(bottom1 < top2 || top1 > bottom2 || left1 > right2 || right1 < left2) ) {
-            (*enemy)->make_dead();
-        }
+            if( !(bottom1 < top2 || top1 > bottom2 || left1 > right2 || right1 < left2) ) {
+                (*enemy)->make_dead();
+            }
 
-        if((*enemy)->is_alive()) {        
-            ++enemy;
+            if((*enemy)->is_alive()) {        
+                ++enemy;
+            }
+            else {
+                enemy = enemies_.erase(enemy);
+            }
+            enemyMutex_.unlock();
         }
         else {
-            enemy = enemies_.erase(enemy);
+            ++enemy;
         }
 	}
 

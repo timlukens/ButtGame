@@ -13,6 +13,8 @@
 #include <allegro5/allegro.h>
 #include <vector>
 #include <memory>
+#include <thread>
+#include <mutex>
 #include "GenericView.h"
 #include "GenericEnemy.h"
 #include "Player.h"
@@ -40,6 +42,8 @@ class Game {
 	shared_ptr<GenericView> bounds_;
 	
 	unique_ptr<Player> player_;
+
+    mutex enemyMutex_;
 	
 public:
     bool isGameRunning;
