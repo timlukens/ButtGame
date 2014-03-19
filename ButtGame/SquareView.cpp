@@ -20,7 +20,7 @@ SquareView::SquareView(int x, int y, int width, int height, shared_ptr<GenericVi
 }
 
 SquareView::~SquareView() {
-    STDERR("SquareView::~SquareView");
+    DBMSG("SquareView::~SquareView");
 }
 
 void SquareView::draw() {

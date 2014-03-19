@@ -22,7 +22,7 @@ GenericView::GenericView() {
 }
 
 GenericView::~GenericView() {
-    STDERR("GenericView::~GenericView");
+    DBMSG("GenericView::~GenericView");
 }
 
 GenericView::GenericView(shared_ptr<GenericView> parentView) {

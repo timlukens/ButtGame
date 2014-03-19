@@ -26,7 +26,7 @@ GenericEnemy::GenericEnemy(int x, int y, shared_ptr<GenericView> parentView) {
 }
 
 GenericEnemy::~GenericEnemy() {
-    STDERR("GenericEnemy::~GenericEnemy");
+    DBMSG("GenericEnemy::~GenericEnemy");
     if(changeDirectionQueue_) al_destroy_event_queue(changeDirectionQueue_);
     if(changeDirectionTimer_) al_destroy_timer(changeDirectionTimer_);
 }

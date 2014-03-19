@@ -68,7 +68,7 @@ Game::Game(int width, int height) {
 }
 
 Game::~Game() {
-    STDERR("Game::~Game");
+    DBMSG("Game::~Game");
 }
 
 //graphics tick

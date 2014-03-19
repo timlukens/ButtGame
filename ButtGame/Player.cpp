@@ -23,7 +23,7 @@ Player::Player(int x, int y, shared_ptr<GenericView> parentView) {
 }
 
 Player::~Player() {
-    STDERR("Player::~Player");
+    DBMSG("Player::~Player");
 }
 
 int Player::get_x() {
