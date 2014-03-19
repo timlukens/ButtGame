@@ -13,7 +13,7 @@
 #include "SquareView.h"
 #include "GameDefines.h"
 
-#define kChangeDirectionTime .6f
+#define kChangeDirectionTime 0.6f
 #define kDefaultEnemySize 25
 
 enum kMoveDirection {
@@ -33,7 +33,8 @@ class GenericEnemy {
 	GenericView* parentView_;
 	
 	ALLEGRO_EVENT_QUEUE* changeDirectionQueue_;
-	
+    ALLEGRO_TIMER* timer;
+
 	kMoveDirection movingDirection_;
     bool isAlive_;
 

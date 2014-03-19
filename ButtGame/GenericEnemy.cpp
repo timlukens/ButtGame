@@ -19,7 +19,7 @@ GenericEnemy::GenericEnemy(int x, int y, GenericView* parentView) {
 	
 	movingDirection_ = (kMoveDirection)(rand() % (int)kMoveDirectionCount);
 	
-	ALLEGRO_TIMER* timer = al_create_timer(kChangeDirectionTime);
+    timer = al_create_timer(kChangeDirectionTime);
 	changeDirectionQueue_ = al_create_event_queue();
 	al_register_event_source(changeDirectionQueue_, al_get_timer_event_source(timer));
 	al_start_timer(timer);

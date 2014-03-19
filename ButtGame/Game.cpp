@@ -116,6 +116,7 @@ void Game::update() {
         if( !(bottom1 < top2 || top1 > bottom2 || left1 > right2 || right1 < left2) ) {
             enemy->make_dead();
         }
+
         if(enemy->is_alive()) {        
             ++i;
         }
