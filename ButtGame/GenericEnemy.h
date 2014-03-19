@@ -33,12 +33,13 @@ class GenericEnemy {
 	GenericView* parentView_;
 	
 	ALLEGRO_EVENT_QUEUE* changeDirectionQueue_;
-    ALLEGRO_TIMER* timer;
+    ALLEGRO_TIMER* changeDirectionTimer_;
 
 	kMoveDirection movingDirection_;
     bool isAlive_;
 
 public:
+	~GenericEnemy();
 	GenericEnemy(int x, int y, GenericView* parentView);
 	SquareView* get_view();
     bool is_alive();

@@ -29,6 +29,7 @@ class Game {
 	
 	vector<unique_ptr<GenericView> > views_;
 	vector<unique_ptr<GenericEnemy> > enemies_;
+//	vector<GenericEnemy*> enemies_;
 	
 	ALLEGRO_BITMAP* bitmapBuffer_;
 	

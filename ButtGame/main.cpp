@@ -17,8 +17,6 @@ static void UpdateThread(Game* game);
 
 int main(int argc, char **argv)
 {
-	//std::cout << "Rockin\n";
-    
     ALLEGRO_DISPLAY* display;
 	ALLEGRO_EVENT_QUEUE* eventQueue;
 		
@@ -32,10 +30,10 @@ int main(int argc, char **argv)
 	
 	ALLEGRO_MONITOR_INFO mInfo;
 	al_get_monitor_info(0, &mInfo);
-	int width = mInfo.x2 - mInfo.x1;
-	int height = mInfo.y2 - mInfo.y1;
+	int width = (mInfo.x2 - mInfo.x1) / GAME_SIZE_DIVISOR;
+	int height = (mInfo.y2 - mInfo.y1) / GAME_SIZE_DIVISOR;
 	
-	al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
+//	al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
     display = al_create_display(width, height);
     if(!display) {
         fprintf(stderr, "failed to create display!\n");

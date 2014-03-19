@@ -19,10 +19,14 @@ GenericEnemy::GenericEnemy(int x, int y, GenericView* parentView) {
 	
 	movingDirection_ = (kMoveDirection)(rand() % (int)kMoveDirectionCount);
 	
-    timer = al_create_timer(kChangeDirectionTime);
+    changeDirectionTimer_ = al_create_timer(kChangeDirectionTime);
 	changeDirectionQueue_ = al_create_event_queue();
-	al_register_event_source(changeDirectionQueue_, al_get_timer_event_source(timer));
-	al_start_timer(timer);
+	al_register_event_source(changeDirectionQueue_, al_get_timer_event_source(changeDirectionTimer_));
+	al_start_timer(changeDirectionTimer_);
+}
+
+GenericEnemy::~GenericEnemy() {
+	std::cout << "GenericEnemy destructor" << endl;
 }
 
 SquareView* GenericEnemy::get_view() {
@@ -43,10 +47,8 @@ void GenericEnemy::update() {
 	
 	ALLEGRO_EVENT e;
 	al_get_next_event(changeDirectionQueue_, &e);
-	if(e.type == ALLEGRO_EVENT_TIMER) {
+	if(e.type == ALLEGRO_EVENT_TIMER)
 		movingDirection_ = (kMoveDirection)(rand() % (int)kMoveDirectionCount);
-		al_flush_event_queue(changeDirectionQueue_);
-	}
 	
 	switch(movingDirection_) {
 		case kMoveDirectionUp:
