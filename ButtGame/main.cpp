@@ -12,8 +12,8 @@
 #include <allegro5/allegro.h>
 #include "Game.h"
 
-static void InputThread(Game* game);
-static void UpdateThread(Game* game);
+static void InputThread(shared_ptr<Game> game);
+static void UpdateThread(shared_ptr<Game> game);
 
 int main(int argc, char **argv)
 {
@@ -49,17 +49,15 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 
-	Game* game = Game::instance();
+	shared_ptr<Game> game(Game::instance());
     
-    thread inputThread(InputThread, game);
-	thread updateThread(UpdateThread, game);
+    thread inputThread(InputThread, Game::instance());
+	thread updateThread(UpdateThread, Game::instance());
 	
 	inputThread.detach();
     updateThread.detach();
     
     ALLEGRO_TIMER* timer;
-    
-    bool isGameRunning = true;
     
     timer = al_create_timer(1.0 / LOGIC_FPS);
 	if(!timer) {
@@ -75,13 +73,13 @@ int main(int argc, char **argv)
 	al_start_timer(timer);
 
     //Main loop
-	while(isGameRunning)
+	while(game->isGameRunning)
 	{
 		ALLEGRO_EVENT e;
 		al_wait_for_event(eventQueue, &e);
 		
 		if(e.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-			isGameRunning = false;
+			game->isGameRunning = false;
 		
 		//Update display
 		game->drawScreen();
@@ -96,7 +94,7 @@ int main(int argc, char **argv)
     return EXIT_SUCCESS;
 }
 
-static void InputThread(Game* game) {
+static void InputThread(shared_ptr<Game> game) {
 	ALLEGRO_EVENT_QUEUE *inputQueue;
 		
 	inputQueue = al_create_event_queue();
@@ -107,16 +105,17 @@ static void InputThread(Game* game) {
 	
 	al_register_event_source(inputQueue, al_get_keyboard_event_source());
 	
-	while(1) {
+	while(game->isGameRunning) {
 		ALLEGRO_EVENT e;
 		al_wait_for_event(inputQueue, &e);
-		
+	    if(e.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+            game->isGameRunning = false; 
 		if(e.type == ALLEGRO_EVENT_KEY_DOWN || ALLEGRO_EVENT_KEY_UP)
 			game->handleInput(e.keyboard);
 	}
 }
 
-static void UpdateThread(Game* game) {
+static void UpdateThread(shared_ptr<Game> game) {
 	ALLEGRO_EVENT_QUEUE* updateQueue;
 	
 	ALLEGRO_TIMER* timer = al_create_timer(1.0 / LOGIC_FPS);
@@ -134,7 +133,7 @@ static void UpdateThread(Game* game) {
 	al_register_event_source(updateQueue, al_get_timer_event_source(timer));
 	al_start_timer(timer);
 	
-	while(1) {
+	while(game->isGameRunning) {
 		ALLEGRO_EVENT e;
 		al_wait_for_event(updateQueue, &e);
 		

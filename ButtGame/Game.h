@@ -42,8 +42,9 @@ class Game {
 	Player* player_;
 	
 public:
+    bool isGameRunning;
 	static Game* instance();
-	
+	~Game();
 	void update();
 	void drawScreen();
 	void handleInput(ALLEGRO_KEYBOARD_EVENT event);

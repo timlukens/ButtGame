@@ -40,7 +40,8 @@ class GenericEnemy {
 
 public:
 	GenericEnemy(int x, int y, GenericView* parentView);
-	SquareView* get_view();
+	~GenericEnemy();
+    SquareView* get_view();
     bool is_alive();
     void make_dead();
     void update();

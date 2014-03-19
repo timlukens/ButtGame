@@ -25,6 +25,10 @@ GenericEnemy::GenericEnemy(int x, int y, GenericView* parentView) {
 	al_start_timer(timer);
 }
 
+GenericEnemy::~GenericEnemy() {
+    cout << "GenericEnemy::~GenericEnemy" << endl;
+}
+
 SquareView* GenericEnemy::get_view() {
     return view_;
 }
