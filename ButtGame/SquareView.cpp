@@ -9,6 +9,8 @@
 #include "SquareView.h"
 #include <allegro5/allegro_primitives.h>
 
+#include "Debug.h"
+
 SquareView::SquareView(int x, int y, int width, int height, shared_ptr<GenericView> parentView) {
 	parentView_ = parentView;
 	x_ = x;
@@ -18,7 +20,7 @@ SquareView::SquareView(int x, int y, int width, int height, shared_ptr<GenericVi
 }
 
 SquareView::~SquareView() {
-    cout << "SquareView::~SquareView" << endl;
+    STDERR("SquareView::~SquareView");
 }
 
 void SquareView::draw() {

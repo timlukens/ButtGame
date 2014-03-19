@@ -7,7 +7,7 @@
 //
 
 #include "GenericEnemy.h"
-
+#include "Debug.h"
 
 GenericEnemy::GenericEnemy(int x, int y, shared_ptr<GenericView> parentView) {
 	parentView_ = parentView;
@@ -26,7 +26,7 @@ GenericEnemy::GenericEnemy(int x, int y, shared_ptr<GenericView> parentView) {
 }
 
 GenericEnemy::~GenericEnemy() {
-    cout << "GenericEnemy::~GenericEnemy" << endl;
+    STDERR("GenericEnemy::~GenericEnemy");
     if(changeDirectionQueue_) al_destroy_event_queue(changeDirectionQueue_);
     if(changeDirectionTimer_) al_destroy_timer(changeDirectionTimer_);
 }

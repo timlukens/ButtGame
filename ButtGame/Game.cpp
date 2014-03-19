@@ -12,6 +12,8 @@
 #include <vector>
 #include <algorithm>
 
+#include "Debug.h"
+
 #define GAME_INSET 50
 
 
@@ -58,7 +60,7 @@ Game::Game(int width, int height) {
 	player_ = unique_ptr<Player>(new Player(100,100, bounds_));
 	
 	//make some god damn enemies
-	for(int i = 0; i < 3000; i++) {
+	for(int i = 0; i < 10000; i++) {
 		
 //		GenericEnemy* someButt = new GenericEnemy(200,200, bounds_);
 		enemies_.push_back(unique_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
@@ -66,7 +68,7 @@ Game::Game(int width, int height) {
 }
 
 Game::~Game() {
-    cout << "Game::~Game" << endl;
+    STDERR("Game::~Game");
 }
 
 //graphics tick

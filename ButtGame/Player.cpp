@@ -8,6 +8,8 @@
 
 #include "Player.h"
 #include "Game.h"
+#include "Debug.h"
+
 
 Player::Player(int x, int y, shared_ptr<GenericView> parentView) {
 	parentView_ = parentView;
@@ -21,7 +23,7 @@ Player::Player(int x, int y, shared_ptr<GenericView> parentView) {
 }
 
 Player::~Player() {
-    cout << "Player::~Player" << endl;
+    STDERR("Player::~Player");
 }
 
 int Player::get_x() {

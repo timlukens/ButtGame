@@ -18,4 +18,6 @@
 #define kDefaultXSpeed 320.f / LOGIC_FPS
 #define kDefaultYSpeed 320.f / LOGIC_FPS
 
+#define DEBUG 1
+
 #endif

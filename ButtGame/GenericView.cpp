@@ -9,6 +9,8 @@
 #include "GenericView.h"
 #include <allegro5/allegro_primitives.h>
 
+#include "Debug.h"
+
 GenericView::GenericView() {
 	parentView_ = nullptr;
 	backgroundColor_ = al_map_rgb(255, 0, 0);
@@ -20,7 +22,7 @@ GenericView::GenericView() {
 }
 
 GenericView::~GenericView() {
-    cout << "GenericView::~GenericView" << endl;
+    STDERR("GenericView::~GenericView");
 }
 
 GenericView::GenericView(shared_ptr<GenericView> parentView) {
