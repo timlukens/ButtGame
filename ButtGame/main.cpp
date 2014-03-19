@@ -14,11 +14,11 @@
 
 static void InputThread(shared_ptr<Game> game);
 static void UpdateThread(shared_ptr<Game> game);
+//static void InputThread(Game* game);
+//static void UpdateThread(Game* game);
 
 int main(int argc, char **argv)
 {
-	//std::cout << "Rockin\n";
-    
     ALLEGRO_DISPLAY* display;
 	ALLEGRO_EVENT_QUEUE* eventQueue;
 		
@@ -32,10 +32,10 @@ int main(int argc, char **argv)
 	
 	ALLEGRO_MONITOR_INFO mInfo;
 	al_get_monitor_info(0, &mInfo);
-	int width = mInfo.x2 - mInfo.x1;
-	int height = mInfo.y2 - mInfo.y1;
+	int width = (mInfo.x2 - mInfo.x1) / GAME_SIZE_DIVISOR;
+	int height = (mInfo.y2 - mInfo.y1) / GAME_SIZE_DIVISOR;
 	
-	al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
+//	al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
     display = al_create_display(width, height);
     if(!display) {
         fprintf(stderr, "failed to create display!\n");
@@ -50,6 +50,7 @@ int main(int argc, char **argv)
 	}
 
 	shared_ptr<Game> game(Game::instance());
+//	Game* game = Game::instance();
     
     thread inputThread(InputThread, game);
 	thread updateThread(UpdateThread, game);
@@ -95,6 +96,7 @@ int main(int argc, char **argv)
 }
 
 static void InputThread(shared_ptr<Game> game) {
+//static void InputThread(Game* game) {
 	ALLEGRO_EVENT_QUEUE *inputQueue;
 		
 	inputQueue = al_create_event_queue();
@@ -116,6 +118,7 @@ static void InputThread(shared_ptr<Game> game) {
 }
 
 static void UpdateThread(shared_ptr<Game> game) {
+//static void UpdateThread(Game* game) {
 	ALLEGRO_EVENT_QUEUE* updateQueue;
 	
 	ALLEGRO_TIMER* timer = al_create_timer(1.0 / LOGIC_FPS);

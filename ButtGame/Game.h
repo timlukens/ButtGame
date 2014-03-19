@@ -27,8 +27,9 @@ class Game {
 //	Game& operator=(Game const&){};	//wtf copy constructor
 	static Game* m_pInstance;
 	
-	vector<unique_ptr<GenericView> > views_;
-	vector<unique_ptr<GenericEnemy> > enemies_;
+	vector<shared_ptr<GenericView> > views_;
+	vector<shared_ptr<GenericEnemy> > enemies_;
+//	vector<GenericEnemy*> enemies_;
 	
 	ALLEGRO_BITMAP* bitmapBuffer_;
 	

@@ -33,7 +33,7 @@ class GenericEnemy {
 	shared_ptr<GenericView> parentView_;
 	
 	ALLEGRO_EVENT_QUEUE* changeDirectionQueue_;
-    ALLEGRO_TIMER* timer;
+    ALLEGRO_TIMER* changeDirectionTimer_;
 
 	kMoveDirection movingDirection_;
     bool isAlive_;
