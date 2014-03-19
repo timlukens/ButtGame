@@ -9,9 +9,9 @@
 #include "Player.h"
 #include "Game.h"
 
-Player::Player(int x, int y, GenericView* parentView) {
+Player::Player(int x, int y, shared_ptr<GenericView> parentView) {
 	parentView_ = parentView;
-	view_ = new SquareView(x, y, kPlayerSize, kPlayerSize, parentView);
+	view_ = unique_ptr<SquareView>(new SquareView(x, y, kPlayerSize, kPlayerSize, parentView));
 	view_->setBackgroundColor(al_map_rgb(0, 255, 0));
 	
 	leftPressed_ = false;
@@ -20,8 +20,12 @@ Player::Player(int x, int y, GenericView* parentView) {
 	downPressed_ = false;
 }
 
+Player::~Player() {
+    cout << "Player::~Player" << endl;
+}
+
 SquareView* Player::get_view() {
-    return view_;
+    return &*view_;
 }
 
 void Player::draw() {

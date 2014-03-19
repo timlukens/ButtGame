@@ -9,12 +9,12 @@
 #include "GenericEnemy.h"
 
 
-GenericEnemy::GenericEnemy(int x, int y, GenericView* parentView) {
+GenericEnemy::GenericEnemy(int x, int y, shared_ptr<GenericView> parentView) {
 	parentView_ = parentView;
 
     isAlive_ = true;    
 
-	view_ = new SquareView(x, y, kDefaultEnemySize, kDefaultEnemySize, parentView);
+	view_ = unique_ptr<SquareView>(new SquareView(x, y, kDefaultEnemySize, kDefaultEnemySize, parentView));
 	view_->setBackgroundColor(al_map_rgb(255, 0, 0));
 	
 	movingDirection_ = (kMoveDirection)(rand() % (int)kMoveDirectionCount);
@@ -27,10 +27,12 @@ GenericEnemy::GenericEnemy(int x, int y, GenericView* parentView) {
 
 GenericEnemy::~GenericEnemy() {
     cout << "GenericEnemy::~GenericEnemy" << endl;
+    if(changeDirectionQueue_) al_destroy_event_queue(changeDirectionQueue_);
+    if(timer) al_destroy_timer(timer);
 }
 
 SquareView* GenericEnemy::get_view() {
-    return view_;
+    return &*view_;
 }
 
 bool GenericEnemy::is_alive() {

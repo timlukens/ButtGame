@@ -15,8 +15,9 @@
 class SquareView : public GenericView {
 	
 public:
-	SquareView(int x, int y, int width, int height, GenericView* parentView);
-	virtual void draw();
+	SquareView(int x, int y, int width, int height, shared_ptr<GenericView> parentView);
+	~SquareView();
+    virtual void draw();
 };
 
 #endif /* defined(__ButtGame__SquareView__) */

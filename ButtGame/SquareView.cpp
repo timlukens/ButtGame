@@ -9,12 +9,16 @@
 #include "SquareView.h"
 #include <allegro5/allegro_primitives.h>
 
-SquareView::SquareView(int x, int y, int width, int height, GenericView* parentView) {
+SquareView::SquareView(int x, int y, int width, int height, shared_ptr<GenericView> parentView) {
 	parentView_ = parentView;
 	x_ = x;
 	y_ = y;
 	width_ = width;
 	height_ = height;
+}
+
+SquareView::~SquareView() {
+    cout << "SquareView::~SquareView" << endl;
 }
 
 void SquareView::draw() {

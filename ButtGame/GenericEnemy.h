@@ -29,8 +29,8 @@ enum kMoveDirection {
 };
 
 class GenericEnemy {
-	SquareView* view_;
-	GenericView* parentView_;
+	unique_ptr<SquareView> view_;
+	shared_ptr<GenericView> parentView_;
 	
 	ALLEGRO_EVENT_QUEUE* changeDirectionQueue_;
     ALLEGRO_TIMER* timer;
@@ -39,7 +39,7 @@ class GenericEnemy {
     bool isAlive_;
 
 public:
-	GenericEnemy(int x, int y, GenericView* parentView);
+	GenericEnemy(int x, int y, shared_ptr<GenericView> parentView);
 	~GenericEnemy();
     SquareView* get_view();
     bool is_alive();

@@ -37,9 +37,9 @@ class Game {
 	int screenWidth_;
 	int screenHeight_;
 	
-	GenericView* bounds_;
+	shared_ptr<GenericView> bounds_;
 	
-	Player* player_;
+	unique_ptr<Player> player_;
 	
 public:
     bool isGameRunning;

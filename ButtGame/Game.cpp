@@ -51,11 +51,11 @@ Game::Game(int width, int height) {
 	al_use_transform(&trans);
 	
 	//setup bounds. This shit draws a frame
-	bounds_ = new GenericView(GAME_INSET, GAME_INSET, width - GAME_INSET * 2, height - GAME_INSET * 2, NULL);
+	bounds_ = shared_ptr<GenericView>(new GenericView(GAME_INSET, GAME_INSET, width - GAME_INSET * 2, height - GAME_INSET * 2, NULL));
 	bounds_->setBackgroundColor(al_map_rgb(255, 255, 255));
 	
 	//setup dat playa
-	player_ = new Player(100,100, bounds_);
+	player_ = unique_ptr<Player>(new Player(100,100, bounds_));
 	
 	//make some god damn enemies
 	for(int i = 0; i < 10; i++) {
