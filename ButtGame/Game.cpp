@@ -57,7 +57,7 @@ Game::Game(int width, int height) {
 	player_ = new Player(100,100, bounds_);
 	
 	//make some god damn enemies
-	for(int i = 0; i < 10; i++) {
+	for(int i = 0; i < 1; i++) {
 		
 //		GenericEnemy* someButt = new GenericEnemy(200,200, bounds_);
 		enemies_.push_back(unique_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
@@ -77,7 +77,8 @@ void Game::drawScreen() {
 	
 	//draw any enemies
 	for(auto &enemy : enemies_) {
-		enemy->draw();
+		if(enemy)
+			enemy->draw();
 	}
 	
 	//draw bounds and player

@@ -43,8 +43,10 @@ void GenericEnemy::update() {
 	
 	ALLEGRO_EVENT e;
 	al_get_next_event(changeDirectionQueue_, &e);
-	if(e.type == ALLEGRO_EVENT_TIMER)
+	if(e.type == ALLEGRO_EVENT_TIMER) {
 		movingDirection_ = (kMoveDirection)(rand() % (int)kMoveDirectionCount);
+		al_flush_event_queue(changeDirectionQueue_);
+	}
 	
 	switch(movingDirection_) {
 		case kMoveDirectionUp:
