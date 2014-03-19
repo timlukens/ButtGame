@@ -51,8 +51,8 @@ int main(int argc, char **argv)
 
 	shared_ptr<Game> game(Game::instance());
     
-    thread inputThread(InputThread, Game::instance());
-	thread updateThread(UpdateThread, Game::instance());
+    thread inputThread(InputThread, game);
+	thread updateThread(UpdateThread, game);
 	
 	inputThread.detach();
     updateThread.detach();
@@ -85,10 +85,10 @@ int main(int argc, char **argv)
 		game->drawScreen();
 	}
     
-	al_destroy_timer(timer);
     //Cleaning
     al_destroy_display(display);
 	al_destroy_event_queue(eventQueue);
+	al_destroy_timer(timer);
 
 	
     return EXIT_SUCCESS;
