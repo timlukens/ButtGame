@@ -84,8 +84,10 @@ void Game::drawScreen() {
 
     while(enemy != enemies_.end()) {
         enemyMutex_.lock();
-        (*enemy)->draw();
-        ++enemy;
+		if(*enemy) {
+			(*enemy)->draw();
+			++enemy;
+		}
         enemyMutex_.unlock();
     }    
 

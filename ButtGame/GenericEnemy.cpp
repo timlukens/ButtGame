@@ -125,5 +125,5 @@ void GenericEnemy::update() {
 }
 
 void GenericEnemy::draw() {
-	view_->draw();
+	if(view_) view_->draw();
 }
