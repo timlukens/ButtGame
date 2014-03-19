@@ -30,6 +30,7 @@ Game::Game(int width, int height) {
 	srand(time(NULL));
 	screenWidth_ = width;
 	screenHeight_ = height;
+    isGameRunning = true;
 	
 	//achieve resolution independence
 	//This way the game is always fullscreen, but the game resolution is always the same
@@ -65,6 +66,9 @@ Game::Game(int width, int height) {
 	}
 }
 
+Game::~Game() {
+    cout << "Game::~Game" << endl;
+}
 
 //graphics tick
 void Game::drawScreen() {
@@ -103,7 +107,7 @@ void Game::update() {
     vector<unique_ptr<GenericEnemy> >::iterator i = enemies_.begin();    
 
     while(i != enemies_.end()) {
-        GenericEnemy* enemy = (*i).get();
+        GenericEnemy* enemy = &*(*i);
         enemy->update();
 
         SquareView* e_view = enemy->get_view();

@@ -29,6 +29,10 @@ GenericEnemy::~GenericEnemy() {
 	std::cout << "GenericEnemy destructor" << endl;
 }
 
+GenericEnemy::~GenericEnemy() {
+    cout << "GenericEnemy::~GenericEnemy" << endl;
+}
+
 SquareView* GenericEnemy::get_view() {
     return view_;
 }
