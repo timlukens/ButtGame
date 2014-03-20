@@ -12,6 +12,7 @@
 #include <iostream>
 #include <vector>
 #include <thread>
+#include <mutex>
 #include <allegro5/allegro.h>
 #include "GenericView.h"
 #include "GenericProjectile.h"
