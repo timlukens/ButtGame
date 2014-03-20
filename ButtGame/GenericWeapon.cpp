@@ -8,7 +8,7 @@
 
 #include "GenericWeapon.h"
 
-GenericWeapon::GenericWeapon(GenericView* parentView) {
+GenericWeapon::GenericWeapon(shared_ptr<GenericView> parentView) {
 	parentView_ = parentView;
 	
 	fireRate_ = kGenericWeaponFireRate;
@@ -83,6 +83,6 @@ bool GenericWeapon::getIsDeadlyToEnemies() {
 	return isDeadlyToEnemies_;
 }
 
-GenericView* GenericWeapon::getParentView() {
+shared_ptr<GenericView> GenericWeapon::getParentView() {
 	return parentView_;
 }

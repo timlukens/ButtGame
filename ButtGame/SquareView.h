@@ -18,6 +18,10 @@ public:
 	SquareView(int x, int y, int width, int height, shared_ptr<GenericView> parentView);
 	~SquareView();
     virtual void draw();
+	
+//	operator GenericView() {
+//		return GenericView(x_, y_, width_, height_, parentView_);
+//	}
 };
 
 #endif /* defined(__ButtGame__SquareView__) */

@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <vector>
+#include <thread>
 #include <mutex>
 #include <allegro5/allegro.h>
 #include "GenericView.h"
@@ -22,7 +23,7 @@
 using namespace std;
 
 class GenericWeapon {
-	GenericView* parentView_;
+	shared_ptr<GenericView> parentView_;
 	
 	ALLEGRO_TIMER* shootTimer_;
 	ALLEGRO_EVENT_QUEUE* shootQueue_;
@@ -38,12 +39,12 @@ class GenericWeapon {
 	mutex projectileMutex_;
 	
 public:
-	GenericWeapon(GenericView* parentView);
+	GenericWeapon(shared_ptr<GenericView> parentView);
 	
 	void update();
 	void draw();
 	
-	GenericView* getParentView();
+	shared_ptr<GenericView> getParentView();
 	
 	void startShooting();
 	void stopShooting();

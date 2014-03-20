@@ -19,10 +19,10 @@
 
 class Player {
 	bool leftPressed_, rightPressed_, upPressed_, downPressed_;
-	unique_ptr<SquareView> view_;
+	shared_ptr<SquareView> view_;
 	shared_ptr<GenericView> parentView_;
 	
-	unique_ptr<GenericWeapon> weapon_;
+	shared_ptr<GenericWeapon> weapon_;
 	
 public:
 	Player(int x, int y, shared_ptr<GenericView> parentView);
