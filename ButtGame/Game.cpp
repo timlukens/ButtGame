@@ -61,7 +61,7 @@ Game::Game(int width, int height) {
 	player_ = unique_ptr<Player>(new Player(100,100, bounds_));
 	
 	//make some god damn enemies
-	for(int i = 0; i < 200; i++) {
+	for(int i = 0; i < 0; i++) {
 		
 //		GenericEnemy* someButt = new GenericEnemy(200,200, bounds_);
 		enemies_.push_back(unique_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));

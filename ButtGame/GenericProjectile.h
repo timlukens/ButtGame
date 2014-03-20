@@ -10,6 +10,7 @@
 #define __ButtGame__GenericProjectile__
 
 #include <iostream>
+#include "Debug.h"
 #include "SquareView.h"
 #include "GameDefines.h"
 

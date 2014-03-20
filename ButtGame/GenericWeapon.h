@@ -17,7 +17,7 @@
 #include "GenericView.h"
 #include "GenericProjectile.h"
 
-#define kGenericWeaponFireRate 2;
+#define kGenericWeaponFireRate .2;
 #define kGenericWeaponMaxBullets 4;
 
 using namespace std;

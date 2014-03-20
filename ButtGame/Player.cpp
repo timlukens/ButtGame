@@ -45,6 +45,7 @@ int Player::get_height() {
 }
 void Player::draw() {
 	view_->draw();
+	weapon_->draw();
 }
 
 void Player::update() {
@@ -68,6 +69,8 @@ void Player::update() {
 	
 	if(y + yVelocity > parentView_->y_ && y + view_->height_ + yVelocity < parentView_->y_ + parentView_->height_)
 		view_->y_ += yVelocity;
+	
+	weapon_->update();
 }
 
 void Player::handleInput(ALLEGRO_KEYBOARD_EVENT event) {

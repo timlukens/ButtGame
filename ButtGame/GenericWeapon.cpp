@@ -78,7 +78,7 @@ void GenericWeapon::setNewBulletXFactor(float xFactor) {
 }
 
 void GenericWeapon::setNewBulletYFactor(float yFactor) {
-	newBulletXFactor_ = yFactor;
+	newBulletYFactor_ = yFactor;
 }
 
 void GenericWeapon::stopShooting() {
