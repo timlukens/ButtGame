@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8949038F18DAB09900B1F7CC /* Debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8949038D18DAB09900B1F7CC /* Debug.cpp */; };
+		8949039218DAB1FC00B1F7CC /* GenericProjectile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8949039018DAB1FC00B1F7CC /* GenericProjectile.cpp */; };
 		895BC7F918D6BAD7009DF424 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC7F818D6BAD7009DF424 /* main.cpp */; };
 		895BC7FB18D6BAD7009DF424 /* ButtGame.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 895BC7FA18D6BAD7009DF424 /* ButtGame.1 */; };
 		895BC93418D6C2B4009DF424 /* liballegro.5.0.10.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 895BC92918D6C2B4009DF424 /* liballegro.5.0.10.dylib */; };
@@ -42,6 +44,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8949038D18DAB09900B1F7CC /* Debug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Debug.cpp; sourceTree = "<group>"; };
+		8949038E18DAB09900B1F7CC /* Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
+		8949039018DAB1FC00B1F7CC /* GenericProjectile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GenericProjectile.cpp; sourceTree = "<group>"; };
+		8949039118DAB1FC00B1F7CC /* GenericProjectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericProjectile.h; sourceTree = "<group>"; };
 		895BC7F518D6BAD7009DF424 /* ButtGame */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ButtGame; sourceTree = BUILT_PRODUCTS_DIR; };
 		895BC7F818D6BAD7009DF424 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		895BC7FA18D6BAD7009DF424 /* ButtGame.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ButtGame.1; sourceTree = "<group>"; };
@@ -93,6 +99,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8949038C18DAB08E00B1F7CC /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				8949038D18DAB09900B1F7CC /* Debug.cpp */,
+				8949038E18DAB09900B1F7CC /* Debug.h */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		8949039318DAB20200B1F7CC /* Projectiles */ = {
+			isa = PBXGroup;
+			children = (
+				8949039018DAB1FC00B1F7CC /* GenericProjectile.cpp */,
+				8949039118DAB1FC00B1F7CC /* GenericProjectile.h */,
+			);
+			name = Projectiles;
+			sourceTree = "<group>";
+		};
 		895BC7EC18D6BAD7009DF424 = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +148,8 @@
 		895BC7F718D6BAD7009DF424 /* ButtGame */ = {
 			isa = PBXGroup;
 			children = (
+				8949038C18DAB08E00B1F7CC /* Utilities */,
+				8949039318DAB20200B1F7CC /* Projectiles */,
 				895BC98F18D8F50C009DF424 /* Weapons */,
 				895BC96018D89550009DF424 /* Enemies */,
 				895BC95F18D8953C009DF424 /* Game Essentials */,
@@ -227,8 +253,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				895BC7F918D6BAD7009DF424 /* main.cpp in Sources */,
+				8949038F18DAB09900B1F7CC /* Debug.cpp in Sources */,
 				895BC94C18D6CD38009DF424 /* Game.cpp in Sources */,
 				895BC95818D7A192009DF424 /* GenericView.cpp in Sources */,
+				8949039218DAB1FC00B1F7CC /* GenericProjectile.cpp in Sources */,
 				895BC95B18D7A76A009DF424 /* SquareView.cpp in Sources */,
 				895BC99218D8F525009DF424 /* GenericWeapon.cpp in Sources */,
 				895BC96318D89572009DF424 /* GenericEnemy.cpp in Sources */,
