@@ -33,8 +33,9 @@ class GenericWeapon {
 	
 	int maxBulletsOnScreen_;
 	float fireRate_;
+	float newBulletXFactor_, newBulletYFactor_;
 	
-	vector<unique_ptr<GenericProjectile>> projectiles_;
+	vector<shared_ptr<GenericProjectile>> projectiles_;
 	
 	mutex projectileMutex_;
 	
@@ -48,6 +49,8 @@ public:
 	
 	void startShooting();
 	void stopShooting();
+	void setNewBulletXFactor(float xFactor);
+	void setNewBulletYFactor(float yFactor);
 	
 	void setIsDeadlyToEnemies(bool isDeadly);
 	bool getIsDeadlyToEnemies();

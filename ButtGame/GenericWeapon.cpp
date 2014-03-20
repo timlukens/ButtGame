@@ -27,13 +27,16 @@ void GenericWeapon::update() {
 		ALLEGRO_EVENT e;
 		if(al_get_next_event(shootQueue_, &e)) {
 			if(e.type == ALLEGRO_EVENT_TIMER && projectiles_.size() < maxBulletsOnScreen_) {
-				unique_ptr<GenericProjectile> p = unique_ptr<GenericProjectile>(new GenericProjectile(this, kGenericProjectileSpeed, kGenericProjectileSpeed));
-				projectiles_.push_back(p);
+				if(newBulletXFactor_ != 0 || newBulletYFactor_ != 0) {
+					shared_ptr<GenericProjectile> p = unique_ptr<GenericProjectile>(new GenericProjectile(this, newBulletXFactor_ * kGenericProjectileSpeed,
+																										  newBulletYFactor_ * kGenericProjectileSpeed));
+					projectiles_.push_back(p);
+				}
 			}
 		}
 	}
 	
-	vector<unique_ptr<GenericProjectile> >::iterator projectile = projectiles_.begin();
+	vector<shared_ptr<GenericProjectile> >::iterator projectile = projectiles_.begin();
 	
     while(projectile != projectiles_.end()) {
         (*projectile)->update();
@@ -51,7 +54,7 @@ void GenericWeapon::update() {
 }
 
 void GenericWeapon::draw() {
-	vector<unique_ptr<GenericProjectile> >::iterator projectile = projectiles_.begin();
+	vector<shared_ptr<GenericProjectile> >::iterator projectile = projectiles_.begin();
 	while(projectile != projectiles_.end()) {
         projectileMutex_.lock();
 		if(*projectile) {
@@ -68,6 +71,14 @@ void GenericWeapon::startShooting() {
 	}
 	
 	isShooting_ = true;
+}
+
+void GenericWeapon::setNewBulletXFactor(float xFactor) {
+	newBulletXFactor_ = xFactor;
+}
+
+void GenericWeapon::setNewBulletYFactor(float yFactor) {
+	newBulletXFactor_ = yFactor;
 }
 
 void GenericWeapon::stopShooting() {

@@ -19,6 +19,7 @@
 
 class Player {
 	bool leftPressed_, rightPressed_, upPressed_, downPressed_;
+	bool aPressed_, dPressed_, wPressed_, sPressed_;
 	shared_ptr<SquareView> view_;
 	shared_ptr<GenericView> parentView_;
 	
