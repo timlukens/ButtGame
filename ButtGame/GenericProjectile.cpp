@@ -8,8 +8,8 @@
 
 #include "GenericProjectile.h"
 
-GenericProjectile::GenericProjectile() {
-
+GenericProjectile::GenericProjectile(GenericWeapon* parentWeapon) {
+	parentWeapon_ = parentWeapon;
 }
 
 void GenericProjectile::draw() {

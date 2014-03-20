@@ -11,10 +11,13 @@
 
 #include <iostream>
 
+class GenericWeapon;
+
 class GenericProjectile {
+	GenericWeapon* parentWeapon_;
 	
 public:
-	GenericProjectile();
+	GenericProjectile(GenericWeapon* parentWeapon);
 	
 	void draw();
 	void update();
