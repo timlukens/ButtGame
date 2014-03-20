@@ -53,6 +53,8 @@ public:
 	void update();
 	void drawScreen();
 	void handleInput(ALLEGRO_KEYBOARD_EVENT event);
+	
+	GenericView* getBounds();
 };
 
 #endif /* defined(__ButtGame__Game__) */

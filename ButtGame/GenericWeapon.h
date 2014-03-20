@@ -11,16 +11,21 @@
 
 #include <iostream>
 #include <vector>
-#include <thread>
+#include <mutex>
 #include <allegro5/allegro.h>
 #include "GenericView.h"
 #include "GenericProjectile.h"
+
+#define kGenericWeaponFireRate 2;
+#define kGenericWeaponMaxBullets 4;
 
 using namespace std;
 
 class GenericWeapon {
 	GenericView* parentView_;
+	
 	ALLEGRO_TIMER* shootTimer_;
+	ALLEGRO_EVENT_QUEUE* shootQueue_;
 	
 	bool isShooting_;
 	bool isDeadlyToEnemies_;
@@ -33,10 +38,12 @@ class GenericWeapon {
 	mutex projectileMutex_;
 	
 public:
-	GenericWeapon(GenericView* parentView);
+	GenericWeapon(unique_ptr<GenericView> parentView);
 	
-	void tick();
+	void update();
 	void draw();
+	
+	GenericView* getParentView();
 	
 	void startShooting();
 	void stopShooting();

@@ -16,6 +16,8 @@ Player::Player(int x, int y, shared_ptr<GenericView> parentView) {
 	view_ = unique_ptr<SquareView>(new SquareView(x, y, kPlayerSize, kPlayerSize, parentView));
 	view_->setBackgroundColor(al_map_rgb(0, 255, 0));
 	
+	weapon_ = unique_ptr<GenericWeapon>(new GenericWeapon(view_);
+	
 	leftPressed_ = false;
 	rightPressed_ = false;
 	upPressed_ = false;

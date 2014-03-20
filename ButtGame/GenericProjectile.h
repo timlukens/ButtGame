@@ -10,17 +10,31 @@
 #define __ButtGame__GenericProjectile__
 
 #include <iostream>
+#include "SquareView.h"
+#include "GameDefines.h"
+
+#define kGenericProjectileSpeed 960.f / LOGIC_FPS
+#define kGenericProjectileSize 5
 
 class GenericWeapon;
 
 class GenericProjectile {
 	GenericWeapon* parentWeapon_;
+	SquareView* view_;
+	
+	int xVelocity_, yVelocity_;
+	
+	bool isAlive_;
 	
 public:
-	GenericProjectile(GenericWeapon* parentWeapon);
+	GenericProjectile(GenericWeapon* parentWeapon, int xVelocity, int yVelocity);
 	
 	void draw();
 	void update();
+	
+	SquareView* getView();
+	
+	bool getIsAlive();
 };
 
 #endif /* defined(__ButtGame__GenericProjectile__) */

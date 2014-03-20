@@ -13,6 +13,7 @@
 #include <allegro5/allegro.h>
 #include "SquareView.h"
 #include "GameDefines.h"
+#include "GenericWeapon.h"
 
 #define kPlayerSize 25
 
@@ -20,6 +21,8 @@ class Player {
 	bool leftPressed_, rightPressed_, upPressed_, downPressed_;
 	unique_ptr<SquareView> view_;
 	shared_ptr<GenericView> parentView_;
+	
+	unique_ptr<GenericWeapon> weapon_;
 	
 public:
 	Player(int x, int y, shared_ptr<GenericView> parentView);
