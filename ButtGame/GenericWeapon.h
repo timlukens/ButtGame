@@ -38,7 +38,7 @@ class GenericWeapon {
 	mutex projectileMutex_;
 	
 public:
-	GenericWeapon(unique_ptr<GenericView> parentView);
+	GenericWeapon(GenericView* parentView);
 	
 	void update();
 	void draw();

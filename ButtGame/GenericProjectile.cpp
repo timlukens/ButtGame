@@ -38,7 +38,7 @@ void GenericProjectile::update() {
 	view_->y_ = y;
 	
 	//check if we're out of bounds
-	GenericView* bounds = Game::instance()->getBounds();
+	shared_ptr<GenericView> bounds = Game::instance()->getBounds();
 	if(x < bounds->x_ || x > bounds->x_ + bounds->width_ || y < bounds->y_ || y > bounds->height_)
 		isAlive_ = false;
 }

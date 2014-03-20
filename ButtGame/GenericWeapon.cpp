@@ -8,7 +8,7 @@
 
 #include "GenericWeapon.h"
 
-GenericWeapon::GenericWeapon(unique_ptr<GenericView> parentView) {
+GenericWeapon::GenericWeapon(GenericView* parentView) {
 	parentView_ = parentView;
 	
 	fireRate_ = kGenericWeaponFireRate;

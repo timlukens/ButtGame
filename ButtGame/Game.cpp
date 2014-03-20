@@ -145,6 +145,6 @@ void Game::handleInput(ALLEGRO_KEYBOARD_EVENT event) {
 	player_->handleInput(event);
 }
 
-GenericView* Game::getBounds() {
+shared_ptr<GenericView> Game::getBounds() {
 	return bounds_;
 }
