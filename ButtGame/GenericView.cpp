@@ -68,12 +68,12 @@ void GenericView::drawSubViews() {
     vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
     while(subView != subViews_.end()) {
         if(*subView) {
-            if(activeView_) {
+            if((*subView)->isActive()) {
                 (*subView)->drawInView(this);
                 ++subView;
             }
             else {
-                (*subView)->removeFromSuperView();
+                subView = subViews_.erase(subView);
             }
         }
         else {
@@ -123,4 +123,8 @@ void GenericView::setBackgroundColor(ALLEGRO_COLOR color) {
 
 void GenericView::destroyView() {
     activeView_ = false;    
+}
+
+bool GenericView::isActive() {
+    return activeView_;
 }
