@@ -57,12 +57,6 @@ void Player::update() {
 	if(upPressed_) yVelocity -= kDefaultYSpeed*2;
 	if(downPressed_) yVelocity += kDefaultYSpeed*2;
 	
-	//find the actual x,y coordinates inside the game bounds
-	Game* game = Game::instance();
-	shared_ptr<GenericView> bounds = game->getBounds();
-	int x = view_->x_;
-	int y = view_->y_;
-	
 	view_->x_ += xVelocity;
 	view_->y_ += yVelocity;
 	

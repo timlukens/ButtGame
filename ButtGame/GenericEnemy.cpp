@@ -117,18 +117,8 @@ void GenericEnemy::update() {
 			break;
 	}
 	
-
-	Game* game = Game::instance();
-	shared_ptr<GenericView> bounds = game->getBounds();
-	int x = view_->x_;
-	int y = view_->y_;
-	
-	//make sure we're still in bounds
-	if(x + xVelocity > bounds->x_ && x + view_->width_ + xVelocity < bounds->x_ + bounds->width_)
-		view_->x_ += xVelocity;
-	
-	if(y + yVelocity > bounds->y_ && y + view_->height_ + yVelocity < bounds->y_ + bounds->height_)
-		view_->y_ += yVelocity;
+	view_->x_ += xVelocity;
+	view_->y_ += yVelocity;
 }
 
 void GenericEnemy::draw() {
