@@ -35,7 +35,9 @@ public:
 	void setBackgroundColor(ALLEGRO_COLOR color);
 	
 	int x_, y_, width_, height_;
-	
+    
+    bool isActive();
+        
 	shared_ptr<GenericView> getSuperView();
 	void setSuperView(shared_ptr<GenericView> aView);
 	void removeFromSuperView();
