@@ -46,7 +46,7 @@ void GenericView::drawInView(GenericView* aView) {
 	//draw this
 	al_draw_rectangle(x, y, x+width_, y+height_, backgroundColor_, 1);
 	
-	GenericView::drawSubViews();
+	this->drawSubViews();
 }
 
 void GenericView::translateCoordsToView(int& x, int& y, GenericView* aView) {
@@ -55,11 +55,23 @@ void GenericView::translateCoordsToView(int& x, int& y, GenericView* aView) {
 		x += aView->x_;
 		y += aView->y_;
 		
-		if(x < aView->x_) x = aView->x_;
-		if(x > aView->x_ + aView->width_ - width_) x = aView->x_ + aView->width_ - width_;
+		if(x < aView->x_) {
+			x = aView->x_;
+			x_ = x - aView->x_;
+		}
+		if(x + width_ > aView->x_ + aView->width_) {
+			x = aView->x_ + aView->width_ - width_;
+			x_ = x - aView->x_;
+		}
 		
-		if(y < aView->y_) y = aView->y_;
-		if(y > aView->y_ + aView->height_ - height_) y = aView->y_ + aView->height_ - height_;
+		if(y < aView->y_){
+			y = aView->y_;
+			y_ = y - aView->y_;
+		}
+		if(y + height_ > aView->y_ + aView->height_) {
+			y = aView->y_ + aView->height_ - height_;
+			y_ = y - aView->y_;
+		}
 	}
 }
 
