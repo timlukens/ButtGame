@@ -8,14 +8,16 @@
 
 #include "GenericEnemy.h"
 #include "Debug.h"
+#include "Game.h"
 
 GenericEnemy::GenericEnemy(int x, int y, shared_ptr<GenericView> parentView) {
 	parentView_ = parentView;
 
     isAlive_ = true;    
 
-	view_ = unique_ptr<SquareView>(new SquareView(x, y, kDefaultEnemySize, kDefaultEnemySize, parentView));
+	view_ = shared_ptr<SquareView>(new SquareView(x, y, kDefaultEnemySize, kDefaultEnemySize));
 	view_->setBackgroundColor(al_map_rgb(255, 0, 0));
+	parentView->addSubview(view_);
 	
 	movingDirection_ = (kMoveDirection)(rand() % (int)kMoveDirectionCount);
 	
@@ -111,19 +113,20 @@ void GenericEnemy::update() {
 			break;
 	}
 	
-	//find the actual x,y coordinates inside the parentView
+
+	Game* game = Game::instance();
+	shared_ptr<GenericView> bounds = game->getBounds();
 	int x = view_->x_;
 	int y = view_->y_;
-	parentView_->mapCoordinatesToParentView(x, y);
 	
 	//make sure we're still in bounds
-	if(x + xVelocity > parentView_->x_ && x + view_->width_ + xVelocity < parentView_->x_ + parentView_->width_)
+	if(x + xVelocity > bounds->x_ && x + view_->width_ + xVelocity < bounds->x_ + bounds->width_)
 		view_->x_ += xVelocity;
 	
-	if(y + yVelocity > parentView_->y_ && y + view_->height_ + yVelocity < parentView_->y_ + parentView_->height_)
+	if(y + yVelocity > bounds->y_ && y + view_->height_ + yVelocity < bounds->y_ + bounds->height_)
 		view_->y_ += yVelocity;
 }
 
 void GenericEnemy::draw() {
-	if(view_) view_->draw();
+//	if(view_) view_->draw();
 }

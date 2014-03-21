@@ -18,13 +18,14 @@ GenericProjectile::GenericProjectile(GenericWeapon* parentWeapon, int xVelocity,
 	xVelocity_ = xVelocity;
 	yVelocity_ = yVelocity;
 	
-	view_ = new SquareView(parentWeapon_->getParentView()->x_, parentWeapon_->getParentView()->y_, kGenericProjectileSize, kGenericProjectileSize, NULL);
+	view_ = new SquareView(parentWeapon_->getParentView()->x_, parentWeapon_->getParentView()->y_, kGenericProjectileSize, kGenericProjectileSize);
 	view_->setBackgroundColor(al_map_rgb(255, 255, 0));
+	parentWeapon_->getParentView()->addSubview(shared_ptr<GenericView>(view_));
 }
 
-void GenericProjectile::draw() {
-	view_->draw();
-}
+//void GenericProjectile::draw() {
+//	view_->draw();
+//}
 
 void GenericProjectile::update() {
 	//find the actual x,y coordinates inside the parentView

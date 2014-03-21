@@ -12,9 +12,10 @@
 
 
 Player::Player(int x, int y, shared_ptr<GenericView> parentView) {
-	parentView_ = parentView;
-	view_ = shared_ptr<SquareView>(new SquareView(x, y, kPlayerSize, kPlayerSize, parentView));
+//	parentView_ = parentView;
+	view_ = shared_ptr<SquareView>(new SquareView(x, y, kPlayerSize, kPlayerSize));
 	view_->setBackgroundColor(al_map_rgb(0, 255, 0));
+	parentView->addSubview(view_);
 	
 	weapon_ = shared_ptr<GenericWeapon>(new GenericWeapon(shared_ptr<GenericView>(view_)));
 	
@@ -44,8 +45,7 @@ int Player::get_height() {
     return view_->height_;
 }
 void Player::draw() {
-	view_->draw();
-	weapon_->draw();
+//	weapon_->draw();
 }
 
 void Player::update() {
@@ -58,16 +58,17 @@ void Player::update() {
 	if(upPressed_) yVelocity -= kDefaultYSpeed*2;
 	if(downPressed_) yVelocity += kDefaultYSpeed*2;
 	
-	//find the actual x,y coordinates inside the parentView
+	//find the actual x,y coordinates inside the game bounds
+	Game* game = Game::instance();
+	shared_ptr<GenericView> bounds = game->getBounds();
 	int x = view_->x_;
 	int y = view_->y_;
-	parentView_->mapCoordinatesToParentView(x, y);
 	
 	//make sure we're still in bounds
-	if(x + xVelocity > parentView_->x_ && x + view_->width_ + xVelocity < parentView_->x_ + parentView_->width_)
+	if(x + xVelocity > bounds->x_ && x + view_->width_ + xVelocity < bounds->x_ + bounds->width_)
 		view_->x_ += xVelocity;
 	
-	if(y + yVelocity > parentView_->y_ && y + view_->height_ + yVelocity < parentView_->y_ + parentView_->height_)
+	if(y + yVelocity > bounds->y_ && y + view_->height_ + yVelocity < bounds->y_ + bounds->height_)
 		view_->y_ += yVelocity;
 	
 	weapon_->update();
@@ -108,8 +109,8 @@ void Player::handleInput(ALLEGRO_KEYBOARD_EVENT event) {
 		}
 		if(event.keycode == ALLEGRO_KEY_W) {
 			weapon_->setNewBulletYFactor(0);
-			wPressed_ = true;
-			if(sPressed_) weapon_->setNewBulletYFactor(-1);
+			wPressed_ = false;
+			if(sPressed_) weapon_->setNewBulletYFactor(1);
 		}
 		if(event.keycode == ALLEGRO_KEY_S) {
 			weapon_->setNewBulletYFactor(0);

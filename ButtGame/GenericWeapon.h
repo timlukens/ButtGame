@@ -34,6 +34,7 @@ class GenericWeapon {
 	int maxBulletsOnScreen_;
 	float fireRate_;
 	float newBulletXFactor_, newBulletYFactor_;
+	bool canShoot_;
 	
 	vector<shared_ptr<GenericProjectile>> projectiles_;
 	

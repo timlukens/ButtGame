@@ -54,17 +54,17 @@ Game::Game(int width, int height) {
 	al_use_transform(&trans);
 	
 	//setup bounds. This shit draws a frame
-	bounds_ = shared_ptr<GenericView>(new GenericView(GAME_INSET, GAME_INSET, width - GAME_INSET * 2, height - GAME_INSET * 2, NULL));
+	bounds_ = shared_ptr<GenericView>(new GenericView(GAME_INSET, GAME_INSET, width - GAME_INSET * 2, height - GAME_INSET * 2));
 	bounds_->setBackgroundColor(al_map_rgb(255, 255, 255));
 	
 	//setup dat playa
-	player_ = unique_ptr<Player>(new Player(100,100, bounds_));
+//	player_ = shared_ptr<Player>(new Player(100,100, bounds_));
 	
 	//make some god damn enemies
 	for(int i = 0; i < 0; i++) {
 		
 //		GenericEnemy* someButt = new GenericEnemy(200,200, bounds_);
-		enemies_.push_back(unique_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
+		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
 	}
 }
 
@@ -78,25 +78,25 @@ void Game::drawScreen() {
 	al_clear_to_color(al_map_rgb(0,0,0));
 	
 	//draw any generic pushed to this vector
-	for(auto &view : views_) {
-		view->draw();
-	}
+//	for(auto &view : views_) {
+//		view->draw();
+//	}
 	
 	//draw any enemies
-    vector<unique_ptr<GenericEnemy> >::iterator enemy = enemies_.begin();
-
-    while(enemy != enemies_.end()) {
-        enemyMutex_.lock();
-		if(*enemy) {
-			(*enemy)->draw();
-			++enemy;
-		}
-        enemyMutex_.unlock();
-    }    
+//    vector<shared_ptr<GenericEnemy> >::iterator enemy = enemies_.begin();
+//
+//    while(enemy != enemies_.end()) {
+//        enemyMutex_.lock();
+//		if(*enemy) {
+//			(*enemy)->draw();
+//			++enemy;
+//		}
+//        enemyMutex_.unlock();
+//    }    
 
 	//draw bounds and player
-	bounds_->draw();
-	player_->draw();
+	bounds_->drawInView(NULL);
+//	player_->draw();
 	
 	//you know, graphics magic.
 	al_flip_display();
@@ -105,9 +105,9 @@ void Game::drawScreen() {
 
 //game logic tick
 void Game::update() {
-	player_->update();
+	if(player_) player_->update();
 	
-    vector<unique_ptr<GenericEnemy> >::iterator enemy = enemies_.begin();    
+    vector<shared_ptr<GenericEnemy> >::iterator enemy = enemies_.begin();
 
     while(enemy != enemies_.end()) {
         (*enemy)->update();

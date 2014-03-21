@@ -29,7 +29,7 @@ enum kMoveDirection {
 };
 
 class GenericEnemy {
-	unique_ptr<SquareView> view_;
+	shared_ptr<SquareView> view_;
 	shared_ptr<GenericView> parentView_;
 	
 	ALLEGRO_EVENT_QUEUE* changeDirectionQueue_;

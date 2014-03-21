@@ -15,25 +15,36 @@ GenericWeapon::GenericWeapon(shared_ptr<GenericView> parentView) {
 	maxBulletsOnScreen_ = kGenericWeaponMaxBullets;
 	isDeadlyToEnemies_ = true;
 	isShooting_ = false;
+	canShoot_ = true;
+	
+	newBulletXFactor_ = 0;
+	newBulletYFactor_ = 0;
 	
 	shootTimer_ = al_create_timer(fireRate_);
 	shootQueue_ = al_create_event_queue();
 	al_register_event_source(shootQueue_, al_get_timer_event_source(shootTimer_));
+	al_start_timer(shootTimer_);
 }
 
 void GenericWeapon::update() {
+	if(!newBulletYFactor_ && !newBulletXFactor_) this->stopShooting();
+	
 	//check for new bullets
 	if(isShooting_) {
 		ALLEGRO_EVENT e;
 		if(al_get_next_event(shootQueue_, &e)) {
 			if(e.type == ALLEGRO_EVENT_TIMER && projectiles_.size() < maxBulletsOnScreen_) {
-				if(newBulletXFactor_ != 0 || newBulletYFactor_ != 0) {
-					shared_ptr<GenericProjectile> p = unique_ptr<GenericProjectile>(new GenericProjectile(this, newBulletXFactor_ * kGenericProjectileSpeed,
-																										  newBulletYFactor_ * kGenericProjectileSpeed));
-					projectiles_.push_back(p);
-				}
+				canShoot_ = true;
+				al_flush_event_queue(shootQueue_);
 			}
 		}
+	}
+	
+	if((newBulletXFactor_ != 0 || newBulletYFactor_ != 0) && canShoot_) {
+		canShoot_ = false;
+		shared_ptr<GenericProjectile> p = shared_ptr<GenericProjectile>(new GenericProjectile(this, newBulletXFactor_ * kGenericProjectileSpeed,
+																							  newBulletYFactor_ * kGenericProjectileSpeed));
+		projectiles_.push_back(p);
 	}
 	
 	vector<shared_ptr<GenericProjectile> >::iterator projectile = projectiles_.begin();
@@ -54,22 +65,18 @@ void GenericWeapon::update() {
 }
 
 void GenericWeapon::draw() {
-	vector<shared_ptr<GenericProjectile> >::iterator projectile = projectiles_.begin();
-	while(projectile != projectiles_.end()) {
-        projectileMutex_.lock();
-		if(*projectile) {
-			(*projectile)->draw();
-			++projectile;
-		}
-        projectileMutex_.unlock();
-    }
+//	vector<shared_ptr<GenericProjectile> >::iterator projectile = projectiles_.begin();
+//	while(projectile != projectiles_.end()) {
+//        projectileMutex_.lock();
+//		if(*projectile) {
+//			(*projectile)->draw();
+//			++projectile;
+//		}
+//        projectileMutex_.unlock();
+//    }
 }
 
 void GenericWeapon::startShooting() {
-	if(!isShooting_) {
-		al_start_timer(shootTimer_);
-	}
-	
 	isShooting_ = true;
 }
 
@@ -83,7 +90,6 @@ void GenericWeapon::setNewBulletYFactor(float yFactor) {
 
 void GenericWeapon::stopShooting() {
 	isShooting_ = false;
-	al_stop_timer(shootTimer_);
 }
 
 void GenericWeapon::setIsDeadlyToEnemies(bool isDeadly) {

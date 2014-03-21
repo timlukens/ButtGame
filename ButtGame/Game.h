@@ -30,8 +30,8 @@ class Game {
 //	Game& operator=(Game const&){};	//wtf copy constructor
 	static Game* m_pInstance;
 	
-	vector<unique_ptr<GenericView> > views_;
-	vector<unique_ptr<GenericEnemy> > enemies_;
+//	vector<shared_ptr<GenericView> > views_;
+	vector<shared_ptr<GenericEnemy> > enemies_;
 	
 	ALLEGRO_BITMAP* bitmapBuffer_;
 	
@@ -42,7 +42,7 @@ class Game {
 	
 	shared_ptr<GenericView> bounds_;
 	
-	unique_ptr<Player> player_;
+	shared_ptr<Player> player_;
 
     mutex enemyMutex_;
 	

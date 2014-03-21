@@ -12,7 +12,6 @@
 #include "Debug.h"
 
 GenericView::GenericView() {
-	parentView_ = nullptr;
 	backgroundColor_ = al_map_rgb(255, 0, 0);
 	
 	x_ = 0;
@@ -25,37 +24,51 @@ GenericView::~GenericView() {
     DBMSG("GenericView::~GenericView");
 }
 
-GenericView::GenericView(shared_ptr<GenericView> parentView) {
-	parentView_ = parentView;
-	backgroundColor_ = al_map_rgb(255, 0, 0);
-	
-	x_ = 0;
-	y_ = 0;
-	width_ = 0;
-	height_ = 0;
-}
-
-GenericView::GenericView(int x, int y, int width, int height, shared_ptr<GenericView> parentView) {
+GenericView::GenericView(int x, int y, int width, int height) {
 	x_ = x;
 	y_ = y;
 	width_ = width;
 	height_ = height;
-	parentView_ = parentView;
 	
 	backgroundColor_ = al_map_rgb(255, 0, 0);
 }
 
-void GenericView::draw() {
+void GenericView::drawInView(shared_ptr<GenericView> aView) {
 	int x = x_;
 	int y = y_;
-	if(parentView_) parentView_->mapCoordinatesToParentView(x, y);
 	
-	al_draw_rectangle(x_, y_, x_ + width_, y_ + height_, backgroundColor_, 1);
+	//translate to coordinate system of the view we're drawing in
+	if(aView) {
+		x += aView->x_;
+		y += aView->y_;
+	}
+	
+	//draw this
+	al_draw_rectangle(x, y, x+width_, y+height_, backgroundColor_, 1);
+	
+	
+	//draw subViews
+	if(subViews_.size()) {
+		vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
+		for(subView = subViews_.begin(); subView < subViews_.end(); subView++) {
+			if(*subView) (*subView)->drawInView(shared_ptr<GenericView>(this));
+		}
+	}
 }
 
-void GenericView::mapCoordinatesToParentView(int& x, int& y) {
-	x += x_;
-	y += y_;
+//void GenericView::draw() {
+//	al_draw_rectangle(x_, y_, x_ + width_, y_ + height_, backgroundColor_, 1);
+//	
+//	vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
+//	
+//    while(subView != subViews_.end()) {
+//        (*subView)->drawInView(shared_ptr<GenericView>(this));
+//		subView++;
+//	}
+//}
+
+void GenericView::addSubview(shared_ptr<GenericView> aView) {
+	subViews_.push_back(aView);
 }
 
 void GenericView::setBackgroundColor(ALLEGRO_COLOR color) {

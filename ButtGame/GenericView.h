@@ -11,23 +11,24 @@
 
 #include <iostream>
 #include <memory>
+#include <vector>
 #include <allegro5/allegro.h>
 
 using namespace std;
 
 class GenericView {
 protected:
-	shared_ptr<GenericView> parentView_;
 	ALLEGRO_COLOR backgroundColor_;
+	vector<shared_ptr<GenericView>> subViews_;
 	
 public:
 	GenericView();
 	~GenericView();
-    GenericView(shared_ptr<GenericView> parentView);
-	GenericView(int x, int y, int width, int height, shared_ptr<GenericView> parentView);
+	GenericView(int x, int y, int width, int height);
 	
-	virtual void draw();
-	void mapCoordinatesToParentView(int& x, int& y);
+//	virtual void draw();
+	virtual void drawInView(shared_ptr<GenericView> aView);
+	void addSubview(shared_ptr<GenericView> aView);
 	void setBackgroundColor(ALLEGRO_COLOR color);
 	
 	int x_, y_, width_, height_;
