@@ -94,8 +94,9 @@ void Game::drawScreen() {
 //        enemyMutex_.unlock();
 //    }    
 
-	//draw game
+	//draw bounds and player
 	bounds_->drawInView(nullptr);
+//	player_->draw();
 	
 	//you know, graphics magic.
 	al_flip_display();
