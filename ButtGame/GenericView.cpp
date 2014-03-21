@@ -48,12 +48,11 @@ void GenericView::drawInView(GenericView* aView) {
 	
 	
 	//draw subViews
-	if(subViews_.size()) {
-		vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
-		for(subView = subViews_.begin(); subView < subViews_.end(); subView++) {
-			if(*subView) (*subView)->drawInView(this);
-		}
-	}
+	vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
+    while(subView != subViews_.end()) {    
+        if(*subView) (*subView)->drawInView(this);
+        ++subView;
+    }
 }
 
 //void GenericView::draw() {
