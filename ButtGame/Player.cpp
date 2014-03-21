@@ -14,6 +14,7 @@
 Player::Player(int x, int y, shared_ptr<GenericView> parentView) {
 	view_ = shared_ptr<SquareView>(new SquareView(x, y, kPlayerSize, kPlayerSize));
 	view_->setBackgroundColor(al_map_rgb(0, 255, 0));
+	view_->setClipsToBounds(false);
 	
 	hitBox_ = shared_ptr<SquareView>(new SquareView((kPlayerSize / 2) - (kPlayerHitboxSize / 2),
 													(kPlayerSize / 2) - (kPlayerHitboxSize / 2),
