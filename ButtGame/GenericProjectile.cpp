@@ -20,7 +20,7 @@ GenericProjectile::GenericProjectile(GenericWeapon* parentWeapon, int xVelocity,
 	
 	view_ = new SquareView(parentWeapon_->getParentView()->x_, parentWeapon_->getParentView()->y_, kGenericProjectileSize, kGenericProjectileSize);
 	view_->setBackgroundColor(al_map_rgb(255, 255, 0));
-	parentWeapon_->getParentView()->addSubview(shared_ptr<GenericView>(view_));
+	parentWeapon_->getParentView()->addSubview(shared_ptr<GenericView>(view_), parentWeapon_->getParentView());
 }
 
 //void GenericProjectile::draw() {
