@@ -33,16 +33,15 @@ void SquareView::drawInView(GenericView* aView) {
 	}
 	
 	//draw this
-	al_draw_rectangle(x, y, x+width_, y+height_, backgroundColor_, 1);
+	al_draw_filled_rectangle(x, y, x+width_, y+height_, backgroundColor_);
 	
 	
 	//draw subViews
-	if(subViews_.size()) {
-		vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
-		for(subView = subViews_.begin(); subView < subViews_.end(); subView++) {
-			if(*subView) (*subView)->drawInView(this);
-		}
-	}
+    vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
+    while(subView != subViews_.end()) {    
+        if(*subView) (*subView)->drawInView(this);
+        ++subView;
+    }
 }
 
 //void SquareView::draw() {
