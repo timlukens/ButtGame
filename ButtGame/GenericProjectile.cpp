@@ -20,6 +20,7 @@ GenericProjectile::GenericProjectile(GenericWeapon* parentWeapon, int xVelocity,
 	
 	view_ = new SquareView(parentWeapon_->getParentView()->x_, parentWeapon_->getParentView()->y_, kGenericProjectileSize, kGenericProjectileSize);
 	view_->setBackgroundColor(al_map_rgb(255, 255, 0));
+	view_->setClipsToBounds(false);
 	
 	Game* game = Game::instance();
 	game->getBounds()->addSubview(shared_ptr<GenericView>(view_), game->getBounds());

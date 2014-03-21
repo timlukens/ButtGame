@@ -22,6 +22,10 @@ Player::Player(int x, int y, shared_ptr<GenericView> parentView) {
 	rightPressed_ = false;
 	upPressed_ = false;
 	downPressed_ = false;
+	aPressed_ = false;
+	sPressed_ = false;
+	dPressed_ = false;
+	wPressed_ = false;
 }
 
 Player::~Player() {
@@ -43,6 +47,11 @@ int Player::get_width() {
 int Player::get_height() {
     return view_->height_;
 }
+
+shared_ptr<GenericView> Player::getView() {
+	return view_;
+}
+
 void Player::draw() {
 //	weapon_->draw();
 }

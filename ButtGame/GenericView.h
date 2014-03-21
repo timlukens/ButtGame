@@ -23,6 +23,7 @@ protected:
 	vector<shared_ptr<GenericView>> subViews_;
 	shared_ptr<GenericView> superView_;
     bool activeView_;
+	bool clipsToBounds_;
 
 public:
 	GenericView();
@@ -49,6 +50,8 @@ public:
 	void drawSubViews();
 	
 	bool isInView(shared_ptr<GenericView> aView);
+	
+	void setClipsToBounds(bool clips);
 };
 
 #endif /* defined(__ButtGame__GenericView__) */

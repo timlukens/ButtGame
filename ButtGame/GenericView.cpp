@@ -7,6 +7,7 @@
 //
 
 #include "GenericView.h"
+#include "Game.h"
 #include <allegro5/allegro_primitives.h>
 
 #include "Debug.h"
@@ -20,6 +21,7 @@ GenericView::GenericView() {
 	height_ = 0;
 
     activeView_ = true;
+	clipsToBounds_ = true;
 }
 
 GenericView::~GenericView() {
@@ -35,6 +37,7 @@ GenericView::GenericView(int x, int y, int width, int height) {
 	backgroundColor_ = al_map_rgb(255, 0, 0);
 
     activeView_ = true;
+	clipsToBounds_ = true;
 }
 
 void GenericView::drawInView(GenericView* aView) {
@@ -56,24 +59,25 @@ void GenericView::translateCoordsToView(int& x, int& y, GenericView* aView) {
 		y += aView->y_;
 		
 		//check bounds of view we're translating into
-		//If we wanted, we could setup some sort of clipsToBounds bool that would allow for drawing outside of the parent view
-		//ie) you want a subview with coords (-10,0) to draw 10 px to the left of it's parents view
-		if(x < aView->x_) {
-			x = aView->x_;
-			x_ = x - aView->x_;
-		}
-		if(x + width_ > aView->x_ + aView->width_) {
-			x = aView->x_ + aView->width_ - width_;
-			x_ = x - aView->x_;
-		}
-		
-		if(y < aView->y_){
-			y = aView->y_;
-			y_ = y - aView->y_;
-		}
-		if(y + height_ > aView->y_ + aView->height_) {
-			y = aView->y_ + aView->height_ - height_;
-			y_ = y - aView->y_;
+		//but only if we clip to bounds
+		if(clipsToBounds_) {
+			if(x < aView->x_) {
+				x = aView->x_;
+				if(aView != this) x_ = x - aView->x_;
+			}
+			if(x + width_ > aView->x_ + aView->width_) {
+				x = aView->x_ + aView->width_ - width_;
+				if(aView != this) x_ = x - aView->x_;
+			}
+			
+			if(y < aView->y_){
+				y = aView->y_;
+				if(aView != this) y_ = y - aView->y_;
+			}
+			if(y + height_ > aView->y_ + aView->height_) {
+				y = aView->y_ + aView->height_ - height_;
+				if(aView != this) y_ = y - aView->y_;
+			}
 		}
 	}
 }
@@ -145,10 +149,18 @@ bool GenericView::isActive() {
 }
 
 bool GenericView::isInView(shared_ptr<GenericView> aView) {
-	int x = x_;
-	int y = y_;
-//	this->translateCoordsToView(x, y, aView.get());
+	Game* game = Game::instance();
 	
-	if(x < 0 || x + width_ > aView->width_ || y < 0 || y + height_ > aView->height_) return false;
+	int x = x_, y = y_;
+	int otherX = aView->x_, otherY = aView->y_;
+	
+	this->translateCoordsToView(x, y, game->getBounds().get());
+	aView->translateCoordsToView(otherX, otherY, game->getBounds().get());
+	
+	if(y + height_ < otherY || y > otherY + aView->height_ || x > otherX + aView->width_ || x + width_ < otherX) return false;
 	return true;
+}
+
+void GenericView::setClipsToBounds(bool clips) {
+	clipsToBounds_ = clips;
 }
