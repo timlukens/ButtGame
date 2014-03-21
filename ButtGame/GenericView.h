@@ -47,6 +47,7 @@ public:
     void destroyView();
 
 	void translateCoordsToView(int& x, int& y, GenericView* aView);
+	void translateCoordsToScreen(int&x, int& y);
 	void drawSubViews();
 	
 	bool isInView(shared_ptr<GenericView> aView);

@@ -14,7 +14,14 @@
 Player::Player(int x, int y, shared_ptr<GenericView> parentView) {
 	view_ = shared_ptr<SquareView>(new SquareView(x, y, kPlayerSize, kPlayerSize));
 	view_->setBackgroundColor(al_map_rgb(0, 255, 0));
+	
+	hitBox_ = shared_ptr<SquareView>(new SquareView((kPlayerSize / 2) - (kPlayerHitboxSize / 2),
+													(kPlayerSize / 2) - (kPlayerHitboxSize / 2),
+													kPlayerHitboxSize, kPlayerHitboxSize));
+	hitBox_->setBackgroundColor(al_map_rgb(0, 0, 255));
+	
 	parentView->addSubview(view_, parentView);
+	view_->addSubview(hitBox_, view_);
 	
 	weapon_ = shared_ptr<GenericWeapon>(new GenericWeapon(shared_ptr<GenericView>(view_)));
 	
@@ -50,6 +57,10 @@ int Player::get_height() {
 
 shared_ptr<GenericView> Player::getView() {
 	return view_;
+}
+
+shared_ptr<GenericView> Player::getHitBox() {
+	return hitBox_;
 }
 
 void Player::draw() {

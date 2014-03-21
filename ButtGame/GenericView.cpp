@@ -44,7 +44,8 @@ void GenericView::drawInView(GenericView* aView) {
 	int x = x_;
 	int y = y_;
 	
-	this->translateCoordsToView(x, y, aView);
+//	this->translateCoordsToView(x, y, aView);
+	this->translateCoordsToScreen(x, y);
 	
 	//draw this
 	al_draw_rectangle(x, y, x+width_, y+height_, backgroundColor_, 1);
@@ -53,32 +54,72 @@ void GenericView::drawInView(GenericView* aView) {
 }
 
 void GenericView::translateCoordsToView(int& x, int& y, GenericView* aView) {
-	//translate to coordinate system of the view we're drawing in
-	if(aView) {
-		x += aView->x_;
-		y += aView->y_;
-		
-		//check bounds of view we're translating into
-		//but only if we clip to bounds
-		if(clipsToBounds_) {
-			if(x < aView->x_) {
-				x = aView->x_;
-				if(aView != this) x_ = x - aView->x_;
-			}
-			if(x + width_ > aView->x_ + aView->width_) {
-				x = aView->x_ + aView->width_ - width_;
-				if(aView != this) x_ = x - aView->x_;
-			}
+	GenericView* view = aView;
+	
+	while(view) {
+		//translate to coordinate system of the view we're drawing in
+		if(aView) {
+			x += aView->x_;
+			y += aView->y_;
 			
-			if(y < aView->y_){
-				y = aView->y_;
-				if(aView != this) y_ = y - aView->y_;
-			}
-			if(y + height_ > aView->y_ + aView->height_) {
-				y = aView->y_ + aView->height_ - height_;
-				if(aView != this) y_ = y - aView->y_;
+			//check bounds of view we're translating into
+			//but only if we clip to bounds
+			if(clipsToBounds_) {
+				if(x < aView->x_) {
+					x = aView->x_;
+					if(aView != this) x_ = x - aView->x_;
+				}
+				if(x + width_ > aView->x_ + aView->width_) {
+					x = aView->x_ + aView->width_ - width_;
+					if(aView != this) x_ = x - aView->x_;
+				}
+				
+				if(y < aView->y_){
+					y = aView->y_;
+					if(aView != this) y_ = y - aView->y_;
+				}
+				if(y + height_ > aView->y_ + aView->height_) {
+					y = aView->y_ + aView->height_ - height_;
+					if(aView != this) y_ = y - aView->y_;
+				}
 			}
 		}
+		view = view->getSuperView().get();
+	}
+}
+
+void GenericView::translateCoordsToScreen(int&x, int& y) {
+	GenericView* view = superView_.get();
+	
+	while(view) {
+		//translate to coordinate system of the view we're drawing in
+		if(view) {
+			x += view->x_;
+			y += view->y_;
+			
+			//check bounds of view we're translating into
+			//but only if we clip to bounds
+			if(clipsToBounds_) {
+				if(x < view->x_) {
+					x = view->x_;
+					if(view != this) x_ = x - view->x_;
+				}
+				if(x + width_ > view->x_ + view->width_) {
+					x = view->x_ + view->width_ - width_;
+					if(view != this) x_ = x - view->x_;
+				}
+				
+				if(y < view->y_){
+					y = view->y_;
+					if(view != this) y_ = y - view->y_;
+				}
+				if(y + height_ > view->y_ + view->height_) {
+					y = view->y_ + view->height_ - height_;
+					if(view != this) y_ = y - view->y_;
+				}
+			}
+		}
+		view = view->getSuperView().get();
 	}
 }
 
@@ -149,13 +190,16 @@ bool GenericView::isActive() {
 }
 
 bool GenericView::isInView(shared_ptr<GenericView> aView) {
-	Game* game = Game::instance();
+//	Game* game = Game::instance();
 	
 	int x = x_, y = y_;
 	int otherX = aView->x_, otherY = aView->y_;
 	
-	this->translateCoordsToView(x, y, game->getBounds().get());
-	aView->translateCoordsToView(otherX, otherY, game->getBounds().get());
+	this->translateCoordsToScreen(x, y);
+	aView->translateCoordsToScreen(otherX, otherY);
+	
+//	this->translateCoordsToView(x, y, game->getBounds().get());
+//	aView->translateCoordsToView(otherX, otherY, game->getBounds().get());
 	
 	if(y + height_ < otherY || y > otherY + aView->height_ || x > otherX + aView->width_ || x + width_ < otherX) return false;
 	return true;

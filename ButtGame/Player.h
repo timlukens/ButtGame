@@ -15,12 +15,14 @@
 #include "GameDefines.h"
 #include "GenericWeapon.h"
 
-#define kPlayerSize 25
+#define kPlayerSize 100
+#define kPlayerHitboxSize 25
 
 class Player {
 	bool leftPressed_, rightPressed_, upPressed_, downPressed_;
 	bool aPressed_, dPressed_, wPressed_, sPressed_;
 	shared_ptr<SquareView> view_;
+	shared_ptr<SquareView> hitBox_;
 	shared_ptr<GenericView> parentView_;
 	
 	shared_ptr<GenericWeapon> weapon_;
@@ -34,6 +36,7 @@ public:
     int get_width();
     int get_height();
 	shared_ptr<GenericView> getView();
+	shared_ptr<GenericView> getHitBox();
 	
 	void handleInput(ALLEGRO_KEYBOARD_EVENT event);
 	void update();

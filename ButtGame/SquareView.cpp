@@ -26,7 +26,8 @@ void SquareView::drawInView(GenericView* aView) {
 	int x = x_;
 	int y = y_;
 	
-	this->translateCoordsToView(x, y, aView);
+//	this->translateCoordsToView(x, y, aView);
+	this->translateCoordsToScreen(x, y);
 	
 	//draw this
 	al_draw_filled_rectangle(x, y, x+width_, y+height_, backgroundColor_);
