@@ -22,7 +22,7 @@ protected:
 	ALLEGRO_COLOR backgroundColor_;
 	vector<shared_ptr<GenericView>> subViews_;
 	shared_ptr<GenericView> superView_;
-    mutex viewMutex_;    
+    bool activeView_;
 
 public:
 	GenericView();
@@ -41,9 +41,8 @@ public:
 	void removeFromSuperView();
 	void removeView(GenericView* aView);
 
-    void lockView();
-    void unlockView();
-	
+    void destroyView();
+
 	void translateCoordsToView(int& x, int& y, GenericView* aView);
 	void drawSubViews();
 };

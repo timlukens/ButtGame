@@ -18,6 +18,8 @@ GenericView::GenericView() {
 	y_ = 0;
 	width_ = 0;
 	height_ = 0;
+
+    activeView_ = true;
 }
 
 GenericView::~GenericView() {
@@ -31,6 +33,8 @@ GenericView::GenericView(int x, int y, int width, int height) {
 	height_ = height;
 	
 	backgroundColor_ = al_map_rgb(255, 0, 0);
+
+    activeView_ = true;
 }
 
 void GenericView::drawInView(GenericView* aView) {
@@ -64,13 +68,13 @@ void GenericView::drawSubViews() {
     vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
     while(subView != subViews_.end()) {
         if(*subView) {
-            (*subView)->lockView();
-        }
-        
-        if(*subView) {
-            (*subView)->drawInView(this);
-            (*subView)->unlockView();
-            ++subView;
+            if(activeView_) {
+                (*subView)->drawInView(this);
+                ++subView;
+            }
+            else {
+                (*subView)->removeFromSuperView();
+            }
         }
         else {
             subView = subViews_.erase(subView);
@@ -117,10 +121,6 @@ void GenericView::setBackgroundColor(ALLEGRO_COLOR color) {
 	backgroundColor_ = color;
 }
 
-void GenericView::lockView() {
-    viewMutex_.lock();    
-}
-
-void GenericView::unlockView() {
-    viewMutex_.unlock();
+void GenericView::destroyView() {
+    activeView_ = false;    
 }

@@ -130,9 +130,8 @@ void Game::update() {
             ++enemy;
         }
         else {
-           (*enemy)->getView()->lockView(); 
-				(*enemy)->getView()->removeFromSuperView();
-                enemy = enemies_.erase(enemy);
+            (*enemy)->getView()->destroyView();
+            enemy = enemies_.erase(enemy);
         }
 	}
 
