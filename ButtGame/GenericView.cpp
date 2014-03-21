@@ -53,40 +53,40 @@ void GenericView::drawInView(GenericView* aView) {
 	this->drawSubViews();
 }
 
-void GenericView::translateCoordsToView(int& x, int& y, GenericView* aView) {
-	GenericView* view = aView;
-	
-	while(view) {
-		//translate to coordinate system of the view we're drawing in
-		if(aView) {
-			x += aView->x_;
-			y += aView->y_;
-			
-			//check bounds of view we're translating into
-			//but only if we clip to bounds
-			if(clipsToBounds_) {
-				if(x < aView->x_) {
-					x = aView->x_;
-					if(aView != this) x_ = x - aView->x_;
-				}
-				if(x + width_ > aView->x_ + aView->width_) {
-					x = aView->x_ + aView->width_ - width_;
-					if(aView != this) x_ = x - aView->x_;
-				}
-				
-				if(y < aView->y_){
-					y = aView->y_;
-					if(aView != this) y_ = y - aView->y_;
-				}
-				if(y + height_ > aView->y_ + aView->height_) {
-					y = aView->y_ + aView->height_ - height_;
-					if(aView != this) y_ = y - aView->y_;
-				}
-			}
-		}
-		view = view->getSuperView().get();
-	}
-}
+//void GenericView::translateCoordsToView(int& x, int& y, GenericView* aView) {
+//	GenericView* view = aView;
+//	
+//	while(view) {
+//		//translate to coordinate system of the view we're drawing in
+//		if(aView) {
+//			x += aView->x_;
+//			y += aView->y_;
+//			
+//			//check bounds of view we're translating into
+//			//but only if we clip to bounds
+//			if(clipsToBounds_) {
+//				if(x < aView->x_) {
+//					x = aView->x_;
+//					if(aView != this) x_ = x - aView->x_;
+//				}
+//				if(x + width_ > aView->x_ + aView->width_) {
+//					x = aView->x_ + aView->width_ - width_;
+//					if(aView != this) x_ = x - aView->x_;
+//				}
+//				
+//				if(y < aView->y_){
+//					y = aView->y_;
+//					if(aView != this) y_ = y - aView->y_;
+//				}
+//				if(y + height_ > aView->y_ + aView->height_) {
+//					y = aView->y_ + aView->height_ - height_;
+//					if(aView != this) y_ = y - aView->y_;
+//				}
+//			}
+//		}
+//		view = view->getSuperView().get();
+//	}
+//}
 
 void GenericView::translateCoordsToScreen(int&x, int& y) {
 	GenericView* view = superView_.get();
