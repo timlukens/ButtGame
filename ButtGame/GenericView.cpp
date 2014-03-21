@@ -91,6 +91,7 @@ void GenericView::removeView(GenericView* aView) {
 	vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
 	while(subView != subViews_.end()) {
 		if((*subView).get() == aView) subView = subViews_.erase(subView);
+		++subView;
 	}
 }
 
