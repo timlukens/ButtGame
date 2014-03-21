@@ -58,7 +58,7 @@ Game::Game(int width, int height) {
 	bounds_->setBackgroundColor(al_map_rgb(255, 255, 255));
 	
 	//setup dat playa
-//	player_ = shared_ptr<Player>(new Player(100,100, bounds_));
+	player_ = shared_ptr<Player>(new Player(100,100, bounds_));
 	
 	//make some god damn enemies
 	for(int i = 0; i < 0; i++) {
@@ -95,7 +95,7 @@ void Game::drawScreen() {
 //    }    
 
 	//draw bounds and player
-	bounds_->drawInView(NULL);
+	bounds_->drawInView(nullptr);
 //	player_->draw();
 	
 	//you know, graphics magic.

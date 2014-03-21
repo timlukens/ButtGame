@@ -18,7 +18,7 @@ public:
 	SquareView(int x, int y, int width, int height);
 	~SquareView();
 //    virtual void draw();
-	virtual void drawInView(shared_ptr<GenericView> aView);
+	virtual void drawInView(SquareView* aView);
 	
 //	operator GenericView() {
 //		return GenericView(x_, y_, width_, height_, parentView_);
