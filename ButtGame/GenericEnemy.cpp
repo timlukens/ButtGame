@@ -33,6 +33,10 @@ GenericEnemy::~GenericEnemy() {
     if(changeDirectionTimer_) al_destroy_timer(changeDirectionTimer_);
 }
 
+shared_ptr<SquareView> GenericEnemy::getView() {
+	return view_;
+}
+
 int GenericEnemy::get_x() {
     return view_->x_;
 }

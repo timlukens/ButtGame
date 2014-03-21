@@ -41,6 +41,7 @@ class GenericEnemy {
 public:
 	GenericEnemy(int x, int y, shared_ptr<GenericView> parentView);
 	~GenericEnemy();
+	shared_ptr<SquareView> getView();
     int get_x();
     int get_y();
     int get_width();

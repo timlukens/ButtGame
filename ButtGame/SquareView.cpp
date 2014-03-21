@@ -26,31 +26,11 @@ void SquareView::drawInView(GenericView* aView) {
 	int x = x_;
 	int y = y_;
 	
-	//translate to coordinate system of the view we're drawing in
-	if(aView) {
-		x += aView->x_;
-		y += aView->y_;
-	}
+	this->translateCoordsToView(x, y, aView);
 	
 	//draw this
 	al_draw_filled_rectangle(x, y, x+width_, y+height_, backgroundColor_);
 	
-	
-	//draw subViews
-    vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
-    while(subView != subViews_.end()) {    
-        if(*subView) (*subView)->drawInView(this);
-        ++subView;
-    }
+	this->drawSubViews();
 }
 
-//void SquareView::draw() {
-//	al_draw_filled_rectangle(x_, y_, x_ + width_, y_ + height_,  backgroundColor_);
-//	
-//	//draw subViews
-//	vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
-//    while(subView != subViews_.end()) {
-//        (*subView)->drawInView(shared_ptr<GenericView>(this));
-//		subView++;
-//	}
-//}

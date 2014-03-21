@@ -37,37 +37,61 @@ void GenericView::drawInView(GenericView* aView) {
 	int x = x_;
 	int y = y_;
 	
-	//translate to coordinate system of the view we're drawing in
-	if(aView) {
-		x += aView->x_;
-		y += aView->y_;
-	}
+	this->translateCoordsToView(x, y, aView);
 	
 	//draw this
 	al_draw_rectangle(x, y, x+width_, y+height_, backgroundColor_, 1);
 	
-	
+	GenericView::drawSubViews();
+}
+
+void GenericView::translateCoordsToView(int& x, int& y, GenericView* aView) {
+	//translate to coordinate system of the view we're drawing in
+	if(aView) {
+		x += aView->x_;
+		y += aView->y_;
+		
+		if(x < aView->x_) x = aView->x_;
+		if(x > aView->x_ + aView->width_ - width_) x = aView->x_ + aView->width_ - width_;
+		
+		if(y < aView->y_) y = aView->y_;
+		if(y > aView->y_ + aView->height_ - height_) y = aView->y_ + aView->height_ - height_;
+	}
+}
+
+void GenericView::drawSubViews() {
 	//draw subViews
 	vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
-    while(subView != subViews_.end()) {    
+    while(subView != subViews_.end()) {
         if(*subView) (*subView)->drawInView(this);
         ++subView;
     }
 }
 
-//void GenericView::draw() {
-//	al_draw_rectangle(x_, y_, x_ + width_, y_ + height_, backgroundColor_, 1);
-//	
-//	vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
-//	
-//    while(subView != subViews_.end()) {
-//        (*subView)->drawInView(shared_ptr<GenericView>(this));
-//		subView++;
-//	}
-//}
-
 void GenericView::addSubview(shared_ptr<GenericView> aView) {
 	subViews_.push_back(aView);
+	aView->setSuperView(this);
+}
+
+void GenericView::setSuperView(GenericView* aView) {
+	superView_ = aView;
+}
+
+GenericView* GenericView::getSuperView() {
+	return superView_;
+}
+
+void GenericView::removeFromSuperView() {
+	if(superView_) {
+		superView_->removeView(this);
+	}
+}
+
+void GenericView::removeView(GenericView* aView) {
+	vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
+	while(subView != subViews_.end()) {
+		if((*subView).get() == aView) subView = subViews_.erase(subView);
+	}
 }
 
 void GenericView::setBackgroundColor(ALLEGRO_COLOR color) {

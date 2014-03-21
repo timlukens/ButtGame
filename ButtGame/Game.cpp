@@ -61,7 +61,7 @@ Game::Game(int width, int height) {
 	player_ = shared_ptr<Player>(new Player(100,100, bounds_));
 	
 	//make some god damn enemies
-	for(int i = 0; i < 1; i++) {
+	for(int i = 0; i < 3; i++) {
 		
 //		GenericEnemy* someButt = new GenericEnemy(200,200, bounds_);
 		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
@@ -131,6 +131,7 @@ void Game::update() {
         }
         else {
             enemyMutex_.lock();
+				(*enemy).get()->getView()->removeFromSuperView();
                 enemy = enemies_.erase(enemy);
             enemyMutex_.unlock();
         }

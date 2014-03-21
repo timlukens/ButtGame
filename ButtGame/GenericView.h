@@ -20,6 +20,7 @@ class GenericView {
 protected:
 	ALLEGRO_COLOR backgroundColor_;
 	vector<shared_ptr<GenericView>> subViews_;
+	GenericView* superView_;
 	
 public:
 	GenericView();
@@ -32,6 +33,14 @@ public:
 	void setBackgroundColor(ALLEGRO_COLOR color);
 	
 	int x_, y_, width_, height_;
+	
+	GenericView* getSuperView();
+	void setSuperView(GenericView* aView);
+	void removeFromSuperView();
+	void removeView(GenericView* aView);
+	
+	void translateCoordsToView(int& x, int& y, GenericView* aView);
+	void drawSubViews();
 };
 
 #endif /* defined(__ButtGame__GenericView__) */
