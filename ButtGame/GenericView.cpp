@@ -55,6 +55,9 @@ void GenericView::translateCoordsToView(int& x, int& y, GenericView* aView) {
 		x += aView->x_;
 		y += aView->y_;
 		
+		//check bounds of view we're translating into
+		//If we wanted, we could setup some sort of clipsToBounds bool that would allow for drawing outside of the parent view
+		//ie) you want a subview with coords (-10,0) to draw 10 px to the left of it's parents view
 		if(x < aView->x_) {
 			x = aView->x_;
 			x_ = x - aView->x_;
