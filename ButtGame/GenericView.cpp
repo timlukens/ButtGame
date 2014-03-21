@@ -60,40 +60,67 @@ void GenericView::translateCoordsToView(int& x, int& y, GenericView* aView) {
 }
 
 void GenericView::drawSubViews() {
-	//draw subViews
-	vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
+    //draw subViews
+    vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
     while(subView != subViews_.end()) {
-        if(*subView) (*subView)->drawInView(this);
-        ++subView;
+        if(*subView) {
+            (*subView)->lockView();
+        }
+        
+        if(*subView) {
+            (*subView)->drawInView(this);
+            (*subView)->unlockView();
+            ++subView;
+        }
+        else {
+            subView = subViews_.erase(subView);
+        }
+
     }
 }
 
-void GenericView::addSubview(shared_ptr<GenericView> aView) {
-	subViews_.push_back(aView);
-	aView->setSuperView(this);
+void GenericView::addSubview(shared_ptr<GenericView> aView, shared_ptr<GenericView> pView) {
+    subViews_.push_back(aView);
+    aView->setSuperView(pView);
 }
 
-void GenericView::setSuperView(GenericView* aView) {
-	superView_ = aView;
+void GenericView::setSuperView(shared_ptr<GenericView> aView) {
+    superView_ = aView;
 }
 
-GenericView* GenericView::getSuperView() {
-	return superView_;
+shared_ptr<GenericView> GenericView::getSuperView() {
+    return superView_;
 }
 
 void GenericView::removeFromSuperView() {
-	if(superView_) {
-		superView_->removeView(this);
-	}
+    if(superView_) {
+        return superView_->removeView(this);
+    }
 }
 
 void GenericView::removeView(GenericView* aView) {
-	vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
-	while(subView != subViews_.end()) {
-		if((*subView).get() == aView) subView = subViews_.erase(subView);
-	}
+    vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
+    while(subView != subViews_.end()) {
+        if((*subView)) {
+            if((*subView).get() == aView) {
+                subView = subViews_.erase(subView);
+            }
+            ++subView;
+        }
+        else {
+            subView = subViews_.erase(subView);
+        }
+    }
 }
 
 void GenericView::setBackgroundColor(ALLEGRO_COLOR color) {
 	backgroundColor_ = color;
+}
+
+void GenericView::lockView() {
+    viewMutex_.lock();    
+}
+
+void GenericView::unlockView() {
+    viewMutex_.unlock();
 }

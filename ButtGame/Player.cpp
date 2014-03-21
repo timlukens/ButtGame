@@ -14,7 +14,7 @@
 Player::Player(int x, int y, shared_ptr<GenericView> parentView) {
 	view_ = shared_ptr<SquareView>(new SquareView(x, y, kPlayerSize, kPlayerSize));
 	view_->setBackgroundColor(al_map_rgb(0, 255, 0));
-	parentView->addSubview(view_);
+	parentView->addSubview(view_, parentView);
 	
 	weapon_ = shared_ptr<GenericWeapon>(new GenericWeapon(shared_ptr<GenericView>(view_)));
 	

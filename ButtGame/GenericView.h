@@ -12,6 +12,7 @@
 #include <iostream>
 #include <memory>
 #include <vector>
+#include <mutex>
 #include <allegro5/allegro.h>
 
 using namespace std;
@@ -20,8 +21,9 @@ class GenericView {
 protected:
 	ALLEGRO_COLOR backgroundColor_;
 	vector<shared_ptr<GenericView>> subViews_;
-	GenericView* superView_;
-	
+	shared_ptr<GenericView> superView_;
+    mutex viewMutex_;    
+
 public:
 	GenericView();
 	~GenericView();
@@ -29,15 +31,18 @@ public:
 	
 //	virtual void draw();
 	virtual void drawInView(GenericView* aView);
-	void addSubview(shared_ptr<GenericView> aView);
+	void addSubview(shared_ptr<GenericView> aView, shared_ptr<GenericView> pView);
 	void setBackgroundColor(ALLEGRO_COLOR color);
 	
 	int x_, y_, width_, height_;
 	
-	GenericView* getSuperView();
-	void setSuperView(GenericView* aView);
+	shared_ptr<GenericView> getSuperView();
+	void setSuperView(shared_ptr<GenericView> aView);
 	void removeFromSuperView();
 	void removeView(GenericView* aView);
+
+    void lockView();
+    void unlockView();
 	
 	void translateCoordsToView(int& x, int& y, GenericView* aView);
 	void drawSubViews();
