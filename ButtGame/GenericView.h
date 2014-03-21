@@ -27,7 +27,7 @@ public:
 	GenericView(int x, int y, int width, int height);
 	
 //	virtual void draw();
-	virtual void drawInView(shared_ptr<GenericView> aView);
+	virtual void drawInView(GenericView* aView);
 	void addSubview(shared_ptr<GenericView> aView);
 	void setBackgroundColor(ALLEGRO_COLOR color);
 	

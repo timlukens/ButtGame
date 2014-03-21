@@ -33,7 +33,7 @@ GenericView::GenericView(int x, int y, int width, int height) {
 	backgroundColor_ = al_map_rgb(255, 0, 0);
 }
 
-void GenericView::drawInView(shared_ptr<GenericView> aView) {
+void GenericView::drawInView(GenericView* aView) {
 	int x = x_;
 	int y = y_;
 	
@@ -50,8 +50,8 @@ void GenericView::drawInView(shared_ptr<GenericView> aView) {
 	//draw subViews
 	if(subViews_.size()) {
 		vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
-		for(subView = subViews_.begin(); subView < subViews_.end(); subView++) {
-			if(*subView) (*subView)->drawInView(shared_ptr<GenericView>(this));
+		while(subView != subViews_.end()) {
+			if(*subView) (*subView)->drawInView(this);
 		}
 	}
 }

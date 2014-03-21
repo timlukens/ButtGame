@@ -22,7 +22,7 @@ SquareView::~SquareView() {
     DBMSG("SquareView::~SquareView");
 }
 
-void SquareView::drawInView(shared_ptr<GenericView> aView) {
+void SquareView::drawInView(GenericView* aView) {
 	int x = x_;
 	int y = y_;
 	
@@ -40,7 +40,7 @@ void SquareView::drawInView(shared_ptr<GenericView> aView) {
 	if(subViews_.size()) {
 		vector<shared_ptr<GenericView> >::iterator subView = subViews_.begin();
 		for(subView = subViews_.begin(); subView < subViews_.end(); subView++) {
-			if(*subView) (*subView)->drawInView(shared_ptr<GenericView>(this));
+			if(*subView) (*subView)->drawInView(this);
 		}
 	}
 }

@@ -58,10 +58,10 @@ Game::Game(int width, int height) {
 	bounds_->setBackgroundColor(al_map_rgb(255, 255, 255));
 	
 	//setup dat playa
-//	player_ = shared_ptr<Player>(new Player(100,100, bounds_));
+	player_ = shared_ptr<Player>(new Player(100,100, bounds_));
 	
 	//make some god damn enemies
-	for(int i = 0; i < 0; i++) {
+	for(int i = 0; i < 1; i++) {
 		
 //		GenericEnemy* someButt = new GenericEnemy(200,200, bounds_);
 		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
@@ -94,9 +94,8 @@ void Game::drawScreen() {
 //        enemyMutex_.unlock();
 //    }    
 
-	//draw bounds and player
-	bounds_->drawInView(NULL);
-//	player_->draw();
+	//draw game
+	bounds_->drawInView(nullptr);
 	
 	//you know, graphics magic.
 	al_flip_display();
