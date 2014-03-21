@@ -20,29 +20,21 @@ GenericProjectile::GenericProjectile(GenericWeapon* parentWeapon, int xVelocity,
 	
 	view_ = new SquareView(parentWeapon_->getParentView()->x_, parentWeapon_->getParentView()->y_, kGenericProjectileSize, kGenericProjectileSize);
 	view_->setBackgroundColor(al_map_rgb(255, 255, 0));
-	parentWeapon_->getParentView()->addSubview(shared_ptr<GenericView>(view_), parentWeapon_->getParentView());
+	
+	Game* game = Game::instance();
+	game->getBounds()->addSubview(shared_ptr<GenericView>(view_), game->getBounds());
 }
 
-//void GenericProjectile::draw() {
-//	view_->draw();
-//}
-
 void GenericProjectile::update() {
-	//find the actual x,y coordinates inside the parentView
-	int x = view_->x_;
-	int y = view_->y_;
-//	parentWeapon_->getParentView()->mapCoordinatesToParentView(x, y);
-	
-	x += xVelocity_;
-	y += yVelocity_;
-	
-	view_->x_ = x;
-	view_->y_ = y;
+	view_->x_ += xVelocity_;
+	view_->y_ += yVelocity_;
 	
 	//check if we're out of bounds
 	shared_ptr<GenericView> bounds = Game::instance()->getBounds();
-	if(x < bounds->x_ || x > bounds->x_ + bounds->width_ || y < bounds->y_ || y > bounds->height_)
+	if(!view_->isInView(bounds)) {
 		isAlive_ = false;
+		view_->destroyView();
+	}
 }
 
 SquareView* GenericProjectile::getView() {

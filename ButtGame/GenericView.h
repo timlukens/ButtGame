@@ -47,6 +47,8 @@ public:
 
 	void translateCoordsToView(int& x, int& y, GenericView* aView);
 	void drawSubViews();
+	
+	bool isInView(shared_ptr<GenericView> aView);
 };
 
 #endif /* defined(__ButtGame__GenericView__) */

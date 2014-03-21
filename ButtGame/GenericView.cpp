@@ -143,3 +143,12 @@ void GenericView::destroyView() {
 bool GenericView::isActive() {
     return activeView_;
 }
+
+bool GenericView::isInView(shared_ptr<GenericView> aView) {
+	int x = x_;
+	int y = y_;
+//	this->translateCoordsToView(x, y, aView.get());
+	
+	if(x < 0 || x + width_ > aView->width_ || y < 0 || y + height_ > aView->height_) return false;
+	return true;
+}
