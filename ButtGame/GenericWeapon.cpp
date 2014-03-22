@@ -64,18 +64,6 @@ void GenericWeapon::update() {
 
 }
 
-void GenericWeapon::draw() {
-//	vector<shared_ptr<GenericProjectile> >::iterator projectile = projectiles_.begin();
-//	while(projectile != projectiles_.end()) {
-//        projectileMutex_.lock();
-//		if(*projectile) {
-//			(*projectile)->draw();
-//			++projectile;
-//		}
-//        projectileMutex_.unlock();
-//    }
-}
-
 void GenericWeapon::startShooting() {
 	isShooting_ = true;
 }
@@ -102,4 +90,8 @@ bool GenericWeapon::getIsDeadlyToEnemies() {
 
 shared_ptr<GenericView> GenericWeapon::getParentView() {
 	return parentView_;
+}
+
+vector<shared_ptr<GenericProjectile>> GenericWeapon::getProjectiles() {
+	return projectiles_;
 }

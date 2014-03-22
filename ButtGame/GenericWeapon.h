@@ -47,6 +47,7 @@ public:
 	void draw();
 	
 	shared_ptr<GenericView> getParentView();
+	vector<shared_ptr<GenericProjectile>> getProjectiles();
 	
 	void startShooting();
 	void stopShooting();

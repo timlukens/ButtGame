@@ -21,7 +21,7 @@ class GenericWeapon;
 
 class GenericProjectile {
 	GenericWeapon* parentWeapon_;
-	SquareView* view_;
+	shared_ptr<SquareView> view_;
 	
 	int xVelocity_, yVelocity_;
 	
@@ -30,11 +30,9 @@ class GenericProjectile {
 public:
 	GenericProjectile(GenericWeapon* parentWeapon, int xVelocity, int yVelocity);
 	
-	void draw();
 	void update();
 	
-	SquareView* getView();
-	
+	shared_ptr<SquareView> getView();
 	bool getIsAlive();
 };
 

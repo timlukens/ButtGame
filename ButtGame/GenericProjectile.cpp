@@ -18,12 +18,16 @@ GenericProjectile::GenericProjectile(GenericWeapon* parentWeapon, int xVelocity,
 	xVelocity_ = xVelocity;
 	yVelocity_ = yVelocity;
 	
-	view_ = new SquareView(parentWeapon_->getParentView()->x_, parentWeapon_->getParentView()->y_, kGenericProjectileSize, kGenericProjectileSize);
+	shared_ptr<GenericView> pView = parentWeapon_->getParentView();
+	
+	view_ = shared_ptr<SquareView> (new SquareView(pView->x_ + (pView->width_ / 2) - (kGenericProjectileSize / 2),
+												   pView->y_ + (pView->height_ / 2) - (kGenericProjectileSize / 2),
+												   kGenericProjectileSize, kGenericProjectileSize));
 	view_->setBackgroundColor(al_map_rgb(255, 255, 0));
 	view_->setClipsToBounds(false);
 	
 	Game* game = Game::instance();
-	game->getBounds()->addSubview(shared_ptr<GenericView>(view_), game->getBounds());
+	game->getBounds()->addSubview(view_, game->getBounds());
 }
 
 void GenericProjectile::update() {
@@ -38,7 +42,7 @@ void GenericProjectile::update() {
 	}
 }
 
-SquareView* GenericProjectile::getView() {
+shared_ptr<SquareView> GenericProjectile::getView() {
 	return view_;
 }
 

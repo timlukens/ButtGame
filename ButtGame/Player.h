@@ -15,12 +15,14 @@
 #include "GameDefines.h"
 #include "GenericWeapon.h"
 
-#define kPlayerSize 100
-#define kPlayerHitboxSize 25
+#define kPlayerSize 25
+#define kPlayerHitboxSize 22
 
 class Player {
 	bool leftPressed_, rightPressed_, upPressed_, downPressed_;
 	bool aPressed_, dPressed_, wPressed_, sPressed_;
+	bool isAlive_;
+	
 	shared_ptr<SquareView> view_;
 	shared_ptr<SquareView> hitBox_;
 	shared_ptr<GenericView> parentView_;
@@ -35,12 +37,16 @@ public:
     int get_y();
     int get_width();
     int get_height();
+	
 	shared_ptr<GenericView> getView();
 	shared_ptr<GenericView> getHitBox();
+	shared_ptr<GenericWeapon> getWeapon();
+	bool getIsAlive();
+	
+	void setIsAlive(bool isAlive);
 	
 	void handleInput(ALLEGRO_KEYBOARD_EVENT event);
 	void update();
-	void draw();
 };
 
 #endif /* defined(__ButtGame__Player__) */

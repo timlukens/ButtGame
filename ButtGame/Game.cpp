@@ -62,8 +62,8 @@ Game::Game(int width, int height) {
 	
 	//make some god damn enemies
 	for(int i = 0; i < 10; i++) {
-		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
-//		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(bounds_->width_ / 2 - kDefaultEnemySize / 2, bounds_->height_ / 2 - kDefaultEnemySize / 2, bounds_)));
+//		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
+		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(bounds_->width_ / 2 - kDefaultEnemySize / 2, bounds_->height_ / 2 - kDefaultEnemySize / 2, bounds_)));
 //		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(100,100,bounds_)));
 	}
 }
@@ -97,7 +97,22 @@ void Game::update() {
         (*enemy)->update();
 		
 		//collision detection with player
-		if((*enemy)->getView()->isInView(player_->getHitBox())) (*enemy)->make_dead();
+		if((*enemy)->getView()->isInView(player_->getHitBox())) player_->setIsAlive(false);
+		
+		//check collision with projectiles
+		vector<shared_ptr<GenericProjectile> >::iterator projectile = player_->getWeapon()->getProjectiles().begin();
+		while(projectile != player_->getWeapon()->getProjectiles().end()) {
+			if(*projectile) {
+				if((*projectile)->getView()->isInView((*enemy)->getView())) {
+					(*enemy)->make_dead();
+					(*projectile)->getView()->destroyView();
+					player_->getWeapon()->getProjectiles().erase(projectile);
+					projectile = player_->getWeapon()->getProjectiles().end();
+				} else {
+					++projectile;
+				}
+			}
+		}
 
 		//check if still alive
         if((*enemy)->is_alive()) ++enemy;
@@ -106,7 +121,8 @@ void Game::update() {
             enemy = enemies_.erase(enemy);
         }
 	}
-
+	
+	if(!player_->getIsAlive()) isGameRunning = false;
 }
 
 
