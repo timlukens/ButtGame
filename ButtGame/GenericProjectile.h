@@ -29,6 +29,7 @@ class GenericProjectile {
 	
 public:
 	GenericProjectile(GenericWeapon* parentWeapon, int xVelocity, int yVelocity);
+	~GenericProjectile();
 	
 	void update();
 	

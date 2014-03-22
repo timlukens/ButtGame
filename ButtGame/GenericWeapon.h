@@ -11,8 +11,6 @@
 
 #include <iostream>
 #include <vector>
-#include <thread>
-#include <mutex>
 #include <allegro5/allegro.h>
 #include "GenericView.h"
 #include "GenericProjectile.h"
@@ -37,8 +35,6 @@ class GenericWeapon {
 	bool canShoot_;
 	
 	vector<shared_ptr<GenericProjectile>> projectiles_;
-	
-	mutex projectileMutex_;
 	
 public:
 	GenericWeapon(shared_ptr<GenericView> parentView);

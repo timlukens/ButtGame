@@ -30,6 +30,10 @@ GenericProjectile::GenericProjectile(GenericWeapon* parentWeapon, int xVelocity,
 	game->getBounds()->addSubview(view_, game->getBounds());
 }
 
+GenericProjectile::~GenericProjectile() {
+	DBMSG("GenericProjectile::~GenericProjectile");
+}
+
 void GenericProjectile::update() {
 	view_->x_ += xVelocity_;
 	view_->y_ += yVelocity_;

@@ -56,9 +56,7 @@ void GenericWeapon::update() {
             ++projectile;
         }
         else {
-            projectileMutex_.lock();
 			projectile = projectiles_.erase(projectile);
-            projectileMutex_.unlock();
         }
 	}
 
