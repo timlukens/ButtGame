@@ -34,6 +34,7 @@ public:
 	
 	shared_ptr<SquareView> getView();
 	bool getIsAlive();
+	void setIsAlive(bool isAlive);
 };
 
 #endif /* defined(__ButtGame__GenericProjectile__) */

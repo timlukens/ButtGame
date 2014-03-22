@@ -105,7 +105,7 @@ void Game::update() {
 			if(*projectile) {
 				if((*projectile)->getView()->isInView((*enemy)->getView())) {
 					(*enemy)->make_dead();
-					(*projectile)->getView()->destroyView();
+					(*projectile)->setIsAlive(false);
 					player_->getWeapon()->getProjectiles().erase(projectile);
 					projectile = player_->getWeapon()->getProjectiles().end();
 				} else {

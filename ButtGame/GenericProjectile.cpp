@@ -38,6 +38,9 @@ void GenericProjectile::update() {
 	shared_ptr<GenericView> bounds = Game::instance()->getBounds();
 	if(!view_->isInView(bounds)) {
 		isAlive_ = false;
+	}
+	
+	if(!isAlive_) {
 		view_->destroyView();
 	}
 }
@@ -48,4 +51,8 @@ shared_ptr<SquareView> GenericProjectile::getView() {
 
 bool GenericProjectile::getIsAlive() {
 	return isAlive_;
+}
+
+void GenericProjectile::setIsAlive(bool isAlive) {
+	isAlive_ = isAlive;
 }
