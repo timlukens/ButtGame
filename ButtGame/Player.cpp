@@ -12,17 +12,17 @@
 
 
 Player::Player(int x, int y, shared_ptr<GenericView> parentView) {
-	view_ = shared_ptr<SquareView>(new SquareView(x, y, kPlayerSize, kPlayerSize));
+	view_ = shared_ptr<SquareView>(new SquareView(x, y, kPlayerSize, kPlayerSize, true));
 	view_->setBackgroundColor(al_map_rgb(0, 255, 0));
 //	view_->setClipsToBounds(false);
 	
-	hitBox_ = shared_ptr<SquareView>(new SquareView((kPlayerSize / 2) - (kPlayerHitboxSize / 2),
-													(kPlayerSize / 2) - (kPlayerHitboxSize / 2),
-													kPlayerHitboxSize, kPlayerHitboxSize));
-	hitBox_->setBackgroundColor(al_map_rgb(0, 255, 0));
+//	hitBox_ = shared_ptr<SquareView>(new SquareView((kPlayerSize / 2) - (kPlayerHitboxSize / 2),
+//													(kPlayerSize / 2) - (kPlayerHitboxSize / 2),
+//													kPlayerHitboxSize, kPlayerHitboxSize, false));
+//	hitBox_->setBackgroundColor(al_map_rgb(0, 255, 0));
 	
 	parentView->addSubview(view_, parentView);
-	view_->addSubview(hitBox_, view_);
+//	view_->addSubview(hitBox_, view_);
 	
 	weapon_ = shared_ptr<GenericWeapon>(new GenericWeapon(shared_ptr<GenericView>(view_)));
 	
@@ -88,8 +88,7 @@ void Player::update() {
 	if(upPressed_) yVelocity -= kDefaultYSpeed*2;
 	if(downPressed_) yVelocity += kDefaultYSpeed*2;
 	
-	view_->x_ += xVelocity;
-	view_->y_ += yVelocity;
+	view_->getBody()->ApplyForce(b2Vec2(xVelocity, yVelocity), b2Vec2(view_->width_ / 2, view_->height_ / 2), true);
 	
 	weapon_->update();
 }

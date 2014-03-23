@@ -21,14 +21,14 @@ GenericView::GenericView() {
 	height_ = 0;
 
     activeView_ = true;
-	clipsToBounds_ = true;
+	clipsToBounds_ = false;
 }
 
 GenericView::~GenericView() {
     DBMSG("GenericView::~GenericView");
 }
 
-GenericView::GenericView(int x, int y, int width, int height) {
+GenericView::GenericView(int x, int y, int width, int height, bool isDynamic) {
 	x_ = x;
 	y_ = y;
 	width_ = width;
@@ -38,17 +38,70 @@ GenericView::GenericView(int x, int y, int width, int height) {
 
     activeView_ = true;
 	clipsToBounds_ = true;
+	
+	//setup body and add to world
+	b2BodyDef bodyDef;
+	bodyDef.position.Set((float)x / kMetersToPixels, (float)y / kMetersToPixels);
+	if(isDynamic) bodyDef.type = b2_dynamicBody;
+	body_ = Game::instance()->getWorld()->CreateBody(&bodyDef);
+	
+	//define shape
+	b2PolygonShape boxShape;
+	boxShape.SetAsBox(width_ / kMetersToPixels / 2, height_ / kMetersToPixels / 2);
+	
+	//define fixture
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &boxShape;
+	
+	fixtureDef.density = 10.f;
+	fixtureDef.friction = 0.3f;
+	fixtureDef.restitution = 1.0f;
+	fixtureDef.isSensor = true;
+	
+	body_->CreateFixture(&fixtureDef);
+	
+//	//map 0,0 - width,0
+//	box.Set(b2Vec2((float)x / kMetersToPixels, (float)y / kMetersToPixels), b2Vec2((float)(x+width) / kMetersToPixels, 0));
+//	body_->CreateFixture(&boxDef);
+//	
+//	//map 0,0 - 0,height
+//	box.Set(b2Vec2((float)x / kMetersToPixels, (float)y / kMetersToPixels), b2Vec2(0, (float)(y+height) / kMetersToPixels));
+//	body_->CreateFixture(&boxDef);
+//	
+//	//map 0,height - widht,height
+//	box.Set(b2Vec2((float)x / kMetersToPixels, (float)(y+height) / kMetersToPixels), b2Vec2((float)(x+width) / kMetersToPixels, (float)(y+height) / kMetersToPixels));
+//	body_->CreateFixture(&boxDef);
+//	
+//	//map widht,height - widht,0
+//	box.Set(b2Vec2((float)(x+width) / kMetersToPixels, (float)(y+height) / kMetersToPixels), b2Vec2((float)(x+width), 0));
+//	body_->CreateFixture(&boxDef);
+}
+
+GenericView::GenericView(b2Body* body) {
+	body_ = body;
+	
+	backgroundColor_ = al_map_rgb(255, 0, 0);
+	
+    activeView_ = true;
+	clipsToBounds_ = true;
 }
 
 void GenericView::drawInView(GenericView* aView) {
 	int x = x_;
 	int y = y_;
 	
-//	this->translateCoordsToView(x, y, aView);
+	if(body_) {
+		b2Vec2 position = body_->GetPosition();
+		x = position.x * kMetersToPixels;
+		y = position.y * kMetersToPixels;
+		x_ = x;
+		y_ = y;
+	}
+	
 	this->translateCoordsToScreen(x, y);
 	
 	//draw this
-	al_draw_rectangle(x, y, x+width_, y+height_, backgroundColor_, 1);
+	al_draw_rectangle(x, y, x+width_, y+height_, backgroundColor_, 5);
 	
 	this->drawSubViews();
 }
@@ -184,7 +237,7 @@ void GenericView::setBackgroundColor(ALLEGRO_COLOR color) {
 }
 
 void GenericView::destroyView() {
-    activeView_ = false;    
+    activeView_ = false;
 }
 
 bool GenericView::isActive() {
@@ -209,4 +262,8 @@ bool GenericView::isInView(shared_ptr<GenericView> aView) {
 
 void GenericView::setClipsToBounds(bool clips) {
 	clipsToBounds_ = clips;
+}
+
+b2Body* GenericView::getBody() {
+	return body_;
 }

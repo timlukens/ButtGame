@@ -15,6 +15,12 @@
 #define LOGIC_FPS 128.f
 #define INPUT_FPS 128.f
 
+#define kLogicTick 1.f / LOGIC_FPS
+#define kVelocityIterations 8
+#define kPositionIterations 3
+
+#define kMetersToPixels 100.f
+
 #define kDefaultXSpeed 320.f / LOGIC_FPS
 #define kDefaultYSpeed 320.f / LOGIC_FPS
 

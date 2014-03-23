@@ -14,6 +14,7 @@
 #include <vector>
 #include <mutex>
 #include <allegro5/allegro.h>
+#include <Box2D/Box2D.h>
 
 using namespace std;
 
@@ -22,13 +23,15 @@ protected:
 	ALLEGRO_COLOR backgroundColor_;
 	vector<shared_ptr<GenericView>> subViews_;
 	shared_ptr<GenericView> superView_;
+	b2Body* body_;
     bool activeView_;
 	bool clipsToBounds_;
 
 public:
 	GenericView();
 	~GenericView();
-	GenericView(int x, int y, int width, int height);
+	GenericView(int x, int y, int width, int height, bool isDynamic);
+	GenericView(b2Body* body);
 	
 //	virtual void draw();
 	virtual void drawInView(GenericView* aView);
@@ -53,6 +56,8 @@ public:
 	bool isInView(shared_ptr<GenericView> aView);
 	
 	void setClipsToBounds(bool clips);
+	
+	b2Body* getBody();
 };
 
 #endif /* defined(__ButtGame__GenericView__) */

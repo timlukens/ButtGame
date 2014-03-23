@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5090647E-2830-4840-AD87-0C79B03A450C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ButtGame</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>27FA82FB-A50F-46C7-A299-988A50FCDC27</key>
+		<string>http://github.com/timlukens/ButtGame</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ButtGame.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>27FA82FB-A50F-46C7-A299-988A50FCDC27</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://github.com/timlukens/ButtGame</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>27FA82FB-A50F-46C7-A299-988A50FCDC27</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>27FA82FB-A50F-46C7-A299-988A50FCDC27</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ButtGame</string>
+		</dict>
+	</array>
+</dict>
+</plist>

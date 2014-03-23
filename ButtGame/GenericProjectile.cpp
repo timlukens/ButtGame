@@ -22,7 +22,7 @@ GenericProjectile::GenericProjectile(GenericWeapon* parentWeapon, int xVelocity,
 	
 	view_ = shared_ptr<SquareView> (new SquareView(pView->x_ + (pView->width_ / 2) - (kGenericProjectileSize / 2),
 												   pView->y_ + (pView->height_ / 2) - (kGenericProjectileSize / 2),
-												   kGenericProjectileSize, kGenericProjectileSize));
+												   kGenericProjectileSize, kGenericProjectileSize, true));
 	view_->setBackgroundColor(al_map_rgb(255, 255, 0));
 	view_->setClipsToBounds(false);
 	
@@ -42,10 +42,6 @@ void GenericProjectile::update() {
 	shared_ptr<GenericView> bounds = Game::instance()->getBounds();
 	if(!view_->isInView(bounds)) {
 		isAlive_ = false;
-	}
-	
-	if(!isAlive_) {
-		view_->destroyView();
 	}
 }
 

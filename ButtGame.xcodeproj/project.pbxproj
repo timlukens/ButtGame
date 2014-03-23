@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8949038F18DAB09900B1F7CC /* Debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8949038D18DAB09900B1F7CC /* Debug.cpp */; };
 		8949039218DAB1FC00B1F7CC /* GenericProjectile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8949039018DAB1FC00B1F7CC /* GenericProjectile.cpp */; };
+		89539DD418DE3DC600D2679F /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89539DD318DE3DC600D2679F /* libBox2D.a */; };
+		89539DD718DEB00F00D2679F /* ContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89539DD518DEB00F00D2679F /* ContactListener.cpp */; };
 		895BC7F918D6BAD7009DF424 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC7F818D6BAD7009DF424 /* main.cpp */; };
 		895BC7FB18D6BAD7009DF424 /* ButtGame.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 895BC7FA18D6BAD7009DF424 /* ButtGame.1 */; };
 		895BC93418D6C2B4009DF424 /* liballegro.5.0.10.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 895BC92918D6C2B4009DF424 /* liballegro.5.0.10.dylib */; };
@@ -48,6 +50,9 @@
 		8949038E18DAB09900B1F7CC /* Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
 		8949039018DAB1FC00B1F7CC /* GenericProjectile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GenericProjectile.cpp; sourceTree = "<group>"; };
 		8949039118DAB1FC00B1F7CC /* GenericProjectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericProjectile.h; sourceTree = "<group>"; };
+		89539DD318DE3DC600D2679F /* libBox2D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBox2D.a; path = ../../../../../usr/lib/libBox2D.a; sourceTree = "<group>"; };
+		89539DD518DEB00F00D2679F /* ContactListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ContactListener.cpp; sourceTree = "<group>"; };
+		89539DD618DEB00F00D2679F /* ContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListener.h; sourceTree = "<group>"; };
 		895BC7F518D6BAD7009DF424 /* ButtGame */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ButtGame; sourceTree = BUILT_PRODUCTS_DIR; };
 		895BC7F818D6BAD7009DF424 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		895BC7FA18D6BAD7009DF424 /* ButtGame.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ButtGame.1; sourceTree = "<group>"; };
@@ -85,6 +90,7 @@
 				895BC94118D6CB72009DF424 /* liballegro_audio.5.0.10.dylib in Frameworks */,
 				895BC93418D6C2B4009DF424 /* liballegro.5.0.10.dylib in Frameworks */,
 				895BC94518D6CB72009DF424 /* liballegro_image.5.0.10.dylib in Frameworks */,
+				89539DD418DE3DC600D2679F /* libBox2D.a in Frameworks */,
 				895BC94218D6CB72009DF424 /* liballegro_color.5.0.10.dylib in Frameworks */,
 				895BC94318D6CB72009DF424 /* liballegro_dialog.5.0.10.dylib in Frameworks */,
 				895BC94018D6CB72009DF424 /* liballegro_acodec.5.0.10.dylib in Frameworks */,
@@ -102,6 +108,8 @@
 		8949038C18DAB08E00B1F7CC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				89539DD518DEB00F00D2679F /* ContactListener.cpp */,
+				89539DD618DEB00F00D2679F /* ContactListener.h */,
 				8949038D18DAB09900B1F7CC /* Debug.cpp */,
 				8949038E18DAB09900B1F7CC /* Debug.h */,
 			);
@@ -131,6 +139,7 @@
 				895BC93E18D6CB72009DF424 /* liballegro_primitives.5.0.10.dylib */,
 				895BC93F18D6CB72009DF424 /* liballegro_ttf.5.0.10.dylib */,
 				895BC92918D6C2B4009DF424 /* liballegro.5.0.10.dylib */,
+				89539DD318DE3DC600D2679F /* libBox2D.a */,
 				895BC7F718D6BAD7009DF424 /* ButtGame */,
 				895BC7F618D6BAD7009DF424 /* Products */,
 			);
@@ -254,6 +263,7 @@
 			files = (
 				895BC7F918D6BAD7009DF424 /* main.cpp in Sources */,
 				8949038F18DAB09900B1F7CC /* Debug.cpp in Sources */,
+				89539DD718DEB00F00D2679F /* ContactListener.cpp in Sources */,
 				895BC94C18D6CD38009DF424 /* Game.cpp in Sources */,
 				895BC95818D7A192009DF424 /* GenericView.cpp in Sources */,
 				8949039218DAB1FC00B1F7CC /* GenericProjectile.cpp in Sources */,

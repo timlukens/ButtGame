@@ -56,6 +56,7 @@ void GenericWeapon::update() {
             ++projectile;
         }
         else {
+			(*projectile)->getView()->destroyView();
 			projectile = projectiles_.erase(projectile);
         }
 	}

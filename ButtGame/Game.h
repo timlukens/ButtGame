@@ -15,11 +15,13 @@
 #include <memory>
 #include <thread>
 #include <mutex>
+#include <Box2D/Box2D.h>
 
 #include "GameDefines.h"
 #include "GenericView.h"
 #include "GenericEnemy.h"
 #include "Player.h"
+#include "ContactListener.h"
 
 using namespace std;
 
@@ -30,10 +32,7 @@ class Game {
 //	Game& operator=(Game const&){};	//wtf copy constructor
 	static Game* m_pInstance;
 	
-//	vector<shared_ptr<GenericView> > views_;
 	vector<shared_ptr<GenericEnemy> > enemies_;
-	
-	ALLEGRO_BITMAP* bitmapBuffer_;
 	
 	int scaleW_, scaleH_, scaleX_, scaleY_;
 	
@@ -41,20 +40,26 @@ class Game {
 	int screenHeight_;
 	
 	shared_ptr<GenericView> bounds_;
-	
 	shared_ptr<Player> player_;
 
     mutex enemyMutex_;
+	
+	b2World* world_;
+//	ContactListener* contactListener_;
 	
 public:
     bool isGameRunning;
 	static Game* instance();
 	~Game();
+	
+	void createWorld();
 	void update();
 	void drawScreen();
 	void handleInput(ALLEGRO_KEYBOARD_EVENT event);
 	
 	shared_ptr<GenericView> getBounds();
+	
+	b2World* getWorld();
 };
 
 #endif /* defined(__ButtGame__Game__) */

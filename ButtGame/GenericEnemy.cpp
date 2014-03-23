@@ -15,7 +15,7 @@ GenericEnemy::GenericEnemy(int x, int y, shared_ptr<GenericView> parentView) {
 
     isAlive_ = true;    
 
-	view_ = shared_ptr<SquareView>(new SquareView(x, y, kDefaultEnemySize, kDefaultEnemySize));
+	view_ = shared_ptr<SquareView>(new SquareView(x, y, kDefaultEnemySize, kDefaultEnemySize, true));
 	view_->setBackgroundColor(al_map_rgb(255, 0, 0));
 	parentView->addSubview(view_, parentView);
 	

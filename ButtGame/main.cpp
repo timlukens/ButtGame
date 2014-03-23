@@ -50,6 +50,7 @@ int main(int argc, char **argv)
 	}
 
 	shared_ptr<Game> game(Game::instance());
+	game->createWorld();
     
     thread inputThread(InputThread, game);
 	thread updateThread(UpdateThread, game);
