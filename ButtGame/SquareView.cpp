@@ -23,11 +23,13 @@ SquareView::SquareView(int x, int y, int width, int height, bool isDynamic) {
 	
 	//define the body and add to world
 	b2BodyDef bodyDef;
+	bodyDef.linearDamping = kPlayerLinearDamping;
 	bodyDef.position.Set((float)x / kMetersToPixels, (float)y / kMetersToPixels);
 	if(isDynamic) bodyDef.type = b2_dynamicBody;
 	body_ = Game::instance()->getWorld()->CreateBody(&bodyDef);
 	
 	//define shape
+//	b2EdgeShape boxShape;
 	b2PolygonShape boxShape;
 	boxShape.SetAsBox(width_ / kMetersToPixels / 2, height_ / kMetersToPixels / 2);
 	
@@ -35,28 +37,30 @@ SquareView::SquareView(int x, int y, int width, int height, bool isDynamic) {
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &boxShape;
 	
-	fixtureDef.density = 1.f;
-	fixtureDef.friction = 0.3f;
-	fixtureDef.restitution = 1.f;
-	fixtureDef.isSensor = true;
+//	fixtureDef.density = 10.f;
+//	fixtureDef.friction = 0.3f;
+//	fixtureDef.restitution = 0.f;
 	
 	body_->CreateFixture(&fixtureDef);
 	
-//	//map 0,0 - width,0
-//	box.Set(b2Vec2((float)x / kMetersToPixels, (float)y / kMetersToPixels), b2Vec2((float)(x+width) / kMetersToPixels, 0));
-//	body_->CreateFixture(&boxDef);
+//	float x1 = (float)x / kMetersToPixels;
+//	float y1 = (float)y / kMetersToPixels;
+//	float x2 = ((float)(x + width)) / kMetersToPixels;
+//	float y2 = ((float)(y + height)) / kMetersToPixels;
 //	
-//	//map 0,0 - 0,height
-//	box.Set(b2Vec2((float)x / kMetersToPixels, (float)y / kMetersToPixels), b2Vec2(0, (float)(y+height) / kMetersToPixels));
-//	body_->CreateFixture(&boxDef);
+//	boxShape.Set(b2Vec2(x1,y1), b2Vec2(x1,y2));
+//	body_->CreateFixture(&fixtureDef);
 //	
-//	//map 0,height - widht,height
-//	box.Set(b2Vec2((float)x / kMetersToPixels, (float)(y+height) / kMetersToPixels), b2Vec2((float)(x+width) / kMetersToPixels, (float)(y+height) / kMetersToPixels));
-//	body_->CreateFixture(&boxDef);
+//	boxShape.Set(b2Vec2(x1,y2), b2Vec2(x2,y2));
+//	body_->CreateFixture(&fixtureDef);
 //	
-//	//map widht,height - widht,0
-//	box.Set(b2Vec2((float)(x+width) / kMetersToPixels, (float)(y+height) / kMetersToPixels), b2Vec2((float)(x+width), 0));
-//	body_->CreateFixture(&boxDef);
+//	boxShape.Set(b2Vec2(x2,y2), b2Vec2(x2,y1));
+//	body_->CreateFixture(&fixtureDef);
+//	
+//	boxShape.Set(b2Vec2(x2,y1), b2Vec2(x1,y1));
+//	body_->CreateFixture(&fixtureDef);
+//	
+//	cout << "SquareView: " << x1 << "," << y1 << " - " << x2 << "," << y2 << endl;
 }
 
 SquareView::~SquareView() {
@@ -71,14 +75,18 @@ void SquareView::drawInView(GenericView* aView) {
 		b2Vec2 position = body_->GetPosition();
 		x = position.x * kMetersToPixels;
 		y = position.y * kMetersToPixels;
+		
+//		std::cout << x << ", " << y << endl;
+		
 		x_ = x;
 		y_ = y;
 	}
 	
-//	this->translateCoordsToView(x, y, aView);
 	this->translateCoordsToScreen(x, y);
 	
 	//draw this
+	x -= width_/2;
+	y -= height_/2;
 	al_draw_filled_rectangle(x, y, x+width_, y+height_, backgroundColor_);
 	
 	this->drawSubViews();

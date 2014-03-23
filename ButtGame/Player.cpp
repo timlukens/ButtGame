@@ -14,6 +14,7 @@
 Player::Player(int x, int y, shared_ptr<GenericView> parentView) {
 	view_ = shared_ptr<SquareView>(new SquareView(x, y, kPlayerSize, kPlayerSize, true));
 	view_->setBackgroundColor(al_map_rgb(0, 255, 0));
+//	genericView_ = shared_ptr<GenericView>(new GenericView(x,y,kPlayerSize,kPlayerSize,true));
 //	view_->setClipsToBounds(false);
 	
 //	hitBox_ = shared_ptr<SquareView>(new SquareView((kPlayerSize / 2) - (kPlayerHitboxSize / 2),
@@ -22,6 +23,7 @@ Player::Player(int x, int y, shared_ptr<GenericView> parentView) {
 //	hitBox_->setBackgroundColor(al_map_rgb(0, 255, 0));
 	
 	parentView->addSubview(view_, parentView);
+//	parentView->addSubview(genericView_, parentView);
 //	view_->addSubview(hitBox_, view_);
 	
 	weapon_ = shared_ptr<GenericWeapon>(new GenericWeapon(shared_ptr<GenericView>(view_)));
@@ -89,6 +91,7 @@ void Player::update() {
 	if(downPressed_) yVelocity += kDefaultYSpeed*2;
 	
 	view_->getBody()->ApplyForce(b2Vec2(xVelocity, yVelocity), b2Vec2(view_->width_ / 2, view_->height_ / 2), true);
+//	genericView_->getBody()->ApplyForce(b2Vec2(xVelocity, yVelocity), b2Vec2(genericView_->width_ / 2, genericView_->height_ / 2), true);
 	
 	weapon_->update();
 }

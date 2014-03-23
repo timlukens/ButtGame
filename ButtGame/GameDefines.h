@@ -21,8 +21,9 @@
 
 #define kMetersToPixels 100.f
 
-#define kDefaultXSpeed 320.f / LOGIC_FPS
-#define kDefaultYSpeed 320.f / LOGIC_FPS
+#define kDefaultXSpeed 640.f / LOGIC_FPS
+#define kDefaultYSpeed 640.f / LOGIC_FPS
+#define kPlayerLinearDamping 2.f
 
 #define DEBUG 1
 

@@ -78,47 +78,25 @@ Game::~Game() {
 }
 
 void Game::createWorld() {
-	b2Vec2 gravity(0.f, 5.f);
+	b2Vec2 gravity(0.f, 0.f);
 	world_ = new b2World(gravity);
 	
 //	contactListener_ = new ContactListener();
 //	world_->SetContactListener(contactListener_);
 	
-	bounds_ = shared_ptr<GenericView> (new GenericView(GAME_INSET, GAME_INSET, screenWidth_ - GAME_INSET * 2, (screenHeight_ - GAME_INSET * 2), false));
-//	bounds_ = shared_ptr<GenericView> (new GenericView(0, screenHeight_ - 10, screenWidth_, 10, true));
-	player_ = shared_ptr<Player> (new Player(10,-100, bounds_));
+//	bounds_ = shared_ptr<GenericView> (new GenericView(GAME_INSET, GAME_INSET, screenWidth_ - GAME_INSET * 2, (screenHeight_ - GAME_INSET * 2), false));
+	bounds_ = shared_ptr<GenericView> (new GenericView(0,0,screenWidth_,screenHeight_,false));
+//	shared_ptr<GenericView> thing = shared_ptr<GenericView> (new GenericView(10,10, 25, 25, true));
+//	bounds_->addSubview(thing, bounds_);
+//	bounds_ = shared_ptr<GenericView> (new GenericView(0, screenHeight_ - 10, screenWidth_, 10, false));
+	player_ = shared_ptr<Player> (new Player(100,50, bounds_));
 	
-	
-//	//collision
-//	std::vector<b2Body *>toDestroy;
-//	std::vector<ContactStruct>::iterator pos;
-//	for(pos = contactListener_->contacts_.begin();
-//		pos != contactListener_->contacts_.end(); ++pos) {
-//		ContactStruct contact = *pos;
-//		
-//		b2Body *bodyA = contact.fixtureA->GetBody();
-//		b2Body *bodyB = contact.fixtureB->GetBody();
-//		if (bodyA->GetUserData() != NULL && bodyB->GetUserData() != NULL) {
-//			CCSprite *spriteA = (CCSprite *) bodyA->GetUserData();
-//			CCSprite *spriteB = (CCSprite *) bodyB->GetUserData();
-//			
-//			if (spriteA.tag == 1 && spriteB.tag == 2) {
-//				toDestroy.push_back(bodyA);
-//			} else if (spriteA.tag == 2 && spriteB.tag == 1) {
-//				toDestroy.push_back(bodyB);
-//			}
-//		}
-//	}
-//	
-//	std::vector<b2Body *>::iterator pos2;
-//	for(pos2 = toDestroy.begin(); pos2 != toDestroy.end(); ++pos2) {
-//		b2Body *body = *pos2;
-//		if (body->GetUserData() != NULL) {
-//			CCSprite *sprite = (CCSprite *) body->GetUserData();
-//			[_spriteSheet removeChild:sprite cleanup:YES];
-//		}
-//		_world->DestroyBody(body);
-//	}
+	//make some god damn enemies
+	for(int i = 0; i < 50; i++) {
+		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
+//		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(bounds_->width_ / 2 - kDefaultEnemySize / 2, bounds_->height_ / 2 - kDefaultEnemySize / 2, bounds_)));
+//		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(100,100,bounds_)));
+	}
 }
 
 //graphics tick
@@ -139,6 +117,13 @@ void Game::drawScreen() {
 void Game::update() {
 	if(world_) world_->Step(kLogicTick, kVelocityIterations, kPositionIterations);
 	if(player_) player_->update();
+	
+	//enemies
+    vector<shared_ptr<GenericEnemy> >::iterator enemy = enemies_.begin();
+    while(enemy != enemies_.end()) {
+        (*enemy)->update();
+		++enemy;
+	}
 	
 	
 	

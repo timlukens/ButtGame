@@ -24,6 +24,7 @@ class Player {
 	bool isAlive_;
 	
 	shared_ptr<SquareView> view_;
+	shared_ptr<GenericView> genericView_;
 	shared_ptr<SquareView> hitBox_;
 	shared_ptr<GenericView> parentView_;
 	
