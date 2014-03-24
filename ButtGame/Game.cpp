@@ -52,24 +52,6 @@ Game::Game(int width, int height) {
 	al_identity_transform(&trans);
 	al_scale_transform(&trans, sx, sy);
 	al_use_transform(&trans);
-	
-	
-	
-	
-	
-	//setup bounds. This shit draws a frame
-//	bounds_ = shared_ptr<GenericView>(new GenericView(GAME_INSET, GAME_INSET, width - GAME_INSET * 2, height - GAME_INSET * 2));
-//	bounds_->setBackgroundColor(al_map_rgb(255, 255, 255));
-	
-	//setup dat playa
-//	player_ = shared_ptr<Player>(new Player(100,100, bounds_));
-	
-	//make some god damn enemies
-//	for(int i = 0; i < 5; i++) {
-//		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
-//		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(bounds_->width_ / 2 - kDefaultEnemySize / 2, bounds_->height_ / 2 - kDefaultEnemySize / 2, bounds_)));
-//		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(100,100,bounds_)));
-//	}
 }
 
 
@@ -84,15 +66,11 @@ void Game::createWorld() {
 //	contactListener_ = new ContactListener();
 //	world_->SetContactListener(contactListener_);
 	
-//	bounds_ = shared_ptr<GenericView> (new GenericView(GAME_INSET, GAME_INSET, screenWidth_ - GAME_INSET * 2, (screenHeight_ - GAME_INSET * 2), false));
-	bounds_ = shared_ptr<GenericView> (new GenericView(0,0,screenWidth_,screenHeight_,false));
-//	shared_ptr<GenericView> thing = shared_ptr<GenericView> (new GenericView(10,10, 25, 25, true));
-//	bounds_->addSubview(thing, bounds_);
-//	bounds_ = shared_ptr<GenericView> (new GenericView(0, screenHeight_ - 10, screenWidth_, 10, false));
-	player_ = shared_ptr<Player> (new Player(100,50, bounds_));
+	bounds_ = shared_ptr<GenericView> (new GenericView(GAME_INSET, GAME_INSET, screenWidth_ - GAME_INSET * 2, (screenHeight_ - GAME_INSET * 2), false));
+	player_ = shared_ptr<Player> (new Player(1,1, bounds_));
 	
 	//make some god damn enemies
-	for(int i = 0; i < 50; i++) {
+	for(int i = 0; i < 10; i++) {
 		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
 //		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(bounds_->width_ / 2 - kDefaultEnemySize / 2, bounds_->height_ / 2 - kDefaultEnemySize / 2, bounds_)));
 //		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(100,100,bounds_)));

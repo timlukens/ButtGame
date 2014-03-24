@@ -15,9 +15,6 @@
 #include "GameDefines.h"
 #include "GenericWeapon.h"
 
-#define kPlayerSize 25
-#define kPlayerHitboxSize 22
-
 class Player {
 	bool leftPressed_, rightPressed_, upPressed_, downPressed_;
 	bool aPressed_, dPressed_, wPressed_, sPressed_;

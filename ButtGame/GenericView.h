@@ -26,14 +26,15 @@ protected:
 	b2Body* body_;
     bool activeView_;
 	bool clipsToBounds_;
+	bool isDynamic_;
 
 public:
 	GenericView();
 	~GenericView();
 	GenericView(int x, int y, int width, int height, bool isDynamic);
-	GenericView(b2Body* body);
 	
-//	virtual void draw();
+	virtual void setBodyDefinition();
+	
 	virtual void drawInView(GenericView* aView);
 	void addSubview(shared_ptr<GenericView> aView, shared_ptr<GenericView> pView);
 	void setBackgroundColor(ALLEGRO_COLOR color);

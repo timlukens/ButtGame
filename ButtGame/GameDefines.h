@@ -20,10 +20,15 @@
 #define kPositionIterations 3
 
 #define kMetersToPixels 100.f
+#define kMetersFromPixels(x) (float)x / kMetersToPixels
+#define kPixelsFromMeters(x) (float)x * kMetersToPixels
 
-#define kDefaultXSpeed 640.f / LOGIC_FPS
-#define kDefaultYSpeed 640.f / LOGIC_FPS
-#define kPlayerLinearDamping 2.f
+#define kDefaultXSpeed 1.5f
+#define kDefaultYSpeed 1.5f
+#define kDefaultLinearDampening 8.f
+
+#define kPlayerSize 30
+#define kPlayerHitboxSize 22
 
 #define DEBUG 1
 

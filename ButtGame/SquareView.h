@@ -17,12 +17,9 @@ class SquareView : public GenericView {
 public:
 	SquareView(int x, int y, int width, int height, bool isDynamic);
 	~SquareView();
-//    virtual void draw();
-	virtual void drawInView(GenericView* aView);
 	
-//	operator GenericView() {
-//		return GenericView(x_, y_, width_, height_, parentView_);
-//	}
+	virtual void drawInView(GenericView* aView);
+	virtual void setBodyDefinition();
 };
 
 #endif /* defined(__ButtGame__SquareView__) */

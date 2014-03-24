@@ -117,9 +117,7 @@ void GenericEnemy::update() {
 			break;
 	}
 	
-//	view_->x_ += xVelocity;
-//	view_->y_ += yVelocity;
-	view_->getBody()->ApplyForce(b2Vec2(xVelocity, yVelocity), b2Vec2(view_->width_ / 2, view_->height_ / 2), true);
+	view_->getBody()->ApplyForceToCenter(b2Vec2(xVelocity, yVelocity), true);
 }
 
 void GenericEnemy::draw() {

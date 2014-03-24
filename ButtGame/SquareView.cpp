@@ -20,75 +20,67 @@ SquareView::SquareView(int x, int y, int width, int height, bool isDynamic) {
 	
 	clipsToBounds_ = false;
 	activeView_ = true;
+	isDynamic_ = isDynamic;
 	
-	//define the body and add to world
-	b2BodyDef bodyDef;
-	bodyDef.linearDamping = kPlayerLinearDamping;
-	bodyDef.position.Set((float)x / kMetersToPixels, (float)y / kMetersToPixels);
-	if(isDynamic) bodyDef.type = b2_dynamicBody;
-	body_ = Game::instance()->getWorld()->CreateBody(&bodyDef);
+	body_ = nullptr;
 	
-	//define shape
-//	b2EdgeShape boxShape;
-	b2PolygonShape boxShape;
-	boxShape.SetAsBox(width_ / kMetersToPixels / 2, height_ / kMetersToPixels / 2);
-	
-	//fixture definition
-	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &boxShape;
-	
-//	fixtureDef.density = 10.f;
-//	fixtureDef.friction = 0.3f;
-//	fixtureDef.restitution = 0.f;
-	
-	body_->CreateFixture(&fixtureDef);
-	
-//	float x1 = (float)x / kMetersToPixels;
-//	float y1 = (float)y / kMetersToPixels;
-//	float x2 = ((float)(x + width)) / kMetersToPixels;
-//	float y2 = ((float)(y + height)) / kMetersToPixels;
-//	
-//	boxShape.Set(b2Vec2(x1,y1), b2Vec2(x1,y2));
-//	body_->CreateFixture(&fixtureDef);
-//	
-//	boxShape.Set(b2Vec2(x1,y2), b2Vec2(x2,y2));
-//	body_->CreateFixture(&fixtureDef);
-//	
-//	boxShape.Set(b2Vec2(x2,y2), b2Vec2(x2,y1));
-//	body_->CreateFixture(&fixtureDef);
-//	
-//	boxShape.Set(b2Vec2(x2,y1), b2Vec2(x1,y1));
-//	body_->CreateFixture(&fixtureDef);
-//	
-//	cout << "SquareView: " << x1 << "," << y1 << " - " << x2 << "," << y2 << endl;
+	this->setBodyDefinition();
 }
 
 SquareView::~SquareView() {
     DBMSG("SquareView::~SquareView");
 }
 
+//!!!!!!!!!!!!!
+//TODO
+//!!!!!!!!!!!!!
+//Have to translate x_ and y_ back to it's relative position to the superview AFTER we grab the position from the world_
+//Box2D now handles the actual position of the object on the screen, but not it's relative position. We need to keep track
+//of that ourselves.
 void SquareView::drawInView(GenericView* aView) {
-	int x = x_;
-	int y = y_;
+	//local variables for real world position as given by the body_
+	int x(0), y(0);
 	
 	if(body_) {
 		b2Vec2 position = body_->GetPosition();
-		x = position.x * kMetersToPixels;
-		y = position.y * kMetersToPixels;
-		
-//		std::cout << x << ", " << y << endl;
-		
-		x_ = x;
-		y_ = y;
+		x = kPixelsFromMeters(position.x) - (width_ / 2.f);
+		y = kPixelsFromMeters(position.y) - (height_ / 2.f);
 	}
-	
-	this->translateCoordsToScreen(x, y);
-	
+		
 	//draw this
-	x -= width_/2;
-	y -= height_/2;
 	al_draw_filled_rectangle(x, y, x+width_, y+height_, backgroundColor_);
-	
+		
 	this->drawSubViews();
 }
 
+void SquareView::setBodyDefinition() {
+	//define the body and add to world
+	b2BodyDef bodyDef;
+	bodyDef.linearDamping = kDefaultLinearDampening;
+	
+	//we have to define the position in meters, but also in screen coords, so we want to translate from the superview
+	int shiftedX = x_;
+	int shiftedY = y_;
+	this->translateCoordsToScreen(shiftedX, shiftedY);
+	
+//	bodyDef.position.Set(kMetersFromPixels(shiftedX) + kMetersFromPixels(width_) / 2.f, kMetersFromPixels(shiftedY) + kMetersFromPixels(height_) / 2.f);
+	bodyDef.position.Set(kMetersFromPixels(shiftedX), kMetersFromPixels(shiftedY));
+	if(isDynamic_) bodyDef.type = b2_dynamicBody;
+	
+	if(body_) Game::instance()->getWorld()->DestroyBody(body_);
+	body_ = Game::instance()->getWorld()->CreateBody(&bodyDef);
+	
+	//define shape
+	b2PolygonShape boxShape;
+	boxShape.SetAsBox(kMetersFromPixels(width_) / 2.f, kMetersFromPixels(height_) / 2.f, b2Vec2(0,0), 0);
+	
+	//fixture definition
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &boxShape;
+	
+	fixtureDef.density = 0.5f;
+	fixtureDef.friction = 0.3f;
+	fixtureDef.restitution = 0.5f;
+	
+	body_->CreateFixture(&fixtureDef);
+}

@@ -38,36 +38,47 @@ GenericView::GenericView(int x, int y, int width, int height, bool isDynamic) {
 
     activeView_ = true;
 	clipsToBounds_ = false;
+	isDynamic_ = isDynamic;
 	
+	body_ = nullptr;
+	
+	this->setBodyDefinition();
+}
+
+void GenericView::setBodyDefinition() {
 	//setup body and add to world
 	b2BodyDef bodyDef;
-	bodyDef.linearDamping = kPlayerLinearDamping;
-	bodyDef.position.Set((float)x / kMetersToPixels, (float)y / kMetersToPixels);
-	if(isDynamic) bodyDef.type = b2_dynamicBody;
+	bodyDef.linearDamping = kDefaultLinearDampening;
+	
+	//we have to define the position in meters, but also in screen coords, so we want to translate from the superview
+	int shiftedX = x_;
+	int shiftedY = y_;
+	this->translateCoordsToScreen(shiftedX, shiftedY);
+	
+	bodyDef.position.Set(kMetersFromPixels(shiftedX), kMetersFromPixels(shiftedY));
+	if(isDynamic_) bodyDef.type = b2_dynamicBody;
+	
+	if(body_) Game::instance()->getWorld()->DestroyBody(body_);
 	body_ = Game::instance()->getWorld()->CreateBody(&bodyDef);
 	
 	//define shape
 	b2EdgeShape boxShape;
-//	b2PolygonShape boxShape;
-//	boxShape.SetAsBox(width_ / kMetersToPixels, height_ / kMetersToPixels);
 	
 	//define fixture
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &boxShape;
 	
-//	fixtureDef.density = 10.f;
+//	fixtureDef.density = 1.f;
 //	fixtureDef.friction = 0.3f;
 //	fixtureDef.restitution = 0.0f;
 	
+	float x1 = kMetersFromPixels(0);
+	float y1 = kMetersFromPixels(0);
+	float x2 = kMetersFromPixels((width_));
+	float y2 = kMetersFromPixels((height_));
 	
-//	body_->CreateFixture(&fixtureDef);
-	
-	
-	
-	float x1 = (float)x / kMetersToPixels;
-	float y1 = (float)y / kMetersToPixels;
-	float x2 = ((float)(x + width)) / kMetersToPixels;
-	float y2 = ((float)(y + height)) / kMetersToPixels;
+	boxShape.Set(b2Vec2(x1,y1), b2Vec2(x2,y1));
+	body_->CreateFixture(&fixtureDef);
 	
 	boxShape.Set(b2Vec2(x1,y1), b2Vec2(x1,y2));
 	body_->CreateFixture(&fixtureDef);
@@ -77,36 +88,48 @@ GenericView::GenericView(int x, int y, int width, int height, bool isDynamic) {
 	
 	boxShape.Set(b2Vec2(x2,y2), b2Vec2(x2,y1));
 	body_->CreateFixture(&fixtureDef);
-	
-	boxShape.Set(b2Vec2(x2,y1), b2Vec2(x1,y1));
-	body_->CreateFixture(&fixtureDef);
 }
 
-GenericView::GenericView(b2Body* body) {
-	body_ = body;
-	
-	backgroundColor_ = al_map_rgb(255, 0, 0);
-	
-    activeView_ = true;
-	clipsToBounds_ = true;
-}
 
+//!!!!!!!!!!!!!
+//TODO
+//!!!!!!!!!!!!!
+//Have to translate x_ and y_ back to it's relative position to the superview AFTER we grab the position from the world_
+//Box2D now handles the actual position of the object on the screen, but not it's relative position. We need to keep track
+//of that ourselves.
 void GenericView::drawInView(GenericView* aView) {
-	int x = x_;
-	int y = y_;
+	//local variables for real world position as given by the body_
+	int x(0), y(0);
 	
 	if(body_) {
 		b2Vec2 position = body_->GetPosition();
-		x = position.x * kMetersToPixels;
-		y = position.y * kMetersToPixels;
-		x_ = x;
-		y_ = y;
+		x = kPixelsFromMeters(position.x);
+		y = kPixelsFromMeters(position.y);
+//		x_ = x;
+//		y_ = y;
+		
+		for (b2Fixture* f = body_->GetFixtureList(); f; f = f->GetNext()) {
+			b2EdgeShape* shape = (b2EdgeShape*)f->GetShape();
+			b2Vec2 v1 = shape->m_vertex1;
+			b2Vec2 v2 = shape->m_vertex2;
+			int x1 = kPixelsFromMeters(v1.x) + x;
+			int y1 = kPixelsFromMeters(v1.y) + y;
+			int x2 = kPixelsFromMeters(v2.x) + x;
+			int y2 = kPixelsFromMeters(v2.y) + y;
+			
+//			this->translateCoordsToScreen(x1, y1);
+//			this->translateCoordsToScreen(x2, y2);
+			
+			al_draw_line(x1, y1, x2, y2, backgroundColor_, 5);
+		}
 	}
-	
-	this->translateCoordsToScreen(x, y);
-	
-	//draw this
-	al_draw_rectangle(x, y, x+width_, y+height_, backgroundColor_, 5);
+//	
+//	else {
+//		this->translateCoordsToScreen(x, y);
+//		
+//		//draw this
+//		al_draw_rectangle(x, y, x+width_, y+height_, backgroundColor_, 5);
+//	}
 	
 	this->drawSubViews();
 }

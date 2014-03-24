@@ -23,6 +23,7 @@ Player::Player(int x, int y, shared_ptr<GenericView> parentView) {
 //	hitBox_->setBackgroundColor(al_map_rgb(0, 255, 0));
 	
 	parentView->addSubview(view_, parentView);
+	view_->setBodyDefinition();
 //	parentView->addSubview(genericView_, parentView);
 //	view_->addSubview(hitBox_, view_);
 	
@@ -90,8 +91,7 @@ void Player::update() {
 	if(upPressed_) yVelocity -= kDefaultYSpeed*2;
 	if(downPressed_) yVelocity += kDefaultYSpeed*2;
 	
-	view_->getBody()->ApplyForce(b2Vec2(xVelocity, yVelocity), b2Vec2(view_->width_ / 2, view_->height_ / 2), true);
-//	genericView_->getBody()->ApplyForce(b2Vec2(xVelocity, yVelocity), b2Vec2(genericView_->width_ / 2, genericView_->height_ / 2), true);
+	view_->getBody()->ApplyForceToCenter(b2Vec2(xVelocity, yVelocity), true);
 	
 	weapon_->update();
 }
