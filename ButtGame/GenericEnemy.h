@@ -29,6 +29,7 @@ enum kMoveDirection {
 };
 
 class GenericEnemy {
+protected:
 	shared_ptr<SquareView> view_;
 	shared_ptr<GenericView> parentView_;
 	
@@ -37,19 +38,24 @@ class GenericEnemy {
 
 	kMoveDirection movingDirection_;
     bool isAlive_;
+	
+	float xVelocity_, yVelocity_;
 
 public:
+	GenericEnemy() {}
 	GenericEnemy(int x, int y, shared_ptr<GenericView> parentView);
 	~GenericEnemy();
+	
 	shared_ptr<SquareView> getView();
-    int get_x();
-    int get_y();
-    int get_width();
-    int get_height();
-    bool is_alive();
-    void make_dead();
-    void update();
-	void draw();
+	int get_x();
+	int get_y();
+	int get_width();
+	int get_height();
+	
+	bool is_alive();
+	void make_dead();
+	
+    virtual void update();
 };
 
 #endif /* defined(__ButtGame__GenericEnemy__) */

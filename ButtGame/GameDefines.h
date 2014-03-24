@@ -26,6 +26,7 @@
 #define kDefaultXSpeed 1.5f
 #define kDefaultYSpeed 1.5f
 #define kDefaultLinearDampening 8.f
+#define kDefaultAngularDampening 1.f
 
 #define kPlayerSize 30
 #define kPlayerHitboxSize 22

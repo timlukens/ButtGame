@@ -29,8 +29,8 @@ GenericEnemy::GenericEnemy(int x, int y, shared_ptr<GenericView> parentView) {
 
 GenericEnemy::~GenericEnemy() {
     DBMSG("GenericEnemy::~GenericEnemy");
-    if(changeDirectionQueue_) al_destroy_event_queue(changeDirectionQueue_);
-    if(changeDirectionTimer_) al_destroy_timer(changeDirectionTimer_);
+    if(changeDirectionQueue_) { al_destroy_event_queue(changeDirectionQueue_); changeDirectionQueue_ = nullptr; }
+    if(changeDirectionTimer_) { al_destroy_timer(changeDirectionTimer_); changeDirectionTimer_ = nullptr; }
 }
 
 shared_ptr<SquareView> GenericEnemy::getView() {
@@ -62,8 +62,8 @@ void GenericEnemy::make_dead() {
 }
 
 void GenericEnemy::update() {
-	int xVelocity = 0;
-	int yVelocity = 0;
+	xVelocity_ = 0;
+	yVelocity_ = 0;
 	
 	ALLEGRO_EVENT e;
 	if(al_get_next_event(changeDirectionQueue_, &e)) {
@@ -74,39 +74,39 @@ void GenericEnemy::update() {
 
 	switch(movingDirection_) {
 		case kMoveDirectionUp:
-			yVelocity = -kDefaultYSpeed;
+			yVelocity_ = -kDefaultYSpeed;
 			break;
 			
 		case kMoveDirectionDown:
-			yVelocity = kDefaultYSpeed;
+			yVelocity_ = kDefaultYSpeed;
 			break;
 			
 		case kMoveDirectionLeft:
-			xVelocity = -kDefaultXSpeed;
+			xVelocity_ = -kDefaultXSpeed;
 			break;
 			
 		case kMoveDirectionRight:
-			xVelocity = kDefaultXSpeed;
+			xVelocity_ = kDefaultXSpeed;
 			break;
 			
 		case kMoveDirectionUpLeft:
-			xVelocity = -kDefaultXSpeed;
-			yVelocity = -kDefaultYSpeed;
+			xVelocity_ = -kDefaultXSpeed;
+			yVelocity_ = -kDefaultYSpeed;
 			break;
 			
 		case kMoveDirectionUpRight:
-			xVelocity = kDefaultXSpeed;
-			yVelocity = -kDefaultYSpeed;
+			xVelocity_ = kDefaultXSpeed;
+			yVelocity_ = -kDefaultYSpeed;
 			break;
 			
 		case kMoveDirectionDownLeft:
-			xVelocity = -kDefaultXSpeed;
-			yVelocity = kDefaultYSpeed;
+			xVelocity_ = -kDefaultXSpeed;
+			yVelocity_ = kDefaultYSpeed;
 			break;
 			
 		case kMoveDirectionDownRight:
-			xVelocity = kDefaultXSpeed;
-			yVelocity = kDefaultYSpeed;
+			xVelocity_ = kDefaultXSpeed;
+			yVelocity_ = kDefaultYSpeed;
 			break;
 			
 		case kMoveDirectionCount:
@@ -117,9 +117,5 @@ void GenericEnemy::update() {
 			break;
 	}
 	
-	view_->getBody()->ApplyForceToCenter(b2Vec2(xVelocity, yVelocity), true);
-}
-
-void GenericEnemy::draw() {
-//	if(view_) view_->draw();
+	view_->getBody()->ApplyForceToCenter(b2Vec2(xVelocity_, yVelocity_), true);
 }

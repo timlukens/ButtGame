@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "Debug.h"
 #include "SquareView.h"
+#include "SpokesEnemy.h"
 
 #define GAME_INSET 50
 
@@ -71,9 +72,8 @@ void Game::createWorld() {
 	
 	//make some god damn enemies
 	for(int i = 0; i < 10; i++) {
-		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
-//		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(bounds_->width_ / 2 - kDefaultEnemySize / 2, bounds_->height_ / 2 - kDefaultEnemySize / 2, bounds_)));
-//		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(100,100,bounds_)));
+//		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
+		enemies_.push_back(shared_ptr<SpokesEnemy> (new SpokesEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
 	}
 }
 

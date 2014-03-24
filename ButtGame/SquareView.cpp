@@ -45,10 +45,23 @@ void SquareView::drawInView(GenericView* aView) {
 		b2Vec2 position = body_->GetPosition();
 		x = kPixelsFromMeters(position.x) - (width_ / 2.f);
 		y = kPixelsFromMeters(position.y) - (height_ / 2.f);
+		
+		b2PolygonShape* shape = (b2PolygonShape*)body_->GetFixtureList()[0].GetShape();
+		ALLEGRO_VERTEX v[4];
+		for(int i = 0; i < 4; i++) {
+			b2Vec2 position = shape->GetVertex(i);
+			b2Transform transfrom(b2Vec2(0,0), b2Rot(body_->GetAngle()));
+			position = b2Mul(transfrom, position);
+			float realX = kPixelsFromMeters(position.x) + x + width_ / 2.f;
+			float realY = kPixelsFromMeters(position.y) + y + height_ / 2.f;
+			
+			v[i] = { .x = realX, .y = realY, .z = 0, .color = backgroundColor_ };
+		}
+		al_draw_prim(v, NULL, NULL, 0, 4, ALLEGRO_PRIM_LINE_LOOP);
 	}
 		
 	//draw this
-	al_draw_filled_rectangle(x, y, x+width_, y+height_, backgroundColor_);
+//	al_draw_filled_rectangle(x, y, x+width_, y+height_, backgroundColor_);
 		
 	this->drawSubViews();
 }
@@ -57,6 +70,7 @@ void SquareView::setBodyDefinition() {
 	//define the body and add to world
 	b2BodyDef bodyDef;
 	bodyDef.linearDamping = kDefaultLinearDampening;
+	bodyDef.angularDamping = kDefaultAngularDampening;
 	
 	//we have to define the position in meters, but also in screen coords, so we want to translate from the superview
 	int shiftedX = x_;
