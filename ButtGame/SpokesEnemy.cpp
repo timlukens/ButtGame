@@ -8,8 +8,11 @@
 
 #include "SpokesEnemy.h"
 #include "Debug.h"
+#include "Game.h"
+#include "GameDefines.h"
+#include <math.h>
 
-SpokesEnemy::SpokesEnemy(int x, int y, shared_ptr<GenericView> parentView) {
+SpokesEnemy::SpokesEnemy(int x, int y, shared_ptr<GenericView> parentView, int numSpokes) {
 	parentView_ = parentView;
 	
     isAlive_ = true;
@@ -24,6 +27,11 @@ SpokesEnemy::SpokesEnemy(int x, int y, shared_ptr<GenericView> parentView) {
 	changeDirectionQueue_ = al_create_event_queue();
 	al_register_event_source(changeDirectionQueue_, al_get_timer_event_source(changeDirectionTimer_));
 	al_start_timer(changeDirectionTimer_);
+	
+	torque_ = 0;
+	numSpokes_ = numSpokes;
+	
+	this->createSpokes();
 }
 
 SpokesEnemy::~SpokesEnemy() {
@@ -32,9 +40,28 @@ SpokesEnemy::~SpokesEnemy() {
     if(changeDirectionTimer_) { al_destroy_timer(changeDirectionTimer_); changeDirectionTimer_ = nullptr; }
 }
 
-void SpokesEnemy::update() {
-	GenericEnemy::update();
+void SpokesEnemy::createSpokes() {
+	float anglePerSpoke = (M_PI * 2) / numSpokes_;
 	
-//	view_->getBody()->ApplyAngularImpulse(1, true);
-//	cout << view_->getBody()->GetAngle() << endl;
+	for(int i = 0; i < numSpokes_; i++) {
+		shared_ptr<SquareView> spoke = shared_ptr<SquareView> (new SquareView(0, 0, 90, 10, true));
+		view_->addSubview(spoke, view_);
+		spoke->setBodyDefinition();
+		
+		b2WeldJointDef jointDef;
+		jointDef.bodyA = view_->getBody();
+		jointDef.bodyB = spoke->getBody();
+		jointDef.localAnchorB = b2Vec2(kMetersFromPixels((spoke->width_ / 2 + (view_->width_ / 2.f))), 0);
+		jointDef.referenceAngle = anglePerSpoke*i;
+		jointDef.collideConnected = false;
+		Game::instance()->getWorld()->CreateJoint(&jointDef);
+		
+		spoke->getBody()->SetTransform(spoke->getBody()->GetPosition(), anglePerSpoke * i);
+	}
+}
+
+void SpokesEnemy::update() {
+//	view_->getBody()->SetAngularVelocity(20);
+	view_->getBody()->ApplyAngularImpulse(.03, true);
+	GenericEnemy::update();
 }

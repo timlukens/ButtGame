@@ -50,7 +50,8 @@ void SquareView::drawInView(GenericView* aView) {
 		ALLEGRO_VERTEX v[4];
 		for(int i = 0; i < 4; i++) {
 			b2Vec2 position = shape->GetVertex(i);
-			b2Transform transfrom(b2Vec2(0,0), b2Rot(body_->GetAngle()));
+			float angle = body_->GetAngle();
+			b2Transform transfrom(b2Vec2(0,0), b2Rot(angle));
 			position = b2Mul(transfrom, position);
 			float realX = kPixelsFromMeters(position.x) + x + width_ / 2.f;
 			float realY = kPixelsFromMeters(position.y) + y + height_ / 2.f;

@@ -12,10 +12,17 @@
 #include <iostream>
 #include "GenericEnemy.h"
 
+#define kMaxTorque 1000
+#define kTorqueStep 1
+
 class SpokesEnemy : public GenericEnemy {
+	void createSpokes();
+	
+	int torque_;
+	int numSpokes_;
 	
 public:
-	SpokesEnemy(int x, int y, shared_ptr<GenericView> parentView);
+	SpokesEnemy(int x, int y, shared_ptr<GenericView> parentView, int numSpokes=2);
 	~SpokesEnemy();
 	
     virtual void update();

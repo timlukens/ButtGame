@@ -68,13 +68,13 @@ void Game::createWorld() {
 //	world_->SetContactListener(contactListener_);
 	
 	bounds_ = shared_ptr<GenericView> (new GenericView(GAME_INSET, GAME_INSET, screenWidth_ - GAME_INSET * 2, (screenHeight_ - GAME_INSET * 2), false));
-	player_ = shared_ptr<Player> (new Player(1,1, bounds_));
+	player_ = shared_ptr<Player> (new Player(40,40, bounds_));
 	
 	//make some god damn enemies
-	for(int i = 0; i < 10; i++) {
-//		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
-		enemies_.push_back(shared_ptr<SpokesEnemy> (new SpokesEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
+	for(int i = 0; i < 5; i++) {
+		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
 	}
+	enemies_.push_back(shared_ptr<SpokesEnemy> (new SpokesEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
 }
 
 //graphics tick

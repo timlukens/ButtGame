@@ -91,9 +91,9 @@ void GenericView::setBodyDefinition() {
 }
 
 
-//!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //TODO
-//!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //Have to translate x_ and y_ back to it's relative position to the superview AFTER we grab the position from the world_
 //Box2D now handles the actual position of the object on the screen, but not it's relative position. We need to keep track
 //of that ourselves.
@@ -295,3 +295,121 @@ void GenericView::setClipsToBounds(bool clips) {
 b2Body* GenericView::getBody() {
 	return body_;
 }
+
+
+
+
+
+
+
+
+
+
+
+//This is how box2d debug draw does their drawing of shapes
+//
+//
+
+//void b2World::DrawShape(b2Fixture* fixture, const b2Transform& xf, const b2Color& color)
+//{
+//	switch (fixture->GetType())
+//	{
+//        case b2Shape::e_circle:
+//		{
+//			b2CircleShape* circle = (b2CircleShape*)fixture->GetShape();
+//			
+//			b2Vec2 center = b2Mul(xf, circle->m_p);
+//			float32 radius = circle->m_radius;
+//			b2Vec2 axis = b2Mul(xf.q, b2Vec2(1.0f, 0.0f));
+//			
+//			g_debugDraw->DrawSolidCircle(center, radius, axis, color);
+//		}
+//			break;
+//			
+//        case b2Shape::e_edge:
+//		{
+//			b2EdgeShape* edge = (b2EdgeShape*)fixture->GetShape();
+//			b2Vec2 v1 = b2Mul(xf, edge->m_vertex1);
+//			b2Vec2 v2 = b2Mul(xf, edge->m_vertex2);
+//			g_debugDraw->DrawSegment(v1, v2, color);
+//		}
+//			break;
+//			
+//        case b2Shape::e_chain:
+//		{
+//			b2ChainShape* chain = (b2ChainShape*)fixture->GetShape();
+//			int32 count = chain->m_count;
+//			const b2Vec2* vertices = chain->m_vertices;
+//			
+//			b2Vec2 v1 = b2Mul(xf, vertices[0]);
+//			for (int32 i = 1; i < count; ++i)
+//			{
+//				b2Vec2 v2 = b2Mul(xf, vertices[i]);
+//				g_debugDraw->DrawSegment(v1, v2, color);
+//				g_debugDraw->DrawCircle(v1, 0.05f, color);
+//				v1 = v2;
+//			}
+//		}
+//			break;
+//			
+//        case b2Shape::e_polygon:
+//		{
+//			b2PolygonShape* poly = (b2PolygonShape*)fixture->GetShape();
+//			int32 vertexCount = poly->m_count;
+//			b2Assert(vertexCount <= b2_maxPolygonVertices);
+//			b2Vec2 vertices[b2_maxPolygonVertices];
+//			
+//			for (int32 i = 0; i < vertexCount; ++i)
+//			{
+//				vertices[i] = b2Mul(xf, poly->m_vertices[i]);
+//			}
+//			
+//			g_debugDraw->DrawSolidPolygon(vertices, vertexCount, color);
+//		}
+//			break;
+//            
+//		default:
+//			break;
+//	}
+//}
+//
+//void b2World::DrawJoint(b2Joint* joint)
+//{
+//	b2Body* bodyA = joint->GetBodyA();
+//	b2Body* bodyB = joint->GetBodyB();
+//	const b2Transform& xf1 = bodyA->GetTransform();
+//	const b2Transform& xf2 = bodyB->GetTransform();
+//	b2Vec2 x1 = xf1.p;
+//	b2Vec2 x2 = xf2.p;
+//	b2Vec2 p1 = joint->GetAnchorA();
+//	b2Vec2 p2 = joint->GetAnchorB();
+//	
+//	b2Color color(0.5f, 0.8f, 0.8f);
+//	
+//	switch (joint->GetType())
+//	{
+//        case e_distanceJoint:
+//			g_debugDraw->DrawSegment(p1, p2, color);
+//			break;
+//			
+//        case e_pulleyJoint:
+//		{
+//			b2PulleyJoint* pulley = (b2PulleyJoint*)joint;
+//			b2Vec2 s1 = pulley->GetGroundAnchorA();
+//			b2Vec2 s2 = pulley->GetGroundAnchorB();
+//			g_debugDraw->DrawSegment(s1, p1, color);
+//			g_debugDraw->DrawSegment(s2, p2, color);
+//			g_debugDraw->DrawSegment(s1, s2, color);
+//		}
+//			break;
+//			
+//        case e_mouseJoint:
+//			// don't draw this
+//			break;
+//			
+//        default:
+//			g_debugDraw->DrawSegment(x1, p1, color);
+//			g_debugDraw->DrawSegment(p1, p2, color);
+//			g_debugDraw->DrawSegment(x2, p2, color);
+//	}
+//}
