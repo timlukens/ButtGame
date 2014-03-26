@@ -55,6 +55,7 @@ void SpokesEnemy::createSpokes() {
 	
 	for(int i = 0; i < numSpokes_; i++) {
 		shared_ptr<SquareView> spoke = shared_ptr<SquareView> (new SquareView(0, 0, 90, 5, true));
+		spoke->setBackgroundColor(al_map_rgb(0, 100, 255));
 		view_->addSubview(spoke, view_);
 		spoke->setBodyDefinition();
 		

@@ -46,6 +46,11 @@ void SquareView::drawInView(GenericView* aView) {
 		x = kPixelsFromMeters(position.x) - (width_ / 2.f);
 		y = kPixelsFromMeters(position.y) - (height_ / 2.f);
 		
+		if(isAnchored_) {
+			x = kPixelsFromMeters((superView_->getBody()->GetPosition().x)) - width_ / 2.f;
+			y = kPixelsFromMeters((superView_->getBody()->GetPosition().y)) - height_ / 2.f;
+		}
+		
 		b2PolygonShape* shape = (b2PolygonShape*)body_->GetFixtureList()[0].GetShape();
 		ALLEGRO_VERTEX v[4];
 		for(int i = 0; i < 4; i++) {

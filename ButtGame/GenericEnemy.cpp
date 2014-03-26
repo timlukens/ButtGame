@@ -16,8 +16,13 @@ GenericEnemy::GenericEnemy(int x, int y, shared_ptr<GenericView> parentView) {
     isAlive_ = true;    
 
 	view_ = shared_ptr<SquareView>(new SquareView(x, y, kDefaultEnemySize, kDefaultEnemySize, true));
-	view_->setBackgroundColor(al_map_rgb(255, 0, 0));
+	view_->setBackgroundColor(al_map_rgb(255, 100, 100));
 	parentView->addSubview(view_, parentView);
+	
+	shared_ptr<SquareView> innerView = shared_ptr<SquareView>(new SquareView(x + kDefaultEnemySize / 4.f, y + kDefaultEnemySize / 4.f,
+																			 kDefaultEnemySize / 2.f, kDefaultEnemySize / 2.f, true));
+	innerView->setIsAnchord(true);
+	view_->addSubview(innerView, view_);
 	
 	movingDirection_ = (kMoveDirection)(rand() % (int)kMoveDirectionCount);
 	

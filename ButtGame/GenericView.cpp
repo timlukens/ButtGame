@@ -38,6 +38,7 @@ GenericView::GenericView(int x, int y, int width, int height, bool isDynamic) {
 
     activeView_ = true;
 	clipsToBounds_ = false;
+	isAnchored_ = false;
 	isDynamic_ = isDynamic;
 	
 	body_ = nullptr;
@@ -105,6 +106,12 @@ void GenericView::drawInView(GenericView* aView) {
 		b2Vec2 position = body_->GetPosition();
 		x = kPixelsFromMeters(position.x);
 		y = kPixelsFromMeters(position.y);
+		
+		if(isAnchored_) {
+			x = kPixelsFromMeters((superView_->getBody()->GetPosition().x)) + width_ / 2.f;
+			y = kPixelsFromMeters((superView_->getBody()->GetPosition().y)) + height_ / 2.f;
+		}
+		
 //		x_ = x;
 //		y_ = y;
 		
@@ -290,6 +297,10 @@ bool GenericView::isInView(shared_ptr<GenericView> aView) {
 
 void GenericView::setClipsToBounds(bool clips) {
 	clipsToBounds_ = clips;
+}
+
+void GenericView::setIsAnchord(bool anchored) {
+	isAnchored_ = anchored;
 }
 
 b2Body* GenericView::getBody() {

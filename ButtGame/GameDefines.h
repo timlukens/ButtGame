@@ -19,7 +19,7 @@
 #define kVelocityIterations 8
 #define kPositionIterations 3
 
-#define kMetersToPixels 100.f
+#define kMetersToPixels 90.f
 #define kMetersFromPixels(x) (float)x / kMetersToPixels
 #define kPixelsFromMeters(x) (float)x * kMetersToPixels
 

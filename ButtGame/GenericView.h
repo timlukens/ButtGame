@@ -27,6 +27,7 @@ protected:
     bool activeView_;
 	bool clipsToBounds_;
 	bool isDynamic_;
+	bool isAnchored_;
 
 public:
 	GenericView();
@@ -57,6 +58,7 @@ public:
 	bool isInView(shared_ptr<GenericView> aView);
 	
 	void setClipsToBounds(bool clips);
+	void setIsAnchord(bool anchored);
 	
 	b2Body* getBody();
 };

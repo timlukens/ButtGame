@@ -15,7 +15,7 @@ SquidEnemy::SquidEnemy(int x, int y, shared_ptr<GenericView> parentView, int num
     isAlive_ = true;
 	
 	view_ = shared_ptr<SquareView>(new SquareView(x, y, kDefaultEnemySize / 2.f, kDefaultEnemySize / 2.f, true));
-	view_->setBackgroundColor(al_map_rgb(255, 0, 0));
+	view_->setBackgroundColor(al_map_rgb(255, 255, 0));
 	parentView->addSubview(view_, parentView);
 	
 	movingDirection_ = (kMoveDirection)(rand() % (int)kMoveDirectionCount);
@@ -41,6 +41,7 @@ void SquidEnemy::createSpokes() {
 	
 	for(int i = 0; i < numSpokes_; i++) {
 		shared_ptr<SquareView> spoke = shared_ptr<SquareView> (new SquareView(0, 0, 90, 5, true));
+		spoke->setBackgroundColor(al_map_rgb(255,0,0));
 		view_->addSubview(spoke, view_);
 		spoke->setBodyDefinition();
 		

@@ -17,7 +17,7 @@
 #include "SpokesEnemy.h"
 #include "SquidEnemy.h"
 
-#define GAME_INSET 50
+#define GAME_INSET 25
 
 
 Game* Game::m_pInstance = NULL;
