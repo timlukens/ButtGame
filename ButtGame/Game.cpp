@@ -15,6 +15,7 @@
 #include "Debug.h"
 #include "SquareView.h"
 #include "SpokesEnemy.h"
+#include "SquidEnemy.h"
 
 #define GAME_INSET 50
 
@@ -71,10 +72,19 @@ void Game::createWorld() {
 	player_ = shared_ptr<Player> (new Player(40,40, bounds_));
 	
 	//make some god damn enemies
-	for(int i = 0; i < 5; i++) {
+	for(int i = 0; i < kNumGenericEnemies; i++) {
 		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
 	}
-	enemies_.push_back(shared_ptr<SpokesEnemy> (new SpokesEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
+	
+	//make spokes enemies
+	for(int i = 0; i < kNumSpokesEnemies; i++) {
+		enemies_.push_back(shared_ptr<SpokesEnemy> (new SpokesEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
+	}
+	
+	//make squids
+	for(int i = 0; i < kNumSquidEnemies; i++) {
+		enemies_.push_back(shared_ptr<SquidEnemy> (new SquidEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
+	}
 }
 
 //graphics tick

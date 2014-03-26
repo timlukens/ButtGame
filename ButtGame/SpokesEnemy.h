@@ -16,13 +16,15 @@
 #define kTorqueStep 1
 
 class SpokesEnemy : public GenericEnemy {
-	void createSpokes();
+protected:
+	virtual void createSpokes();
 	
 	int torque_;
 	int numSpokes_;
 	
 public:
-	SpokesEnemy(int x, int y, shared_ptr<GenericView> parentView, int numSpokes=2);
+	SpokesEnemy();
+	SpokesEnemy(int x, int y, shared_ptr<GenericView> parentView, int numSpokes=5);
 	~SpokesEnemy();
 	
     virtual void update();

@@ -12,6 +12,7 @@
 		89539DD418DE3DC600D2679F /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89539DD318DE3DC600D2679F /* libBox2D.a */; };
 		89539DD718DEB00F00D2679F /* ContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89539DD518DEB00F00D2679F /* ContactListener.cpp */; };
 		89539DDA18E012BF00D2679F /* SpokesEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89539DD818E012BF00D2679F /* SpokesEnemy.cpp */; };
+		89539E4B18E293D700D2679F /* SquidEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89539E4918E293D700D2679F /* SquidEnemy.cpp */; };
 		895BC7F918D6BAD7009DF424 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC7F818D6BAD7009DF424 /* main.cpp */; };
 		895BC7FB18D6BAD7009DF424 /* ButtGame.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 895BC7FA18D6BAD7009DF424 /* ButtGame.1 */; };
 		895BC93418D6C2B4009DF424 /* liballegro.5.0.10.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 895BC92918D6C2B4009DF424 /* liballegro.5.0.10.dylib */; };
@@ -56,6 +57,8 @@
 		89539DD618DEB00F00D2679F /* ContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListener.h; sourceTree = "<group>"; };
 		89539DD818E012BF00D2679F /* SpokesEnemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpokesEnemy.cpp; sourceTree = "<group>"; };
 		89539DD918E012BF00D2679F /* SpokesEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpokesEnemy.h; sourceTree = "<group>"; };
+		89539E4918E293D700D2679F /* SquidEnemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SquidEnemy.cpp; sourceTree = "<group>"; };
+		89539E4A18E293D700D2679F /* SquidEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquidEnemy.h; sourceTree = "<group>"; };
 		895BC7F518D6BAD7009DF424 /* ButtGame */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ButtGame; sourceTree = BUILT_PRODUCTS_DIR; };
 		895BC7F818D6BAD7009DF424 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		895BC7FA18D6BAD7009DF424 /* ButtGame.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ButtGame.1; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 				895BC96218D89572009DF424 /* GenericEnemy.h */,
 				89539DD818E012BF00D2679F /* SpokesEnemy.cpp */,
 				89539DD918E012BF00D2679F /* SpokesEnemy.h */,
+				89539E4918E293D700D2679F /* SquidEnemy.cpp */,
+				89539E4A18E293D700D2679F /* SquidEnemy.h */,
 			);
 			name = Enemies;
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 				895BC99218D8F525009DF424 /* GenericWeapon.cpp in Sources */,
 				895BC96318D89572009DF424 /* GenericEnemy.cpp in Sources */,
 				895BC95E18D7B95B009DF424 /* Player.cpp in Sources */,
+				89539E4B18E293D700D2679F /* SquidEnemy.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

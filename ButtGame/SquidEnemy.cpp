@@ -1,22 +1,15 @@
 //
-//  SpokesEnemy.cpp
+//  SquidEnemy.cpp
 //  ButtGame
 //
-//  Created by tim on 3/24/14.
+//  Created by tim on 3/26/14.
 //  Copyright (c) 2014 _BUTT_. All rights reserved.
 //
 
-#include "SpokesEnemy.h"
-#include "Debug.h"
+#include "SquidEnemy.h"
 #include "Game.h"
-#include "GameDefines.h"
-#include <math.h>
 
-SpokesEnemy::SpokesEnemy() {
-	
-}
-
-SpokesEnemy::SpokesEnemy(int x, int y, shared_ptr<GenericView> parentView, int numSpokes) {
+SquidEnemy::SquidEnemy(int x, int y, shared_ptr<GenericView> parentView, int numSpokes) {
 	parentView_ = parentView;
 	
     isAlive_ = true;
@@ -38,19 +31,12 @@ SpokesEnemy::SpokesEnemy(int x, int y, shared_ptr<GenericView> parentView, int n
 	this->createSpokes();
 }
 
-SpokesEnemy::~SpokesEnemy() {
-	DBMSG("SpokesEnemy::~SpokesEnemy");
-    if(changeDirectionQueue_) { al_destroy_event_queue(changeDirectionQueue_); changeDirectionQueue_ = nullptr; }
-    if(changeDirectionTimer_) { al_destroy_timer(changeDirectionTimer_); changeDirectionTimer_ = nullptr; }
+SquidEnemy::~SquidEnemy() {
+	
 }
 
 
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//TODO
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//Make localAnchorA be a point on a circle that perfectly contains the view_
-//
-void SpokesEnemy::createSpokes() {
+void SquidEnemy::createSpokes() {
 	float anglePerSpoke = (M_PI * 2) / numSpokes_;
 	
 	for(int i = 0; i < numSpokes_; i++) {
@@ -59,14 +45,14 @@ void SpokesEnemy::createSpokes() {
 		spoke->setBodyDefinition();
 		
 		//define joint
-		b2WeldJointDef jointDef;
+		b2RevoluteJointDef jointDef;
 		jointDef.bodyA = view_->getBody();
 		jointDef.bodyB = spoke->getBody();
 		
 		//set where on the spoke we pin it to the master
-		jointDef.localAnchorA = b2Vec2(kMetersFromPixels((view_->width_ / 2.f)), 0);
-		jointDef.localAnchorB = b2Vec2(kMetersFromPixels((spoke->width_ / 2.f)), 0);
-//		jointDef.localAnchorB = b2Vec2(kMetersFromPixels((spoke->width_ / 2.f + (view_->width_ * 2.f))), 0);
+//		jointDef.localAnchorA = b2Vec2(kMetersFromPixels((view_->width_ / 2.f)), 0);
+//		jointDef.localAnchorB = b2Vec2(kMetersFromPixels((spoke->width_ / 2.f)), 0);
+		jointDef.localAnchorB = b2Vec2(kMetersFromPixels((spoke->width_ / 2.f + (view_->width_ * 2.f))), 0);
 		
 		//space out the joints evenly around a full circle
 		jointDef.referenceAngle = anglePerSpoke*i;
@@ -83,8 +69,6 @@ void SpokesEnemy::createSpokes() {
 	}
 }
 
-void SpokesEnemy::update() {
-//	view_->getBody()->SetAngularVelocity(20);
-	view_->getBody()->ApplyAngularImpulse(.06 / numSpokes_, true);
+void SquidEnemy::update() {
 	GenericEnemy::update();
 }
