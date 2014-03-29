@@ -12,6 +12,7 @@
 #include <iostream>
 #include "SquareView.h"
 #include "GameDefines.h"
+#include "Sine.h"
 
 #define kChangeDirectionTime 0.6f
 #define kDefaultEnemySize 25
@@ -40,6 +41,10 @@ protected:
     bool isAlive_;
 	
 	float xVelocity_, yVelocity_;
+	
+	shared_ptr<Sine> sine1_;
+	shared_ptr<Sine> sine2_;
+	shared_ptr<Sine> sine3_;
 
 public:
 	GenericEnemy() {}

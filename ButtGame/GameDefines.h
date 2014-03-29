@@ -31,9 +31,9 @@
 #define kPlayerSize 30
 #define kPlayerHitboxSize 22
 
-#define kNumGenericEnemies 3
-#define kNumSpokesEnemies 1
-#define kNumSquidEnemies 2
+#define kNumGenericEnemies 1000
+#define kNumSpokesEnemies 0
+#define kNumSquidEnemies 0
 
 #define DEBUG 1
 

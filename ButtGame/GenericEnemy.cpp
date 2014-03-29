@@ -20,7 +20,7 @@ GenericEnemy::GenericEnemy(int x, int y, shared_ptr<GenericView> parentView) {
 	parentView->addSubview(view_, parentView);
 	
 	shared_ptr<SquareView> innerView = shared_ptr<SquareView>(new SquareView(x + kDefaultEnemySize / 4.f, y + kDefaultEnemySize / 4.f,
-																			 kDefaultEnemySize / 2.f, kDefaultEnemySize / 2.f, true));
+																			 kDefaultEnemySize / 2.f, kDefaultEnemySize / 2.f, true, true));
 	innerView->setIsAnchord(true);
 	view_->addSubview(innerView, view_);
 	
@@ -30,6 +30,10 @@ GenericEnemy::GenericEnemy(int x, int y, shared_ptr<GenericView> parentView) {
 	changeDirectionQueue_ = al_create_event_queue();
 	al_register_event_source(changeDirectionQueue_, al_get_timer_event_source(changeDirectionTimer_));
 	al_start_timer(changeDirectionTimer_);
+	
+	sine1_ = shared_ptr<Sine> (new Sine(0.5));
+	sine2_ = shared_ptr<Sine> (new Sine(1.3));
+	sine3_ = shared_ptr<Sine> (new Sine(0.8));
 }
 
 GenericEnemy::~GenericEnemy() {
@@ -122,5 +126,10 @@ void GenericEnemy::update() {
 			break;
 	}
 	
-	view_->getBody()->ApplyForceToCenter(b2Vec2(xVelocity_, yVelocity_), true);
+//	view_->getBody()->ApplyForceToCenter(b2Vec2(xVelocity_, yVelocity_), true);
+	
+	float amp1 = (sine1_->tick() + 1) / 2.f * 255.f;
+	float amp2 = (sine2_->tick() + 1) / 2.f * 255.f;
+	float amp3 = (sine3_->tick() + 1) / 2.f * 255.f;
+	view_->setBackgroundColor(al_map_rgb(amp1, amp2, amp3));
 }

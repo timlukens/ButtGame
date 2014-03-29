@@ -28,11 +28,12 @@ protected:
 	bool clipsToBounds_;
 	bool isDynamic_;
 	bool isAnchored_;
+	bool isSensor_;
 
 public:
 	GenericView();
 	~GenericView();
-	GenericView(int x, int y, int width, int height, bool isDynamic);
+	GenericView(int x, int y, int width, int height, bool isDynamic, bool isSensor=false);
 	
 	virtual void setBodyDefinition();
 	

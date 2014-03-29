@@ -12,7 +12,7 @@
 #include "Debug.h"
 #include "Game.h"
 
-SquareView::SquareView(int x, int y, int width, int height, bool isDynamic) {
+SquareView::SquareView(int x, int y, int width, int height, bool isDynamic, bool isSensor) {
 	x_ = x;
 	y_ = y;
 	width_ = width;
@@ -21,6 +21,7 @@ SquareView::SquareView(int x, int y, int width, int height, bool isDynamic) {
 	clipsToBounds_ = false;
 	activeView_ = true;
 	isDynamic_ = isDynamic;
+	isSensor_ = isSensor;
 	
 	body_ = nullptr;
 	
@@ -97,6 +98,7 @@ void SquareView::setBodyDefinition() {
 	//fixture definition
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &boxShape;
+	fixtureDef.isSensor = isSensor_;
 	
 	fixtureDef.density = 0.5f;
 	fixtureDef.friction = 0.3f;

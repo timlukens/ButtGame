@@ -72,8 +72,16 @@ void Game::createWorld() {
 	player_ = shared_ptr<Player> (new Player(40,40, bounds_));
 	
 	//make some god damn enemies
+	int x = 100;
+	int y = 100;
 	for(int i = 0; i < kNumGenericEnemies; i++) {
-		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
+		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(x,y, bounds_)));
+		x += kDefaultEnemySize + 10;
+		if(x >= screenWidth_ - GAME_INSET * 2) {
+			x = 100;
+			y += kDefaultEnemySize + 10;
+		}
+//		enemies_.push_back(shared_ptr<GenericEnemy> (new GenericEnemy(rand() % (bounds_->width_ - kDefaultEnemySize), rand() % (bounds_->height_ - kDefaultEnemySize), bounds_)));
 	}
 	
 	//make spokes enemies

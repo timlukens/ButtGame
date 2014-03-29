@@ -13,6 +13,8 @@
 		89539DD718DEB00F00D2679F /* ContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89539DD518DEB00F00D2679F /* ContactListener.cpp */; };
 		89539DDA18E012BF00D2679F /* SpokesEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89539DD818E012BF00D2679F /* SpokesEnemy.cpp */; };
 		89539E4B18E293D700D2679F /* SquidEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89539E4918E293D700D2679F /* SquidEnemy.cpp */; };
+		89539EB218E6B61500D2679F /* Sine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89539EB018E6B61500D2679F /* Sine.cpp */; };
+		89539EB518E6B63800D2679F /* SignalGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89539EB318E6B63800D2679F /* SignalGenerator.cpp */; };
 		895BC7F918D6BAD7009DF424 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC7F818D6BAD7009DF424 /* main.cpp */; };
 		895BC7FB18D6BAD7009DF424 /* ButtGame.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 895BC7FA18D6BAD7009DF424 /* ButtGame.1 */; };
 		895BC93418D6C2B4009DF424 /* liballegro.5.0.10.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 895BC92918D6C2B4009DF424 /* liballegro.5.0.10.dylib */; };
@@ -59,6 +61,10 @@
 		89539DD918E012BF00D2679F /* SpokesEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpokesEnemy.h; sourceTree = "<group>"; };
 		89539E4918E293D700D2679F /* SquidEnemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SquidEnemy.cpp; sourceTree = "<group>"; };
 		89539E4A18E293D700D2679F /* SquidEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquidEnemy.h; sourceTree = "<group>"; };
+		89539EB018E6B61500D2679F /* Sine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sine.cpp; sourceTree = "<group>"; };
+		89539EB118E6B61500D2679F /* Sine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sine.h; sourceTree = "<group>"; };
+		89539EB318E6B63800D2679F /* SignalGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SignalGenerator.cpp; sourceTree = "<group>"; };
+		89539EB418E6B63800D2679F /* SignalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalGenerator.h; sourceTree = "<group>"; };
 		895BC7F518D6BAD7009DF424 /* ButtGame */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ButtGame; sourceTree = BUILT_PRODUCTS_DIR; };
 		895BC7F818D6BAD7009DF424 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		895BC7FA18D6BAD7009DF424 /* ButtGame.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ButtGame.1; sourceTree = "<group>"; };
@@ -131,6 +137,17 @@
 			name = Projectiles;
 			sourceTree = "<group>";
 		};
+		89539EAF18E6B5E900D2679F /* Signal Processing */ = {
+			isa = PBXGroup;
+			children = (
+				89539EB318E6B63800D2679F /* SignalGenerator.cpp */,
+				89539EB418E6B63800D2679F /* SignalGenerator.h */,
+				89539EB018E6B61500D2679F /* Sine.cpp */,
+				89539EB118E6B61500D2679F /* Sine.h */,
+			);
+			name = "Signal Processing";
+			sourceTree = "<group>";
+		};
 		895BC7EC18D6BAD7009DF424 = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +180,7 @@
 		895BC7F718D6BAD7009DF424 /* ButtGame */ = {
 			isa = PBXGroup;
 			children = (
+				89539EAF18E6B5E900D2679F /* Signal Processing */,
 				8949038C18DAB08E00B1F7CC /* Utilities */,
 				8949039318DAB20200B1F7CC /* Projectiles */,
 				895BC98F18D8F50C009DF424 /* Weapons */,
@@ -272,11 +290,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				89539DDA18E012BF00D2679F /* SpokesEnemy.cpp in Sources */,
+				89539EB518E6B63800D2679F /* SignalGenerator.cpp in Sources */,
 				895BC7F918D6BAD7009DF424 /* main.cpp in Sources */,
 				8949038F18DAB09900B1F7CC /* Debug.cpp in Sources */,
 				89539DD718DEB00F00D2679F /* ContactListener.cpp in Sources */,
 				895BC94C18D6CD38009DF424 /* Game.cpp in Sources */,
 				895BC95818D7A192009DF424 /* GenericView.cpp in Sources */,
+				89539EB218E6B61500D2679F /* Sine.cpp in Sources */,
 				8949039218DAB1FC00B1F7CC /* GenericProjectile.cpp in Sources */,
 				895BC95B18D7A76A009DF424 /* SquareView.cpp in Sources */,
 				895BC99218D8F525009DF424 /* GenericWeapon.cpp in Sources */,

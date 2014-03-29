@@ -28,7 +28,7 @@ GenericView::~GenericView() {
     DBMSG("GenericView::~GenericView");
 }
 
-GenericView::GenericView(int x, int y, int width, int height, bool isDynamic) {
+GenericView::GenericView(int x, int y, int width, int height, bool isDynamic, bool isSensor) {
 	x_ = x;
 	y_ = y;
 	width_ = width;
@@ -40,6 +40,7 @@ GenericView::GenericView(int x, int y, int width, int height, bool isDynamic) {
 	clipsToBounds_ = false;
 	isAnchored_ = false;
 	isDynamic_ = isDynamic;
+	isSensor_ = isSensor;
 	
 	body_ = nullptr;
 	
@@ -68,6 +69,7 @@ void GenericView::setBodyDefinition() {
 	//define fixture
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &boxShape;
+	fixtureDef.isSensor = isSensor_;
 	
 //	fixtureDef.density = 1.f;
 //	fixtureDef.friction = 0.3f;

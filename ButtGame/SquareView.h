@@ -15,7 +15,7 @@
 class SquareView : public GenericView {
 	
 public:
-	SquareView(int x, int y, int width, int height, bool isDynamic);
+	SquareView(int x, int y, int width, int height, bool isDynamic, bool isSensor=false);
 	~SquareView();
 	
 	virtual void drawInView(GenericView* aView);
