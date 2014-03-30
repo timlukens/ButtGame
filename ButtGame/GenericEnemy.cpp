@@ -31,9 +31,9 @@ GenericEnemy::GenericEnemy(int x, int y, shared_ptr<GenericView> parentView) {
 	al_register_event_source(changeDirectionQueue_, al_get_timer_event_source(changeDirectionTimer_));
 	al_start_timer(changeDirectionTimer_);
 	
-	sine1_ = shared_ptr<Sine> (new Sine(0.5));
-	sine2_ = shared_ptr<Sine> (new Sine(1.3));
-	sine3_ = shared_ptr<Sine> (new Sine(0.8));
+	sine1_ = shared_ptr<Sine> (new Sine(rand() % 10 / 10.f));
+	sine2_ = shared_ptr<Sine> (new Sine(rand() % 12 / 12.f));
+	sine3_ = shared_ptr<Sine> (new Sine(rand() % 14 / 14.f));
 }
 
 GenericEnemy::~GenericEnemy() {
