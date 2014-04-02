@@ -13,7 +13,7 @@
 		89539DD718DEB00F00D2679F /* ContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89539DD518DEB00F00D2679F /* ContactListener.cpp */; };
 		89539DDA18E012BF00D2679F /* SpokesEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89539DD818E012BF00D2679F /* SpokesEnemy.cpp */; };
 		89539E4B18E293D700D2679F /* SquidEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89539E4918E293D700D2679F /* SquidEnemy.cpp */; };
-		89539EB218E6B61500D2679F /* Sine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89539EB018E6B61500D2679F /* Sine.cpp */; };
+		89539EB218E6B61500D2679F /* SineGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89539EB018E6B61500D2679F /* SineGenerator.cpp */; };
 		89539EB518E6B63800D2679F /* SignalGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89539EB318E6B63800D2679F /* SignalGenerator.cpp */; };
 		895BC7F918D6BAD7009DF424 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC7F818D6BAD7009DF424 /* main.cpp */; };
 		895BC7FB18D6BAD7009DF424 /* ButtGame.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 895BC7FA18D6BAD7009DF424 /* ButtGame.1 */; };
@@ -34,6 +34,7 @@
 		895BC95E18D7B95B009DF424 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC95C18D7B95B009DF424 /* Player.cpp */; };
 		895BC96318D89572009DF424 /* GenericEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC96118D89572009DF424 /* GenericEnemy.cpp */; };
 		895BC99218D8F525009DF424 /* GenericWeapon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 895BC99018D8F525009DF424 /* GenericWeapon.cpp */; };
+		898B1AB818EBC07500EE08BD /* SquareGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 898B1AB618EBC07500EE08BD /* SquareGenerator.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,8 +62,8 @@
 		89539DD918E012BF00D2679F /* SpokesEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpokesEnemy.h; sourceTree = "<group>"; };
 		89539E4918E293D700D2679F /* SquidEnemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SquidEnemy.cpp; sourceTree = "<group>"; };
 		89539E4A18E293D700D2679F /* SquidEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquidEnemy.h; sourceTree = "<group>"; };
-		89539EB018E6B61500D2679F /* Sine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sine.cpp; sourceTree = "<group>"; };
-		89539EB118E6B61500D2679F /* Sine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sine.h; sourceTree = "<group>"; };
+		89539EB018E6B61500D2679F /* SineGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SineGenerator.cpp; sourceTree = "<group>"; };
+		89539EB118E6B61500D2679F /* SineGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SineGenerator.h; sourceTree = "<group>"; };
 		89539EB318E6B63800D2679F /* SignalGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SignalGenerator.cpp; sourceTree = "<group>"; };
 		89539EB418E6B63800D2679F /* SignalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalGenerator.h; sourceTree = "<group>"; };
 		895BC7F518D6BAD7009DF424 /* ButtGame */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ButtGame; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +93,8 @@
 		895BC96418D89F1A009DF424 /* GameDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameDefines.h; sourceTree = "<group>"; };
 		895BC99018D8F525009DF424 /* GenericWeapon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GenericWeapon.cpp; sourceTree = "<group>"; };
 		895BC99118D8F525009DF424 /* GenericWeapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericWeapon.h; sourceTree = "<group>"; };
+		898B1AB618EBC07500EE08BD /* SquareGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SquareGenerator.cpp; sourceTree = "<group>"; };
+		898B1AB718EBC07500EE08BD /* SquareGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareGenerator.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,8 +145,10 @@
 			children = (
 				89539EB318E6B63800D2679F /* SignalGenerator.cpp */,
 				89539EB418E6B63800D2679F /* SignalGenerator.h */,
-				89539EB018E6B61500D2679F /* Sine.cpp */,
-				89539EB118E6B61500D2679F /* Sine.h */,
+				89539EB018E6B61500D2679F /* SineGenerator.cpp */,
+				89539EB118E6B61500D2679F /* SineGenerator.h */,
+				898B1AB618EBC07500EE08BD /* SquareGenerator.cpp */,
+				898B1AB718EBC07500EE08BD /* SquareGenerator.h */,
 			);
 			name = "Signal Processing";
 			sourceTree = "<group>";
@@ -296,11 +301,12 @@
 				89539DD718DEB00F00D2679F /* ContactListener.cpp in Sources */,
 				895BC94C18D6CD38009DF424 /* Game.cpp in Sources */,
 				895BC95818D7A192009DF424 /* GenericView.cpp in Sources */,
-				89539EB218E6B61500D2679F /* Sine.cpp in Sources */,
+				89539EB218E6B61500D2679F /* SineGenerator.cpp in Sources */,
 				8949039218DAB1FC00B1F7CC /* GenericProjectile.cpp in Sources */,
 				895BC95B18D7A76A009DF424 /* SquareView.cpp in Sources */,
 				895BC99218D8F525009DF424 /* GenericWeapon.cpp in Sources */,
 				895BC96318D89572009DF424 /* GenericEnemy.cpp in Sources */,
+				898B1AB818EBC07500EE08BD /* SquareGenerator.cpp in Sources */,
 				895BC95E18D7B95B009DF424 /* Player.cpp in Sources */,
 				89539E4B18E293D700D2679F /* SquidEnemy.cpp in Sources */,
 			);

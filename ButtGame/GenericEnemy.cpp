@@ -31,9 +31,13 @@ GenericEnemy::GenericEnemy(int x, int y, shared_ptr<GenericView> parentView) {
 	al_register_event_source(changeDirectionQueue_, al_get_timer_event_source(changeDirectionTimer_));
 	al_start_timer(changeDirectionTimer_);
 	
-	sine1_ = shared_ptr<Sine> (new Sine(rand() % 10 / 10.f));
-	sine2_ = shared_ptr<Sine> (new Sine(rand() % 12 / 12.f));
-	sine3_ = shared_ptr<Sine> (new Sine(rand() % 14 / 14.f));
+	sine1_ = shared_ptr<SineGenerator> (new SineGenerator(rand() % 10 / 10.f));
+	sine2_ = shared_ptr<SineGenerator> (new SineGenerator(rand() % 12 / 12.f));
+	sine3_ = shared_ptr<SineGenerator> (new SineGenerator(rand() % 14 / 14.f));
+	
+//	square1_ = shared_ptr<SquareGenerator> (new SquareGenerator(rand() % 10 / 40.f));
+//	square2_ = shared_ptr<SquareGenerator> (new SquareGenerator(rand() % 12 / 42.f));
+//	square3_ = shared_ptr<SquareGenerator> (new SquareGenerator(rand() % 14 / 44.f));
 }
 
 GenericEnemy::~GenericEnemy() {
@@ -131,5 +135,8 @@ void GenericEnemy::update() {
 	float amp1 = (sine1_->tick() + 1) / 2.f * 255.f;
 	float amp2 = (sine2_->tick() + 1) / 2.f * 255.f;
 	float amp3 = (sine3_->tick() + 1) / 2.f * 255.f;
+//	float amp1 = (square1_->tick() + 1) / 2.f * 255.f;
+//	float amp2 = (square2_->tick() + 1) / 2.f * 255.f;
+//	float amp3 = (square3_->tick() + 1) / 2.f * 255.f;
 	view_->setBackgroundColor(al_map_rgb(amp1, amp2, amp3));
 }

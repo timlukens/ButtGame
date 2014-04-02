@@ -12,7 +12,8 @@
 #include <iostream>
 #include "SquareView.h"
 #include "GameDefines.h"
-#include "Sine.h"
+#include "SineGenerator.h"
+#include "SquareGenerator.h"
 
 #define kChangeDirectionTime 0.6f
 #define kDefaultEnemySize 25
@@ -42,9 +43,12 @@ protected:
 	
 	float xVelocity_, yVelocity_;
 	
-	shared_ptr<Sine> sine1_;
-	shared_ptr<Sine> sine2_;
-	shared_ptr<Sine> sine3_;
+	shared_ptr<SineGenerator> sine1_;
+	shared_ptr<SineGenerator> sine2_;
+	shared_ptr<SineGenerator> sine3_;
+	shared_ptr<SquareGenerator> square1_;
+	shared_ptr<SquareGenerator> square2_;
+	shared_ptr<SquareGenerator> square3_;
 
 public:
 	GenericEnemy() {}

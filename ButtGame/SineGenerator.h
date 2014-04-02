@@ -16,20 +16,13 @@
 
 using namespace std;
 
-class Sine : public SignalGenerator {
-	vector<float> buffer_;
-	float frequency_;
-	float increment_;
-	float sampleRate_;
-	float index_;
+class SineGenerator : public SignalGenerator {
 	
 public:
-	Sine(float frequency = 1.f, float sampleRate = LOGIC_FPS);
-	~Sine();
+	SineGenerator(float frequency = 1.f, float sampleRate = LOGIC_FPS);
+	SineGenerator();
 	
 	float tick();
-	
-	void setFrequency(float freq);
 };
 
 #endif /* defined(__ButtGame__Sine__) */
